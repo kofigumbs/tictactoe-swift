@@ -7,6 +7,6 @@ func markBoard<T>(grid: Grid<T>, position: Int, team: T) -> Grid<T> {
     return Grid(dimmension: grid.dimmension, contents: marks)
 }
 
-func isFull<T>(grid: Grid<T>) -> Bool {
+func isBoardFull<T>(grid: Grid<T>) -> Bool {
     return grid.filter({ $0 != nil }).count == grid.count
 }

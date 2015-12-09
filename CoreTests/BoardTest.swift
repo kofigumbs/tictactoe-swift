@@ -23,14 +23,14 @@ class BoardTest: XCTestCase {
         let board = Grid<Character>(dimmension: 2)
 
         XCTAssertTrue(board.isEmpty)
-        XCTAssertFalse(isFull(board))
+        XCTAssertFalse(isBoardFull(board))
     }
 
     func testBoardIsFull() {
         let board = Grid<Character>(dimmension: 2, contents: [0: "A", 1: "B", 2: "C", 3: "D"])
 
         XCTAssertFalse(board.isEmpty)
-        XCTAssertTrue(isFull(board))
+        XCTAssertTrue(isBoardFull(board))
     }
 
 }
