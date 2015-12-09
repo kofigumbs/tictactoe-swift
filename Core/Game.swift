@@ -11,20 +11,19 @@ private func teamHasWon<T: Hashable>(grid: Grid<T>) -> Bool {
 }
 
 private func groupIndicies<T: Hashable>(grid: Grid<T>) -> [T: [Int]] {
-    var groupedIndicies = Dictionary<T, [Int]>()
-    for (index, value) in grid.enumerate() {
-        if let mark = value {
-            groupedIndicies[mark] = (groupedIndicies[mark] ?? []) + [index]
+    return grid.enumerate().reduce(Dictionary<T, [Int]>(), combine: { (var acc, cell) in
+        if let mark = cell.1 {
+            acc[mark] = (acc[mark] ?? []) + [cell.0]
         }
-    }
-    return groupedIndicies
+        return acc
+    })
 }
 
 private func hasWinningCombo(dimmension: Int, marks: [Int]) -> Bool {
-    let marksAsSubset = { marks == $0 }
-    return indiciesForRows(dimmension).contains(marksAsSubset) ||
-        indiciesForColumns(dimmension).contains(marksAsSubset) ||
-        indiciesForDiagonals(dimmension).contains(marksAsSubset)
+    let marksAsSuperset = { (indicies: [Int]) in Set(marks).isSupersetOf(indicies) }
+    return indiciesForRows(dimmension).contains(marksAsSuperset) ||
+        indiciesForColumns(dimmension).contains(marksAsSuperset) ||
+        indiciesForDiagonals(dimmension).contains(marksAsSuperset)
 }
 
 private func indiciesForRows(dimmension: Int) -> [[Int]] {

@@ -80,4 +80,13 @@ class GameTest: XCTestCase {
         XCTAssertFalse(gameIsOver(board))
     }
 
+    func testGameIsOverWhenThreeInRowPlusMore() {
+        var board: Grid<Character> = Grid(dimmension: 3)
+        let marks: [Int: Character] = [0: "X", 1: "X", 2: "X", 3: "X"]
+        for (position, team) in marks {
+            board = markBoard(board, position: position, team: team)
+        }
+
+        XCTAssertTrue(gameIsOver(board))
+    }
 }
