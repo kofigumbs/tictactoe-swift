@@ -1,14 +1,16 @@
 public struct Grid<T: Equatable>: CollectionType {
+
     public let startIndex = 0
     public let endIndex: Int
     public let dimmension: Int
     public let isEmpty: Bool
 
-    private let contents: [Int: T]
+    private let contents: [(Int, T)]
 
-    public init(dimmension:Int, contents tuples: (Int, T)...) {
+    public init(dimmension:Int, contents dictionary: [Int: T] = Dictionary()){
         let endIndex = dimmension * dimmension
-        let contents = convertTuplesToDictionary(tuples, bounds: 0...endIndex)
+        let bounds = startIndex ..< endIndex
+        let contents = dictionary.filter({ bounds.contains($0.0) })
 
         self.endIndex = endIndex
         self.dimmension = dimmension
@@ -17,13 +19,7 @@ public struct Grid<T: Equatable>: CollectionType {
     }
 
     public subscript(index: Int) -> T? {
-        return contents[index]
+        return contents.filter({ $0.0 == index }).map({ $0.1 }).first
     }
 
-}
-
-private func convertTuplesToDictionary<K, V>(tuples: [(K, V)], bounds: Range<K>) -> [K: V] {
-    var dictionary: [K: V] = Dictionary()
-    tuples.filter({ bounds.contains($0.0) }).forEach({ dictionary[$0.0] = $0.1 })
-    return dictionary
 }
