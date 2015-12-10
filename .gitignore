@@ -1,3 +1,4 @@
 .DS_Store
 TicTacToe.xcodeproj/project.xcworkspace/
 TicTacToe.xcodeproj/xcuserdata/
+*.swp
