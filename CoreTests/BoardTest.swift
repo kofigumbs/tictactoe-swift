@@ -33,4 +33,16 @@ class BoardTest: XCTestCase {
         XCTAssertTrue(isBoardFull(board))
     }
 
+    func testAvailablePositionsWhenEmpty() {
+        let board = Grid<Character>(dimmension: 2)
+
+        XCTAssertEqual(availableSpaces(board), [0, 1, 2, 3])
+    }
+
+    func testAvailablePositionsWhenNotEmpty() {
+        let board = Grid<Character>(dimmension: 2, contents: [1: "$", 2: "#"])
+
+        XCTAssertEqual(availableSpaces(board), [0, 3])
+    }
+
 }
