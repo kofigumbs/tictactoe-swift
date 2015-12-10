@@ -69,4 +69,39 @@ class GameTest: XCTestCase {
 
         XCTAssertTrue(gameIsOver(board))
     }
+
+    func testWinnerOfThreeInRow() {
+        let board = fillBoard(3, marks: [0: "X", 1: "X", 2: "X"])
+
+        XCTAssertEqual(winnerOf(board), "X")
+    }
+
+    func testWinnerOfThreeInColumn() {
+        let board = fillBoard(3, marks: [2: "O", 5: "O", 8: "O"])
+
+        XCTAssertEqual(winnerOf(board), "O")
+    }
+
+    func testWinnerOfTwoDiagonal() {
+        let board = fillBoard(2, marks: [0: "%", 3: "%"])
+
+        XCTAssertEqual(winnerOf(board), "%")
+    }
+
+    func testCatsGameHasNoWinner() {
+        let moves = Dictionary<Int, String>(dictionaryLiteral:
+            (0, "X"), (1, "O"), (2, "X"),
+            (3, "X"), (4, "O"), (5, "X"),
+            (6, "O"), (7, "X"), (8, "O"))
+        let board = fillBoard(3, marks: moves)
+
+        XCTAssertNil(winnerOf(board))
+    }
+
+    func testEmptyGameHasNoWinner() {
+        let board = Grid<String>(dimmension: 3)
+
+        XCTAssertNil(winnerOf(board))
+    }
+
 }
