@@ -1,6 +1,6 @@
 import UI
 
-struct Board<T: Hashable>: CollectionType {
+struct Board<T: Hashable>: CollectionType, Hashable {
 
     private var grid: Grid<T>
 
@@ -8,17 +8,14 @@ struct Board<T: Hashable>: CollectionType {
     var startIndex: Int { return grid.startIndex }
     var endIndex: Int { return grid.endIndex }
     var isEmpty: Bool { return grid.isEmpty }
-    var isFull: Bool { return grid.flatMap({ $0 }).count == grid.count }
+    var isFull: Bool { return flatMap({ $0 }).count == count }
+    var hashValue: Int { return map({ String($0) }).joinWithSeparator("").hashValue }
 
     init(dimmension: Int, contents: [Int: T]) {
         self.grid = Grid<T>(dimmension: dimmension, contents: contents)
     }
 
     subscript(index: Int) -> T? { return grid[index] }
-
-    func availableSpaces() -> [Int] {
-        return grid.enumerate().filter({ $0.element == nil }).map({ $0.index })
-    }
 
     func markAt(position: Int, with team: T) -> Board<T> {
         var contents = Dictionary<Int, T>()
@@ -27,4 +24,12 @@ struct Board<T: Hashable>: CollectionType {
         return Board(dimmension: dimmension, contents: contents)
     }
 
+    func availableSpaces() -> [Int] {
+        return grid.enumerate().filter({ $0.element == nil }).map({ $0.index })
+    }
+
+}
+
+func ==<T: Hashable>(lhs: Board<T>, rhs: Board<T>) -> Bool {
+    return lhs.hashValue == rhs.hashValue
 }
