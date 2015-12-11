@@ -1,20 +1,30 @@
 import UI
 
-func isBoardFull<T>(grid: Grid<T>) -> Bool {
-    return grid.filter({ $0 != nil }).count == grid.count
-}
+struct Board<T: Hashable>: CollectionType {
 
-func availableSpaces<T>(grid: Grid<T>) -> [Int] {
-    return grid.enumerate().filter({ $0.element == nil }).map({ $0.index })
-}
+    private var grid: Grid<T>
 
-func markBoard<T>(grid: Grid<T>, position: Int, team: T) -> Grid<T> {
-    let marks = grid.enumerate().reduce(Dictionary<Int, T>(), combine: buildDict)
-    return Grid(dimmension: grid.dimmension, contents: buildDict(marks, entry: (position, team)))
-}
+    var dimmension: Int { return grid.dimmension }
+    var startIndex: Int { return grid.startIndex }
+    var endIndex: Int { return grid.endIndex }
+    var isEmpty: Bool { return grid.isEmpty }
+    var isFull: Bool { return grid.flatMap({ $0 }).count == grid.count }
 
-private func buildDict<K: Hashable, V>(var dict: [K: V], entry: (K, V?)) -> [K:V] {
-    let (key, value) = entry
-    dict[key] = value
-    return dict
+    init(dimmension: Int, contents: [Int: T]) {
+        self.grid = Grid<T>(dimmension: dimmension, contents: contents)
+    }
+
+    subscript(index: Int) -> T? { return grid[index] }
+
+    func availableSpaces() -> [Int] {
+        return grid.enumerate().filter({ $0.element == nil }).map({ $0.index })
+    }
+
+    func markAt(position: Int, with team: T) -> Board<T> {
+        var contents = Dictionary<Int, T>()
+        grid.enumerate().forEach({ contents[$0.index] = $0.element })
+        contents[position] = team
+        return Board(dimmension: dimmension, contents: contents)
+    }
+
 }

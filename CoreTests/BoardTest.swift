@@ -1,48 +1,48 @@
 import XCTest
-import UI
 @testable import Core
 
 class BoardTest: XCTestCase {
+    let emptyDict = Dictionary<Int, String>()
 
     func testCanMarkBoard() {
-        let board = Grid<Character>(dimmension: 3)
-        let newBoard = markBoard(board, position: 0, team: "X")
+        let board = Board<String>(dimmension: 3, contents: emptyDict)
+        let newBoard = board.markAt(0, with: "X")
 
         XCTAssertEqual(newBoard[0], "X")
     }
 
     func testCanMarkMarkedBoard() {
-        let board = Grid<Character>(dimmension: 3, contents: [1: "O"])
-        let newBoard = markBoard(board, position: 0, team: "X")
+        let board = Board<String>(dimmension: 3, contents: [1: "O"])
+        let newBoard = board.markAt(0, with: "X")
 
         XCTAssertEqual(newBoard[0], "X")
         XCTAssertEqual(newBoard[1], "O")
     }
 
     func testBoardIsNotFull() {
-        let board = Grid<Character>(dimmension: 2)
+        let board = Board<String>(dimmension: 2, contents: emptyDict)
 
         XCTAssertTrue(board.isEmpty)
-        XCTAssertFalse(isBoardFull(board))
+        XCTAssertFalse(board.isFull)
     }
 
     func testBoardIsFull() {
-        let board = Grid<Character>(dimmension: 2, contents: [0: "A", 1: "B", 2: "C", 3: "D"])
+        let board = Board<String>(dimmension: 2, contents: [0: "A", 1: "B", 2: "C", 3: "D"])
 
         XCTAssertFalse(board.isEmpty)
-        XCTAssertTrue(isBoardFull(board))
+        XCTAssertTrue(board.isFull)
     }
 
     func testAvailablePositionsWhenEmpty() {
-        let board = Grid<Character>(dimmension: 2)
+        let board = Board<String>(dimmension: 2, contents: emptyDict)
 
-        XCTAssertEqual(availableSpaces(board), [0, 1, 2, 3])
+        XCTAssertEqual(board.availableSpaces(), [0, 1, 2, 3])
     }
 
     func testAvailablePositionsWhenNotEmpty() {
-        let board = Grid<Character>(dimmension: 2, contents: [1: "$", 2: "#"])
+        let board = Board<String>(dimmension: 2, contents: [1: "$", 2: "#"])
 
-        XCTAssertEqual(availableSpaces(board), [0, 3])
+        XCTAssertEqual(board.availableSpaces(), [0, 3])
     }
 
 }

@@ -1,107 +1,101 @@
 import XCTest
-import UI
 @testable import Core
 
 class GameTest: XCTestCase {
-
-    func fillBoard<T: Equatable>(dimmension: Int, marks: [Int: T]) -> Grid<T> {
-        return marks.reduce(Grid<T>(dimmension: dimmension), combine: { (grid, mark) in
-            markBoard(grid, position: mark.0, team: mark.1)
-        })
-    }
+    let emptyDict = Dictionary<Int, String>()
 
     func testNewGameIsNotOver() {
-        let board: Grid<Character> = Grid(dimmension: 3)
+        let board = Board(dimmension: 3, contents: emptyDict)
 
-        XCTAssertFalse(gameIsOver(board))
+        XCTAssertFalse(Game(board: board).isOver())
     }
 
     func testFullGameIsOver() {
-        let board = fillBoard(1, marks: [0: "X"])
+        let board = Board(dimmension: 1, contents: [0: "X"])
 
-        XCTAssertTrue(gameIsOver(board))
+        XCTAssertTrue(Game(board: board).isOver())
     }
 
     func testGameIsOverWithTwoInRow() {
-        let board = fillBoard(2, marks: [0: "X", 1: "X"])
+        let board = Board(dimmension: 2, contents: [0: "X", 1: "X"])
 
-        XCTAssertTrue(gameIsOver(board))
+        XCTAssertTrue(Game(board: board).isOver())
     }
 
     func testGameIsOverWithThreeHorizontal() {
-        let board = fillBoard(3, marks: [0: "X", 1: "X", 2: "X"])
+        let board = Board(dimmension: 3, contents: [0: "X", 1: "X", 2: "X"])
 
-        XCTAssertTrue(gameIsOver(board))
+        XCTAssertTrue(Game(board: board).isOver())
     }
 
     func testGameIsOverWithThreeVertical() {
-        let board = fillBoard(3, marks: [0: "X", 3: "X", 6: "X"])
+        let board = Board(dimmension: 3, contents: [0: "X", 3: "X", 6: "X"])
 
-        XCTAssertTrue(gameIsOver(board))
+        XCTAssertTrue(Game(board: board).isOver())
     }
 
     func testGameIsOverWithThreeRightDiagonal() {
-        let board = fillBoard(3, marks: [0: "X", 4: "X", 8: "X"])
+        let board = Board(dimmension: 3, contents: [0: "X", 4: "X", 8: "X"])
 
-        XCTAssertTrue(gameIsOver(board))
+        XCTAssertTrue(Game(board: board).isOver())
     }
 
     func testGameIsOverWithThreeLeftDiagonal() {
-        let board = fillBoard(3, marks: [2: "X", 4: "X", 6: "X"])
+        let board = Board(dimmension: 3, contents: [2: "X", 4: "X", 6: "X"])
 
-        XCTAssertTrue(gameIsOver(board))
+        XCTAssertTrue(Game(board: board).isOver())
     }
 
     func testGameIsNotOverWithDifferentMarksInRow() {
-        let board = fillBoard(3, marks: [0: "X", 1: "O", 2: "X"])
+        let board = Board(dimmension: 3, contents: [0: "X", 1: "O", 2: "X"])
 
-        XCTAssertFalse(gameIsOver(board))
+        XCTAssertFalse(Game(board: board).isOver())
     }
 
     func testGameIsNotOverWhenNotInRow() {
-        let board = fillBoard(3, marks: [0: "X", 2: "O", 4: "X"])
+        let board = Board(dimmension: 3, contents: [0: "X", 2: "O", 4: "X"])
 
-        XCTAssertFalse(gameIsOver(board))
+        XCTAssertFalse(Game(board: board).isOver())
     }
 
     func testGameIsOverWhenThreeInRowPlusMore() {
-        let board = fillBoard(3, marks: [0: "X", 1: "X", 2: "X", 3: "X"])
+        let board = Board(dimmension: 3, contents: [0: "X", 1: "X", 2: "X", 3: "X"])
 
-        XCTAssertTrue(gameIsOver(board))
+        XCTAssertTrue(Game(board: board).isOver())
     }
 
     func testWinnerOfThreeInRow() {
-        let board = fillBoard(3, marks: [0: "X", 1: "X", 2: "X"])
+        let board = Board(dimmension: 3, contents: [0: "X", 1: "X", 2: "X"])
 
-        XCTAssertEqual(winnerOf(board), "X")
+        XCTAssertEqual(Game(board: board).winner(), "X")
     }
 
     func testWinnerOfThreeInColumn() {
-        let board = fillBoard(3, marks: [2: "O", 5: "O", 8: "O"])
+        let board = Board(dimmension: 3, contents: [2: "O", 5: "O", 8: "O"])
 
-        XCTAssertEqual(winnerOf(board), "O")
+        XCTAssertEqual(Game(board: board).winner(), "O")
     }
 
     func testWinnerOfTwoDiagonal() {
-        let board = fillBoard(2, marks: [0: "%", 3: "%"])
+        let board = Board(dimmension: 2, contents: [0: "%", 3: "%"])
 
-        XCTAssertEqual(winnerOf(board), "%")
+        XCTAssertEqual(Game(board: board).winner(), "%")
     }
 
     func testCatsGameHasNoWinner() {
-        let moves = Dictionary<Int, String>(dictionaryLiteral:
-            (0, "X"), (1, "O"), (2, "X"),
-            (3, "X"), (4, "O"), (5, "X"),
-            (6, "O"), (7, "X"), (8, "O"))
-        let board = fillBoard(3, marks: moves)
+        let contents =
+          [ 0: "X", 1: "O", 2: "X",
+            3: "X", 4: "O", 5: "X",
+            6: "O", 7: "X", 8: "O" ]
+        let board = Board(dimmension: 3, contents: contents)
 
-        XCTAssertNil(winnerOf(board))
+        XCTAssertNil(Game(board: board).winner())
     }
 
     func testEmptyGameHasNoWinner() {
-        let board = Grid<String>(dimmension: 3)
+        let board = Board(dimmension: 3, contents: emptyDict)
 
-        XCTAssertNil(winnerOf(board))
+        XCTAssertNil(Game(board: board).winner())
     }
 
 }
