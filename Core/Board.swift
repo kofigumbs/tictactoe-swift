@@ -19,13 +19,13 @@ struct Board<T: Hashable>: CollectionType, Hashable {
 
     func markAt(position: Int, with team: T) -> Board<T> {
         var contents = Dictionary<Int, T>()
-        grid.enumerate().forEach({ contents[$0.index] = $0.element })
+        enumerate().forEach({ contents[$0.index] = $0.element })
         contents[position] = team
         return Board(dimmension: dimmension, contents: contents)
     }
 
     func availableSpaces() -> [Int] {
-        return grid.enumerate().filter({ $0.element == nil }).map({ $0.index })
+        return enumerate().filter({ $0.element == nil }).map({ $0.index })
     }
 
 }
