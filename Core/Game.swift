@@ -36,7 +36,7 @@ struct Game<T: Hashable> {
 
     private func indiciesForRows(dimmension: Int) -> [[Int]] {
         return (0 ..< dimmension)
-            .map({ (i) in (0 ..< dimmension).map({ (j) in i + j }) })
+            .map({ (i) in (0 ..< dimmension).map({ (j) in i * dimmension + j }) })
     }
 
     private func indiciesForColumns(dimmension: Int) -> [[Int]] {

@@ -82,6 +82,16 @@ class GameTest: XCTestCase {
         XCTAssertEqual(Game(board: board).winner(), "%")
     }
 
+    func testWinnerOfThreeInRowPlusMore() {
+        let contents: [Int: String] =
+          [                 2: "O",
+            3: "X", 4: "X", 5: "X",
+                    7: "O", 8: "X" ]
+
+        let board = Board(dimmension: 3, contents: contents)
+        XCTAssertEqual(Game(board: board).winner(), "X")
+    }
+
     func testCatsGameHasNoWinner() {
         let contents =
           [ 0: "X", 1: "O", 2: "X",
