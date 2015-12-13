@@ -18,8 +18,7 @@ struct Board<T: Hashable>: CollectionType, Hashable {
     subscript(index: Int) -> T? { return grid[index] }
 
     func markAt(position: Int, with team: T) -> Board<T> {
-        var contents = Dictionary<Int, T>()
-        enumerate().forEach({ contents[$0.index] = $0.element })
+        var contents = grid.contents
         contents[position] = team
         return Board(dimmension: dimmension, contents: contents)
     }

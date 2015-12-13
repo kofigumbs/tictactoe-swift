@@ -1,16 +1,13 @@
 struct Game<T: Hashable> {
+
     let board: Board<T>
 
     func isOver() -> Bool {
-        return board.isFull || hasWinner()
+        return board.isFull || winner() != nil
     }
 
     func winner() -> T? {
         return gatherWinningCombos().map({ $0.0 }).first
-    }
-
-    private func hasWinner() -> Bool {
-        return !gatherWinningCombos().isEmpty
     }
 
     private func gatherWinningCombos() -> [(T, [Int])] {
@@ -23,7 +20,7 @@ struct Game<T: Hashable> {
 
     private func groupIndex(var acc: [T: [Int]], entry: (Int, T?)) -> [T: [Int]] {
         let (index, value) = entry
-        _ = value.map({ acc[$0] = (acc[$0] ?? []) + [index] })
+        if let mark = value { acc[mark] = (acc[mark] ?? []) + [index] }
         return acc
     }
 
@@ -36,12 +33,12 @@ struct Game<T: Hashable> {
 
     private func indiciesForRows(dimmension: Int) -> [[Int]] {
         return (0 ..< dimmension)
-            .map({ (i) in (0 ..< dimmension).map({ (j) in i * dimmension + j }) })
+            .map({ i in (0 ..< dimmension).map({ j in i * dimmension + j }) })
     }
 
     private func indiciesForColumns(dimmension: Int) -> [[Int]] {
         return (0 ..< dimmension)
-            .map({ (i) in (0 ..< dimmension).map({ (j) in i + j * dimmension }) })
+            .map({ i in (0 ..< dimmension).map({ j in i + j * dimmension }) })
     }
 
     private func indiciesForDiagonals(dimmension: Int) -> [[Int]] {

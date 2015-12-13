@@ -4,13 +4,11 @@ public struct Grid<T: Equatable>: CollectionType {
     public let endIndex: Int
     public let dimmension: Int
     public let isEmpty: Bool
+    public let contents: [Int: T]
 
-    private let contents: [(Int, T)]
-
-    public init(dimmension:Int, contents dictionary: [Int: T] = Dictionary()){
+    public init(dimmension:Int, var contents: [Int: T] = Dictionary()){
         let endIndex = dimmension * dimmension
-        let bounds = startIndex ..< endIndex
-        let contents = dictionary.filter({ bounds.contains($0.0) })
+        contents.bound(startIndex, endIndex)
 
         self.endIndex = endIndex
         self.dimmension = dimmension
@@ -18,8 +16,14 @@ public struct Grid<T: Equatable>: CollectionType {
         self.isEmpty = contents.isEmpty
     }
 
-    public subscript(index: Int) -> T? {
-        return contents.filter({ $0.0 == index }).map({ $0.1 }).first
-    }
+    public subscript(index: Int) -> T? { return contents[index] }
 
+}
+
+private extension Dictionary where Key: IntegerType {
+    mutating func bound(startKey: Key, _ endKey: Key) {
+        self.keys
+            .filter({ $0 >= endKey || $0 < startKey })
+            .forEach({ self.removeValueForKey($0) })
+    }
 }
