@@ -1,15 +1,15 @@
-class Solver<T: Hashable> {
+class Solver<T: Hashable>: Player {
 
-    typealias MoveScore = (move: Int?, score: Int)
+    typealias MoveScore = (move: Int, score: Int)
 
     private var cache: [Board<T>: MoveScore] = Dictionary()
-    private var move: Int?
+    private var move: Int = -1
 
     private let teams: (target: T, opponent: T)
 
     init(team: T, opponent: T) { self.teams = (team, opponent) }
 
-    func solve(board: Board<T>) -> Int? {
+    func evaluate(board: Board<T>) -> Int {
         return shortcutOptimization(board) ??
             calculateBestMove(board)
     }
@@ -18,7 +18,7 @@ class Solver<T: Hashable> {
         return board.isEmpty ? 0 : nil
     }
 
-    private func calculateBestMove(board: Board<T>) -> Int? {
+    private func calculateBestMove(board: Board<T>) -> Int {
         bestScoreFor(teams.target, vs: teams.opponent, board: board)
         return move
     }
@@ -61,7 +61,7 @@ class Solver<T: Hashable> {
         return best.score
     }
 
-    private func cacheBestMoveScoreFor(target: T, vs opponent: T, board: Board<T>, move: Int?) -> MoveScore {
+    private func cacheBestMoveScoreFor(target: T, vs opponent: T, board: Board<T>, move: Int) -> MoveScore {
         let score = bestScoreFor(target, vs: opponent, board: board)
         let result = (move, score)
         cache[board] = result

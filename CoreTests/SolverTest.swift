@@ -10,62 +10,51 @@ class SolverTest: XCTestCase {
         XCTAssertTrue(collection.contains({ target == $0 }), message)
     }
 
-    func testReturnsNilIfBoardIsFull() {
-        let board = Board(dimmension: 3, contents:
-            [ 0: "X", 1: "O", 2: "X",
-              3: "O", 4: "X", 5: "O",
-              6: "O", 7: "O", 8: "X" ])
-
-        XCTAssertNil(solver.solve(board))
-    }
-
     func testMakesOnlyAvailableMove() {
         let board = Board(dimmension: 3, contents:
             [ 0: "X", 1: "O", 2: "O",
               3: "X", 4: "X", 5: "O",
               6: "O", 7: "O" ])
 
-        assertContains([8], target: solver.solve(board))
+        assertContains([8], target: solver.evaluate(board))
     }
 
     func testWinsWhenGivenOpportunity() {
         let board = Board(dimmension: 3, contents: [0: "X", 1: "O", 3: "X", 4: "O"])
 
-        assertContains([6], target: solver.solve(board))
+        assertContains([6], target: solver.evaluate(board))
     }
 
     func testBlocksWhenCannotWin() {
         let board = Board(dimmension: 3, contents: [0: "O", 1: "O", 3: "X"])
 
-        assertContains([2], target: solver.solve(board))
+        assertContains([2], target: solver.evaluate(board))
     }
 
     func testSetsUpForFutureWin() {
         let board = Board(dimmension: 3, contents: [0: "X", 1: "O", 2: "X", 3: "O"])
 
-        assertContains([4, 8], target: solver.solve(board))
+        assertContains([4, 8], target: solver.evaluate(board))
     }
 
     func testChoosesBestSecondMove() {
         let board = Board(dimmension: 3, contents: [0: "O"])
 
-        assertContains([4], target: solver.solve(board))
+        assertContains([4], target: solver.evaluate(board))
     }
 
     func testCanSolveMultipleBoards() {
         let emptyBoard = Board<String>(dimmension: 2, contents: Dictionary())
-        let fullBoard = Board(dimmension: 2, contents: [0: "O", 1: "X", 2: "O", 3: "X"])
         let semiBoard = Board(dimmension: 2, contents: [0: "O", 1: "X", ])
 
-        assertContains([0, 1, 2, 3], target: solver.solve(emptyBoard))
-        assertContains([nil], target: solver.solve(fullBoard))
-        assertContains([2, 3], target: solver.solve(semiBoard))
+        assertContains([0, 1, 2, 3], target: solver.evaluate(emptyBoard))
+        assertContains([2, 3], target: solver.evaluate(semiBoard))
     }
 
     func testChoosesBestFirstMove() {
         let board = Board(dimmension: 3, contents: Dictionary<Int, String>())
 
-        assertContains([0, 2, 6, 8], target: solver.solve(board))
+        assertContains([0, 2, 6, 8], target: solver.evaluate(board))
     }
 
 }

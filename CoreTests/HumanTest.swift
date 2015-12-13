@@ -9,8 +9,8 @@ class HumanTest: XCTestCase {
         let human = Human(team: "X", window: window)
         let board = Board<String>(dimmension: 3, contents: Dictionary())
 
-        XCTAssertEqual(human.move(board), 4)
-        XCTAssertEqual(human.move(board), 2)
+        XCTAssertEqual(human.evaluate(board), 4)
+        XCTAssertEqual(human.evaluate(board), 2)
     }
 
     func testHumanRetriesOnInvalidMove() {
@@ -18,7 +18,7 @@ class HumanTest: XCTestCase {
         let human = Human(team: "X", window: window)
         let board = Board<String>(dimmension: 3, contents: Dictionary())
 
-        XCTAssertEqual(human.move(board), 4)
+        XCTAssertEqual(human.evaluate(board), 4)
     }
 
     func testHumanRetriesOnOccupiedSpace() {
@@ -26,7 +26,7 @@ class HumanTest: XCTestCase {
         let human = Human(team: "X", window: window)
         let board = Board<String>(dimmension: 3, contents: [4: "X", 5: "O"])
 
-        XCTAssertEqual(human.move(board), 3)
+        XCTAssertEqual(human.evaluate(board), 3)
     }
 
 }
