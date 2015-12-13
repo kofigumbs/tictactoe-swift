@@ -9,7 +9,7 @@ struct Board<T: Hashable>: CollectionType, Hashable {
     var endIndex: Int { return grid.endIndex }
     var isEmpty: Bool { return grid.isEmpty }
     var isFull: Bool { return flatMap({ $0 }).count == count }
-    var hashValue: Int { return map({ String($0) }).joinWithSeparator("").hashValue }
+    var hashValue: Int { return reduce("", combine: { $0 + String($1) }).hashValue }
 
     init(dimmension: Int, contents: [Int: T]) {
         self.grid = Grid<T>(dimmension: dimmension, contents: contents)
