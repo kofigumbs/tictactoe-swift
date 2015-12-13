@@ -1,13 +1,13 @@
 class Solver<T: Hashable>: Player {
 
-    typealias MoveScore = (move: Int, score: Int)
+    private typealias MoveScore = (move: Int, score: Int)
 
     private var cache: [Board<T>: MoveScore] = Dictionary()
     private var move: Int = -1
+    private let opponent: T
+    let team: T
 
-    private let teams: (target: T, opponent: T)
-
-    init(team: T, opponent: T) { self.teams = (team, opponent) }
+    init(team: T, opponent: T) { self.team = team; self.opponent = opponent }
 
     func evaluate(board: Board<T>) -> Int {
         return shortcutOptimization(board) ??
@@ -19,13 +19,13 @@ class Solver<T: Hashable>: Player {
     }
 
     private func calculateBestMove(board: Board<T>) -> Int {
-        bestScoreFor(teams.target, vs: teams.opponent, board: board)
+        bestScoreFor(self.team, vs: self.opponent, board: board)
         return move
     }
 
-    private func bestScoreFor(target: T, vs opponent: T, board: Board<T>) -> Int {
+    private func bestScoreFor(team: T, vs opponent: T, board: Board<T>) -> Int {
         return escapeBestScoreFor(board) ??
-            recurBestScoreFor(target, vs: opponent, board: board)
+            recurBestScoreFor(team, vs: opponent, board: board)
     }
 
     private func escapeBestScoreFor(board: Board<T>) -> Int? {
@@ -40,9 +40,9 @@ class Solver<T: Hashable>: Player {
     private func finalScoreFor(board: Board<T>) -> Int? {
         let game = Game(board: board)
 
-        if game.winner() == teams.target {
+        if game.winner() == self.team {
             return board.availableSpaces().count
-        } else if game.winner() == teams.opponent {
+        } else if game.winner() == self.opponent {
             return -board.availableSpaces().count
         } else if game.isOver() {
             return 0
@@ -51,18 +51,18 @@ class Solver<T: Hashable>: Player {
         }
     }
 
-    private func recurBestScoreFor(target: T, vs opponent: T, board: Board<T>) -> Int {
+    private func recurBestScoreFor(team: T, vs opponent: T, board: Board<T>) -> Int {
         let best: MoveScore = board.availableSpaces()
-            .map({ (move: $0, board: board.markAt($0, with: target)) })
-            .map({ cacheBestMoveScoreFor(opponent, vs: target, board: $0.board, move: $0.move) })
-            .maxElement({ target == teams.target ? $0.score < $1.score : $0.score > $1.score})!
+            .map({ (move: $0, board: board.markAt($0, with: team)) })
+            .map({ cacheBestMoveScoreFor(opponent, vs: team, board: $0.board, move: $0.move) })
+            .maxElement({ team == self.team ? $0.score < $1.score : $0.score > $1.score})!
 
         move = best.move
         return best.score
     }
 
-    private func cacheBestMoveScoreFor(target: T, vs opponent: T, board: Board<T>, move: Int) -> MoveScore {
-        let score = bestScoreFor(target, vs: opponent, board: board)
+    private func cacheBestMoveScoreFor(team: T, vs opponent: T, board: Board<T>, move: Int) -> MoveScore {
+        let score = bestScoreFor(team, vs: opponent, board: board)
         let result = (move, score)
         cache[board] = result
         return result

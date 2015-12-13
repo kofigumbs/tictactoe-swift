@@ -2,7 +2,7 @@ import UI
 
 class Human<T: Hashable>: Player {
 
-    let window: Window
+    private let window: Window
     let team: T
 
     init(team: T, window: Window) { self.team = team; self.window = window }
