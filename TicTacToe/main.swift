@@ -1,12 +1,13 @@
-//
-//  main.swift
-//  TicTacToe
-//
-//  Created by Kofi on 12/8/15.
-//  Copyright © 2015 hkgumbs. All rights reserved.
-//
+import Core
+import UI
+import TermboxAdapter
 
-import Foundation
+let window = TermboxWindow<Bool>()
+let human = Human(team: true, window: window)
+let solver = Solver(team: false, opponent: true)
+let controller = Controller(window: window, players: (human, solver), args: Process.arguments)
 
-print("Hello, World!")
+while controller.isActive { controller.proceed() }
+
+window.destroy()
 
