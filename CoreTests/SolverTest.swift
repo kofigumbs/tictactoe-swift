@@ -52,4 +52,19 @@ class SolverTest: XCTestCase {
         assertContains([4], target: solver.solve(board))
     }
 
+    func testCanSolveTwoBoards() {
+        let board1 = Board(dimmension: 3, contents: [0: "X", 1: "X"])
+        let board2 = Board(dimmension: 3, contents: [0: "X", 3: "X"])
+
+        assertContains([2], target: solver.solve(board1))
+        assertContains([6], target: solver.solve(board2))
+    }
+
+    func testChoosesBestFirstMove() {
+        let board = Board(dimmension: 3, contents: Dictionary<Int, String>())
+
+        assertContains([0, 2, 6, 8], target: solver.solve(board))
+    }
+
 }
+
