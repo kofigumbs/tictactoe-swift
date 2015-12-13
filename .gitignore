@@ -3,3 +3,4 @@ TicTacToe.xcodeproj/project.xcworkspace/
 TicTacToe.xcodeproj/xcuserdata/
 *.swp
 .idea/
+build
