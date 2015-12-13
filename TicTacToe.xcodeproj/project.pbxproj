@@ -12,7 +12,7 @@
 		125633FD1C17E5B500D7DAAA /* UI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 125633F31C17E5B400D7DAAA /* UI.framework */; };
 		1256340B1C17E5C400D7DAAA /* GridTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1256340A1C17E5C400D7DAAA /* GridTest.swift */; };
 		1256340E1C17E5D900D7DAAA /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1256340C1C17E5D900D7DAAA /* Grid.swift */; };
-		1256340F1C17E5D900D7DAAA /* UserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1256340D1C17E5D900D7DAAA /* UserInterface.swift */; };
+		1256340F1C17E5D900D7DAAA /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1256340D1C17E5D900D7DAAA /* Window.swift */; };
 		125F62A81C18B45A006E96A8 /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 125F62A71C18B45A006E96A8 /* Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		125F62AF1C18B45A006E96A8 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 125F62A51C18B45A006E96A8 /* Core.framework */; };
 		125F62BC1C18B468006E96A8 /* UI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 125633F31C17E5B400D7DAAA /* UI.framework */; };
@@ -64,7 +64,7 @@
 		125634031C17E5B500D7DAAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1256340A1C17E5C400D7DAAA /* GridTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridTest.swift; sourceTree = "<group>"; };
 		1256340C1C17E5D900D7DAAA /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
-		1256340D1C17E5D900D7DAAA /* UserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInterface.swift; sourceTree = "<group>"; };
+		1256340D1C17E5D900D7DAAA /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		125F62A51C18B45A006E96A8 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		125F62A71C18B45A006E96A8 /* Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
 		125F62A91C18B45A006E96A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -157,7 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				1256340C1C17E5D900D7DAAA /* Grid.swift */,
-				1256340D1C17E5D900D7DAAA /* UserInterface.swift */,
+				1256340D1C17E5D900D7DAAA /* Window.swift */,
 				125633F51C17E5B500D7DAAA /* UI.h */,
 				125633F71C17E5B500D7DAAA /* Info.plist */,
 			);
@@ -399,7 +399,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1256340F1C17E5D900D7DAAA /* UserInterface.swift in Sources */,
+				1256340F1C17E5D900D7DAAA /* Window.swift in Sources */,
 				1256340E1C17E5D900D7DAAA /* Grid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
