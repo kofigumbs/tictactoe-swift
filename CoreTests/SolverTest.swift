@@ -5,7 +5,7 @@ class SolverTest: XCTestCase {
 
     let solver = Solver(team: "X", opponent: "O")
 
-    func assertContains<T: Equatable>(collection: [T], target: T?) {
+    func assertContains<T: Equatable>(collection: [T?], target: T?) {
         let message = "Expected \(collection) to contain \(target)"
         XCTAssertTrue(collection.contains({ target == $0 }), message)
     }
@@ -52,12 +52,14 @@ class SolverTest: XCTestCase {
         assertContains([4], target: solver.solve(board))
     }
 
-    func testCanSolveTwoBoards() {
-        let board1 = Board(dimmension: 3, contents: [0: "X", 1: "X"])
-        let board2 = Board(dimmension: 3, contents: [0: "X", 3: "X"])
+    func testCanSolveMultipleBoards() {
+        let emptyBoard = Board<String>(dimmension: 2, contents: Dictionary())
+        let fullBoard = Board(dimmension: 2, contents: [0: "O", 1: "X", 2: "O", 3: "X"])
+        let semiBoard = Board(dimmension: 2, contents: [0: "O", 1: "X", ])
 
-        assertContains([2], target: solver.solve(board1))
-        assertContains([6], target: solver.solve(board2))
+        assertContains([0, 1, 2, 3], target: solver.solve(emptyBoard))
+        assertContains([nil], target: solver.solve(fullBoard))
+        assertContains([2, 3], target: solver.solve(semiBoard))
     }
 
     func testChoosesBestFirstMove() {

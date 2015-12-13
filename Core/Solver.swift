@@ -10,6 +10,15 @@ class Solver<T: Hashable> {
     init(team: T, opponent: T) { self.teams = (team, opponent) }
 
     func solve(board: Board<T>) -> Int? {
+        return shortcutOptimization(board) ??
+            calculateBestMove(board)
+    }
+
+    func shortcutOptimization(board: Board<T>) -> Int? {
+        return board.isEmpty ? 0 : nil
+    }
+
+    private func calculateBestMove(board: Board<T>) -> Int? {
         bestScoreFor(teams.target, vs: teams.opponent, board: board)
         return move
     }
