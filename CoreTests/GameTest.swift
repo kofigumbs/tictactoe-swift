@@ -83,21 +83,19 @@ class GameTest: XCTestCase {
     }
 
     func testWinnerOfThreeInRowPlusMore() {
-        let contents: [Int: String] =
-          [                 2: "O",
-            3: "X", 4: "X", 5: "X",
-                    7: "O", 8: "X" ]
+        let board = Board(dimmension: 3, contents:
+            [                 2: "O",
+              3: "X", 4: "X", 5: "X",
+              7: "O", 8: "X"         ])
 
-        let board = Board(dimmension: 3, contents: contents)
         XCTAssertEqual(Game(board: board).winner(), "X")
     }
 
     func testCatsGameHasNoWinner() {
-        let contents =
-          [ 0: "X", 1: "O", 2: "X",
-            3: "X", 4: "O", 5: "X",
-            6: "O", 7: "X", 8: "O" ]
-        let board = Board(dimmension: 3, contents: contents)
+        let board = Board(dimmension: 3, contents:
+            [ 0: "X", 1: "O", 2: "X",
+              3: "X", 4: "O", 5: "X",
+              6: "O", 7: "X", 8: "O" ])
 
         XCTAssertNil(Game(board: board).winner())
     }
@@ -109,3 +107,4 @@ class GameTest: XCTestCase {
     }
 
 }
+
