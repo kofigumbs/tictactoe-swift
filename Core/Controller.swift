@@ -6,15 +6,23 @@ public class Controller<U: Player> {
     public var board: Board<U.T>
 
     private var players: [U]
+    private let window: Window
 
     public init(window: Window, configuration: Configuration<U>) {
-        players = [configuration.players.first, configuration.players.second]
-        board = configuration.board
+        self.players = [configuration.players.first, configuration.players.second]
+        self.board = configuration.board
+        self.window = window
     }
 
     public func proceed() {
+        window.drawGrid(board.grid)
+        update()
+    }
+
+    private func update() {
         let player = players.first!
-        board = board.markAt(player.evaluate(board), with: player.team)
+        let move = player.evaluate(board)
+        board = board.markAt(move, with: player.team)
         players = players.reverse()
     }
 }

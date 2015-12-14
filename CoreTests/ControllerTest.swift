@@ -66,4 +66,14 @@ class ControllerTest: XCTestCase {
         XCTAssertFalse(controller.isActive)
     }
 
+    func testWindowIsDrawnEachTime() {
+        let controller = makeController(moves: ([0], [1]))
+
+        controller.proceed()
+        XCTAssertEqual(window.draws, 1)
+
+        controller.proceed()
+        XCTAssertEqual(window.draws, 2)
+    }
+
 }
