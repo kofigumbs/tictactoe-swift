@@ -1,21 +1,20 @@
 import UI
 
-struct Board<T: Hashable>: CollectionType, Hashable {
+public struct Board<T: Hashable>: CollectionType, Hashable {
+
+    public var startIndex: Int { return grid.startIndex }
+    public var endIndex: Int { return grid.endIndex }
+    public var isEmpty: Bool { return grid.isEmpty }
+    public var hashValue: Int { return reduce("", combine: { $0 + String($1) }).hashValue }
+    public subscript(index: Int) -> T? { return grid[index] }
 
     private var grid: Grid<T>
-
-    var dimmension: Int { return grid.dimmension }
-    var startIndex: Int { return grid.startIndex }
-    var endIndex: Int { return grid.endIndex }
-    var isEmpty: Bool { return grid.isEmpty }
     var isFull: Bool { return flatMap({ $0 }).count == count }
-    var hashValue: Int { return reduce("", combine: { $0 + String($1) }).hashValue }
+    var dimmension: Int { return grid.dimmension }
 
-    init(dimmension: Int, contents: [Int: T]) {
+    public init(dimmension: Int, contents: [Int:T]) {
         self.grid = Grid<T>(dimmension: dimmension, contents: contents)
     }
-
-    subscript(index: Int) -> T? { return grid[index] }
 
     func markAt(position: Int, with team: T) -> Board<T> {
         var contents = grid.contents
@@ -29,6 +28,6 @@ struct Board<T: Hashable>: CollectionType, Hashable {
 
 }
 
-func ==<T: Hashable>(lhs: Board<T>, rhs: Board<T>) -> Bool {
+public func ==<T: Hashable>(lhs: Board<T>, rhs: Board<T>) -> Bool {
     return lhs.hashValue == rhs.hashValue
 }

@@ -1,4 +1,5 @@
 import UI
+
 class StubWindow: Window {
 
     private var responses: [String]

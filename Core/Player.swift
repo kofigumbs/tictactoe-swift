@@ -1,4 +1,4 @@
-protocol Player {
+public protocol Player {
 
     typealias T: Hashable
 

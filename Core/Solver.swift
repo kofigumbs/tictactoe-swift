@@ -1,20 +1,20 @@
-class Solver<T: Hashable>: Player {
+public class Solver<T: Hashable>: Player {
 
     private typealias MoveScore = (move: Int, score: Int)
 
-    private var cache: [Board<T>: MoveScore] = Dictionary()
-    private var move: Int = -1
+    public let team: T
     private let opponent: T
-    let team: T
+    private var move: Int = -1
+    private var cache: [Board<T>: MoveScore] = Dictionary()
 
-    init(team: T, opponent: T) { self.team = team; self.opponent = opponent }
+    public init(team: T, opponent: T) { self.team = team; self.opponent = opponent }
 
-    func evaluate(board: Board<T>) -> Int {
+    public func evaluate(board: Board<T>) -> Int {
         return shortcutOptimization(board) ??
             calculateBestMove(board)
     }
 
-    func shortcutOptimization(board: Board<T>) -> Int? {
+    private func shortcutOptimization(board: Board<T>) -> Int? {
         return board.isEmpty ? 0 : nil
     }
 

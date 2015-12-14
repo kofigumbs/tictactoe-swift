@@ -4,9 +4,9 @@ public struct Grid<T: Equatable>: CollectionType {
     public let endIndex: Int
     public let dimmension: Int
     public let isEmpty: Bool
-    public let contents: [Int: T]
+    public let contents: [Int:T]
 
-    public init(dimmension:Int, var contents: [Int: T] = Dictionary()){
+    public init(dimmension:Int, var contents: [Int:T] = Dictionary()){
         let endIndex = dimmension * dimmension
         contents.bound(startIndex, endIndex)
 

@@ -1,13 +1,13 @@
 import UI
 
-class Human<T: Hashable>: Player {
+public class Human<T: Hashable>: Player {
 
+    public let team: T
     private let window: Window
-    let team: T
 
-    init(team: T, window: Window) { self.team = team; self.window = window }
+    public init(team: T, window: Window) { self.team = team; self.window = window }
 
-    func evaluate(board: Board<T>) -> Int {
+    public func evaluate(board: Board<T>) -> Int {
         var attempt: Int
         repeat {
             attempt = promptForMove()
@@ -15,7 +15,7 @@ class Human<T: Hashable>: Player {
         return attempt
     }
 
-    func promptForMove() -> Int {
+    private func promptForMove() -> Int {
         var move: Int?
         repeat {
             move = Int(window.promptUser("Your turn"))
