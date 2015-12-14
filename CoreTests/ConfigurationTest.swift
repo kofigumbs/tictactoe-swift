@@ -3,8 +3,8 @@ import Core
 
 class ConfigurationTest: XCTestCase {
 
-    let playerOne = MockPlayer(team: "X")
-    let playerTwo = MockPlayer(team: "O")
+    let playerOne = StubPlayer(team: "X")
+    let playerTwo = StubPlayer(team: "O")
 
     func testConfigurationSetsPlayers() {
         let config = Configuration(players: (playerOne, playerTwo), args: ["program-name"])

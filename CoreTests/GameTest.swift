@@ -2,10 +2,9 @@ import XCTest
 @testable import Core
 
 class GameTest: XCTestCase {
-    let emptyDict = Dictionary<Int, String>()
 
     func testNewGameIsNotOver() {
-        let board = Board(dimmension: 3, contents: emptyDict)
+        let board = Board<String>(dimmension: 3)
 
         XCTAssertFalse(Game(board: board).isOver())
     }
@@ -101,7 +100,7 @@ class GameTest: XCTestCase {
     }
 
     func testEmptyGameHasNoWinner() {
-        let board = Board(dimmension: 3, contents: emptyDict)
+        let board = Board<String>(dimmension: 3)
 
         XCTAssertNil(Game(board: board).winner())
     }

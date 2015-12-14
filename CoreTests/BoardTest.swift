@@ -2,10 +2,9 @@ import XCTest
 @testable import Core
 
 class BoardTest: XCTestCase {
-    let emptyDict = Dictionary<Int, String>()
 
     func testCanMarkBoard() {
-        let board = Board<String>(dimmension: 3, contents: emptyDict)
+        let board = Board<String>(dimmension: 3)
         let newBoard = board.markAt(0, with: "X")
 
         XCTAssertEqual(newBoard[0], "X")
@@ -20,7 +19,7 @@ class BoardTest: XCTestCase {
     }
 
     func testBoardIsNotFull() {
-        let board = Board<String>(dimmension: 2, contents: emptyDict)
+        let board = Board<String>(dimmension: 2)
 
         XCTAssertTrue(board.isEmpty)
         XCTAssertFalse(board.isFull)
@@ -34,7 +33,7 @@ class BoardTest: XCTestCase {
     }
 
     func testAvailablePositionsWhenEmpty() {
-        let board = Board<String>(dimmension: 2, contents: emptyDict)
+        let board = Board<String>(dimmension: 2)
 
         XCTAssertEqual(board.availableSpaces(), [0, 1, 2, 3])
     }
@@ -46,7 +45,7 @@ class BoardTest: XCTestCase {
     }
 
     func testUniquelyHashable() {
-        let board1 = Board(dimmension: 3, contents: emptyDict)
+        let board1 = Board<String>(dimmension: 3)
         let board2 = Board(dimmension: 3, contents: [0: "X", 1: "O"])
         let board3 = Board(dimmension: 3, contents: [0: "O", 1: "X"])
         let hash = [board1: "board 1", board2: "board 2", board3: "board 3"]
@@ -57,8 +56,8 @@ class BoardTest: XCTestCase {
     }
 
     func testEquatable() {
-        let board1 = Board(dimmension: 3, contents: emptyDict)
-        let board2 = Board(dimmension: 3, contents: emptyDict)
+        let board1 = Board<String>(dimmension: 3)
+        let board2 = Board<String>(dimmension: 3)
         let board3 = Board(dimmension: 3, contents: [0: "X"])
 
         XCTAssertEqual(board1, board1)

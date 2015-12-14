@@ -12,7 +12,7 @@ public struct Board<T: Hashable>: CollectionType, Hashable {
     var isFull: Bool { return flatMap({ $0 }).count == count }
     var dimmension: Int { return grid.dimmension }
 
-    public init(dimmension: Int, contents: [Int:T]) {
+    public init(dimmension: Int, contents: [Int:T] = Dictionary()) {
         self.grid = Grid<T>(dimmension: dimmension, contents: contents)
     }
 

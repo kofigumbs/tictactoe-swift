@@ -44,7 +44,7 @@ class SolverTest: XCTestCase {
     }
 
     func testCanSolveMultipleBoards() {
-        let emptyBoard = Board<String>(dimmension: 2, contents: Dictionary())
+        let emptyBoard = Board<String>(dimmension: 2)
         let semiBoard = Board(dimmension: 2, contents: [0: "O", 1: "X", ])
 
         assertContains([0, 1, 2, 3], target: solver.evaluate(emptyBoard))
@@ -52,7 +52,7 @@ class SolverTest: XCTestCase {
     }
 
     func testChoosesBestFirstMove() {
-        let board = Board(dimmension: 3, contents: Dictionary<Int, String>())
+        let board = Board<String>(dimmension: 3)
 
         assertContains([0, 2, 6, 8], target: solver.evaluate(board))
     }
