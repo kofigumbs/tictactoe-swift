@@ -19,6 +19,10 @@
 		125F62C11C18B58A006E96A8 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125F62C01C18B58A006E96A8 /* Board.swift */; };
 		125F62C31C18BAD6006E96A8 /* GameTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125F62C21C18BAD6006E96A8 /* GameTest.swift */; };
 		125F62C51C18BBB7006E96A8 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125F62C41C18BBB7006E96A8 /* Game.swift */; };
+		12A2EFA21C209027002F1FA5 /* UI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 125633F31C17E5B400D7DAAA /* UI.framework */; };
+		12A2EFA31C20902D002F1FA5 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 125F62A51C18B45A006E96A8 /* Core.framework */; };
+		12A2EFA41C20902D002F1FA5 /* TermboxAdapter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E695881C1F9BD000BBD566 /* TermboxAdapter.framework */; };
+		12A2EFA51C209DA1002F1FA5 /* libtermbox.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E696361C1F9E2800BBD566 /* libtermbox.dylib */; };
 		12E42EA61C1B7B4500AF3E8D /* SolverTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E42EA51C1B7B4500AF3E8D /* SolverTest.swift */; };
 		12E42EA81C1B7BAC00AF3E8D /* Solver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E42EA71C1B7BAC00AF3E8D /* Solver.swift */; };
 		12E695911C1F9C1800BBD566 /* TermboxWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E695901C1F9C1800BBD566 /* TermboxWindow.swift */; };
@@ -121,6 +125,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12A2EFA51C209DA1002F1FA5 /* libtermbox.dylib in Frameworks */,
+				12A2EFA21C209027002F1FA5 /* UI.framework in Frameworks */,
+				12A2EFA31C20902D002F1FA5 /* Core.framework in Frameworks */,
+				12A2EFA41C20902D002F1FA5 /* TermboxAdapter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,6 +607,8 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -643,6 +653,8 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -662,6 +674,15 @@
 		125633CE1C17E46300D7DAAA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
+				FRAMEWORK_SEARCH_PATHS = "@executable_path";
+				LD_DYLIB_INSTALL_NAME = "";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TermboxAdapter/Termbox/build/src",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -669,6 +690,15 @@
 		125633CF1C17E46300D7DAAA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
+				FRAMEWORK_SEARCH_PATHS = "@executable_path";
+				LD_DYLIB_INSTALL_NAME = "";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TermboxAdapter/Termbox/build/src",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
