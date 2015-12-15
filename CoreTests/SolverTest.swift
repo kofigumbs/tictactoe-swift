@@ -57,5 +57,12 @@ class SolverTest: XCTestCase {
         assertContains([0, 2, 6, 8], target: solver.evaluate(board))
     }
 
+    func testSampleFourByFourPerformance() {
+        self.measureBlock({
+            let board = Board(dimmension: 4, contents: [0: "O"])
+            self.solver.evaluate(board)
+        })
+    }
+
 }
 
