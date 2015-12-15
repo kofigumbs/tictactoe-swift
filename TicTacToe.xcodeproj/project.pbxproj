@@ -23,6 +23,10 @@
 		125F62C51C18BBB7006E96A8 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125F62C41C18BBB7006E96A8 /* Game.swift */; };
 		12E42EA61C1B7B4500AF3E8D /* SolverTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E42EA51C1B7B4500AF3E8D /* SolverTest.swift */; };
 		12E42EA81C1B7BAC00AF3E8D /* Solver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E42EA71C1B7BAC00AF3E8D /* Solver.swift */; };
+		12E6958B1C1F9BD000BBD566 /* TermboxAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 12E6958A1C1F9BD000BBD566 /* TermboxAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		12E695911C1F9C1800BBD566 /* TermboxWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E695901C1F9C1800BBD566 /* TermboxWindow.swift */; };
+		12E696371C1F9E2800BBD566 /* libtermbox.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E696361C1F9E2800BBD566 /* libtermbox.dylib */; };
+		12E696381C1F9F0A00BBD566 /* UI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 125633F31C17E5B400D7DAAA /* UI.framework */; };
 		3A00E4F2A49B5DD2C456C90F /* StubPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A00EA291373B9BAE3D06B3C /* StubPlayer.swift */; };
 		3A00E76303176F581348605C /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A00E2EC114B66A22120BA2A /* Player.swift */; };
 		3A00E7A50A3AF7C3F739689D /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A00EE4906816EA767877E2C /* Configuration.swift */; };
@@ -85,6 +89,11 @@
 		125F62C41C18BBB7006E96A8 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		12E42EA51C1B7B4500AF3E8D /* SolverTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolverTest.swift; sourceTree = "<group>"; };
 		12E42EA71C1B7BAC00AF3E8D /* Solver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Solver.swift; sourceTree = "<group>"; };
+		12E695881C1F9BD000BBD566 /* TermboxAdapter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TermboxAdapter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		12E6958A1C1F9BD000BBD566 /* TermboxAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TermboxAdapter.h; sourceTree = "<group>"; };
+		12E6958C1C1F9BD000BBD566 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		12E695901C1F9C1800BBD566 /* TermboxWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermboxWindow.swift; sourceTree = "<group>"; };
+		12E696361C1F9E2800BBD566 /* libtermbox.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtermbox.dylib; path = Termbox/build/src/libtermbox.dylib; sourceTree = "<group>"; };
 		3A00E014254B73DFA2F5A295 /* HumanTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HumanTest.swift; sourceTree = "<group>"; };
 		3A00E2EC114B66A22120BA2A /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		3A00E8D0D9AD405C23687E4D /* StubWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubWindow.swift; sourceTree = "<group>"; };
@@ -136,6 +145,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		12E695841C1F9BD000BBD566 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12E696381C1F9F0A00BBD566 /* UI.framework in Frameworks */,
+				12E696371C1F9E2800BBD566 /* libtermbox.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -147,6 +165,7 @@
 				125634001C17E5B500D7DAAA /* UITests */,
 				125F62A61C18B45A006E96A8 /* Core */,
 				125F62B21C18B45A006E96A8 /* CoreTests */,
+				12E695891C1F9BD000BBD566 /* TermboxAdapter */,
 				125633C71C17E46300D7DAAA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -159,6 +178,7 @@
 				125633FC1C17E5B500D7DAAA /* UITests.xctest */,
 				125F62A51C18B45A006E96A8 /* Core.framework */,
 				125F62AE1C18B45A006E96A8 /* CoreTests.xctest */,
+				12E695881C1F9BD000BBD566 /* TermboxAdapter.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -223,6 +243,17 @@
 			path = CoreTests;
 			sourceTree = "<group>";
 		};
+		12E695891C1F9BD000BBD566 /* TermboxAdapter */ = {
+			isa = PBXGroup;
+			children = (
+				12E696361C1F9E2800BBD566 /* libtermbox.dylib */,
+				12E6958A1C1F9BD000BBD566 /* TermboxAdapter.h */,
+				12E6958C1C1F9BD000BBD566 /* Info.plist */,
+				12E695901C1F9C1800BBD566 /* TermboxWindow.swift */,
+			);
+			path = TermboxAdapter;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -239,6 +270,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				125F62A81C18B45A006E96A8 /* Core.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		12E695851C1F9BD000BBD566 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12E6958B1C1F9BD000BBD566 /* TermboxAdapter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +373,24 @@
 			productReference = 125F62AE1C18B45A006E96A8 /* CoreTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		12E695871C1F9BD000BBD566 /* TermboxAdapter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 12E6958F1C1F9BD000BBD566 /* Build configuration list for PBXNativeTarget "TermboxAdapter" */;
+			buildPhases = (
+				12E695831C1F9BD000BBD566 /* Sources */,
+				12E695841C1F9BD000BBD566 /* Frameworks */,
+				12E695851C1F9BD000BBD566 /* Headers */,
+				12E695861C1F9BD000BBD566 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TermboxAdapter;
+			productName = TermboxAdapter;
+			productReference = 12E695881C1F9BD000BBD566 /* TermboxAdapter.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -359,6 +416,9 @@
 					125F62AD1C18B45A006E96A8 = {
 						CreatedOnToolsVersion = 7.1.1;
 					};
+					12E695871C1F9BD000BBD566 = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
 				};
 			};
 			buildConfigurationList = 125633C11C17E46300D7DAAA /* Build configuration list for PBXProject "TicTacToe" */;
@@ -378,6 +438,7 @@
 				125633FB1C17E5B500D7DAAA /* UITests */,
 				125F62A41C18B45A006E96A8 /* Core */,
 				125F62AD1C18B45A006E96A8 /* CoreTests */,
+				12E695871C1F9BD000BBD566 /* TermboxAdapter */,
 			);
 		};
 /* End PBXProject section */
@@ -405,6 +466,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		125F62AC1C18B45A006E96A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		12E695861C1F9BD000BBD566 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -465,6 +533,14 @@
 				3A00EBDF18E0154EC7AA7B82 /* ConfigurationTest.swift in Sources */,
 				3A00E4F2A49B5DD2C456C90F /* StubPlayer.swift in Sources */,
 				3A00EE92C0D4314379573B55 /* ControllerTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		12E695831C1F9BD000BBD566 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12E695911C1F9C1800BBD566 /* TermboxWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -712,6 +788,61 @@
 			};
 			name = Release;
 		};
+		12E6958D1C1F9BD000BBD566 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = TermboxAdapter/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TermboxAdapter/Termbox/build/src",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.hkgumbs.TermboxAdapter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/TermboxAdapter";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		12E6958E1C1F9BD000BBD566 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = TermboxAdapter/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TermboxAdapter/Termbox/build/src",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.hkgumbs.TermboxAdapter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/TermboxAdapter";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -768,6 +899,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		12E6958F1C1F9BD000BBD566 /* Build configuration list for PBXNativeTarget "TermboxAdapter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				12E6958D1C1F9BD000BBD566 /* Debug */,
+				12E6958E1C1F9BD000BBD566 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

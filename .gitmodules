@@ -1,0 +1,3 @@
+[submodule "TermboxAdapter/Termbox"]
+	path = TermboxAdapter/Termbox
+	url = git@github.com:nsf/termbox.git
