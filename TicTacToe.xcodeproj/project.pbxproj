@@ -53,6 +53,27 @@
 			remoteGlobalIDString = 125F62A41C18B45A006E96A8;
 			remoteInfo = Core;
 		};
+		12E6963C1C1FACC200BBD566 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 125633BE1C17E46300D7DAAA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 125633F21C17E5B400D7DAAA;
+			remoteInfo = UI;
+		};
+		12E6963E1C1FACC200BBD566 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 125633BE1C17E46300D7DAAA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 125F62A41C18B45A006E96A8;
+			remoteInfo = Core;
+		};
+		12E696401C1FACC200BBD566 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 125633BE1C17E46300D7DAAA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 12E695871C1F9BD000BBD566;
+			remoteInfo = TermboxAdapter;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -295,6 +316,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				12E6963D1C1FACC200BBD566 /* PBXTargetDependency */,
+				12E6963F1C1FACC200BBD566 /* PBXTargetDependency */,
+				12E696411C1FACC200BBD566 /* PBXTargetDependency */,
 			);
 			name = TicTacToe;
 			productName = TicTacToe;
@@ -556,6 +580,21 @@
 			isa = PBXTargetDependency;
 			target = 125F62A41C18B45A006E96A8 /* Core */;
 			targetProxy = 125F62B01C18B45A006E96A8 /* PBXContainerItemProxy */;
+		};
+		12E6963D1C1FACC200BBD566 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 125633F21C17E5B400D7DAAA /* UI */;
+			targetProxy = 12E6963C1C1FACC200BBD566 /* PBXContainerItemProxy */;
+		};
+		12E6963F1C1FACC200BBD566 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 125F62A41C18B45A006E96A8 /* Core */;
+			targetProxy = 12E6963E1C1FACC200BBD566 /* PBXContainerItemProxy */;
+		};
+		12E696411C1FACC200BBD566 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 12E695871C1F9BD000BBD566 /* TermboxAdapter */;
+			targetProxy = 12E696401C1FACC200BBD566 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -907,6 +946,7 @@
 				12E6958E1C1F9BD000BBD566 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
