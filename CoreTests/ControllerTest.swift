@@ -5,10 +5,10 @@ class ControllerTest: XCTestCase {
 
     let window = StubWindow()
 
-    func makeController(args: [String] = [], moves: ([Int], [Int]) = ([], [])) -> Controller<StubPlayer> {
-        let players = (StubPlayer(team: "X", moves: moves.0), StubPlayer(team: "O", moves: moves.1))
-        let configuration = Configuration(players: players, args: args)
-        return Controller(window: window, configuration: configuration)
+    func makeController(args: [String] = [], moves: ([Int], [Int]) = ([], [])) -> Controller<StubPlayer, StubPlayer> {
+        let x = StubPlayer(team: "X", moves: moves.0)
+        let o = StubPlayer(team: "O", moves: moves.1)
+        return Controller(window: window, players: (x, o), args: args)
     }
 
     func testControllerIsActiveWithEmptyBoard() {
@@ -74,6 +74,15 @@ class ControllerTest: XCTestCase {
 
         controller.proceed()
         XCTAssertEqual(window.draws, 2)
+    }
+
+    func testCanBeReversedAndResized() {
+        let controller = makeController(["--reverse", "--four"], moves: ([], [3]))
+
+        controller.proceed()
+
+        XCTAssertEqual(controller.board, Board(dimmension: 4, contents: [3: "O"]))
+        XCTAssertTrue(controller.isActive)
     }
 
 }
