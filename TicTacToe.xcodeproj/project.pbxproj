@@ -8,12 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		125633CA1C17E46300D7DAAA /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125633C91C17E46300D7DAAA /* main.swift */; };
-		125633F61C17E5B500D7DAAA /* UI.h in Headers */ = {isa = PBXBuildFile; fileRef = 125633F51C17E5B500D7DAAA /* UI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		125633FD1C17E5B500D7DAAA /* UI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 125633F31C17E5B400D7DAAA /* UI.framework */; };
 		1256340B1C17E5C400D7DAAA /* GridTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1256340A1C17E5C400D7DAAA /* GridTest.swift */; };
 		1256340E1C17E5D900D7DAAA /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1256340C1C17E5D900D7DAAA /* Grid.swift */; };
 		1256340F1C17E5D900D7DAAA /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1256340D1C17E5D900D7DAAA /* Window.swift */; };
-		125F62A81C18B45A006E96A8 /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 125F62A71C18B45A006E96A8 /* Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		125F62AF1C18B45A006E96A8 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 125F62A51C18B45A006E96A8 /* Core.framework */; };
 		125F62BC1C18B468006E96A8 /* UI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 125633F31C17E5B400D7DAAA /* UI.framework */; };
 		125F62BD1C18B468006E96A8 /* UI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 125633F31C17E5B400D7DAAA /* UI.framework */; };
@@ -23,7 +21,6 @@
 		125F62C51C18BBB7006E96A8 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125F62C41C18BBB7006E96A8 /* Game.swift */; };
 		12E42EA61C1B7B4500AF3E8D /* SolverTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E42EA51C1B7B4500AF3E8D /* SolverTest.swift */; };
 		12E42EA81C1B7BAC00AF3E8D /* Solver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E42EA71C1B7BAC00AF3E8D /* Solver.swift */; };
-		12E6958B1C1F9BD000BBD566 /* TermboxAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 12E6958A1C1F9BD000BBD566 /* TermboxAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		12E695911C1F9C1800BBD566 /* TermboxWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E695901C1F9C1800BBD566 /* TermboxWindow.swift */; };
 		12E696371C1F9E2800BBD566 /* libtermbox.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E696361C1F9E2800BBD566 /* libtermbox.dylib */; };
 		12E696381C1F9F0A00BBD566 /* UI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 125633F31C17E5B400D7DAAA /* UI.framework */; };
@@ -92,7 +89,6 @@
 		125633C61C17E46300D7DAAA /* TicTacToe */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TicTacToe; sourceTree = BUILT_PRODUCTS_DIR; };
 		125633C91C17E46300D7DAAA /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		125633F31C17E5B400D7DAAA /* UI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		125633F51C17E5B500D7DAAA /* UI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UI.h; sourceTree = "<group>"; };
 		125633F71C17E5B500D7DAAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		125633FC1C17E5B500D7DAAA /* UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		125634031C17E5B500D7DAAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -100,7 +96,6 @@
 		1256340C1C17E5D900D7DAAA /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		1256340D1C17E5D900D7DAAA /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		125F62A51C18B45A006E96A8 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		125F62A71C18B45A006E96A8 /* Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
 		125F62A91C18B45A006E96A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		125F62AE1C18B45A006E96A8 /* CoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		125F62B51C18B45A006E96A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -111,7 +106,6 @@
 		12E42EA51C1B7B4500AF3E8D /* SolverTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolverTest.swift; sourceTree = "<group>"; };
 		12E42EA71C1B7BAC00AF3E8D /* Solver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Solver.swift; sourceTree = "<group>"; };
 		12E695881C1F9BD000BBD566 /* TermboxAdapter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TermboxAdapter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		12E6958A1C1F9BD000BBD566 /* TermboxAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TermboxAdapter.h; sourceTree = "<group>"; };
 		12E6958C1C1F9BD000BBD566 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12E695901C1F9C1800BBD566 /* TermboxWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermboxWindow.swift; sourceTree = "<group>"; };
 		12E696361C1F9E2800BBD566 /* libtermbox.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtermbox.dylib; path = Termbox/build/src/libtermbox.dylib; sourceTree = "<group>"; };
@@ -217,7 +211,6 @@
 			children = (
 				1256340C1C17E5D900D7DAAA /* Grid.swift */,
 				1256340D1C17E5D900D7DAAA /* Window.swift */,
-				125633F51C17E5B500D7DAAA /* UI.h */,
 				125633F71C17E5B500D7DAAA /* Info.plist */,
 			);
 			path = UI;
@@ -235,7 +228,6 @@
 		125F62A61C18B45A006E96A8 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				125F62A71C18B45A006E96A8 /* Core.h */,
 				125F62A91C18B45A006E96A8 /* Info.plist */,
 				125F62C01C18B58A006E96A8 /* Board.swift */,
 				125F62C41C18BBB7006E96A8 /* Game.swift */,
@@ -268,7 +260,6 @@
 			isa = PBXGroup;
 			children = (
 				12E696361C1F9E2800BBD566 /* libtermbox.dylib */,
-				12E6958A1C1F9BD000BBD566 /* TermboxAdapter.h */,
 				12E6958C1C1F9BD000BBD566 /* Info.plist */,
 				12E695901C1F9C1800BBD566 /* TermboxWindow.swift */,
 			);
@@ -282,7 +273,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				125633F61C17E5B500D7DAAA /* UI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,7 +280,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				125F62A81C18B45A006E96A8 /* Core.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,7 +287,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12E6958B1C1F9BD000BBD566 /* TermboxAdapter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
