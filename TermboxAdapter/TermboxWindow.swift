@@ -23,17 +23,15 @@ public class TermboxWindow<T: Hashable>: Window {
     private var marksAvailable: [UInt32] = [UInt32(58), UInt32(88)]
 
     public init() { tb_init() }
-    public func destroy() {
+    public func detach() {
         print("Press any key to exit...")
         _ = pollKey()
         tb_shutdown()
     }
 
-    public func printMessage(message: String) { }
-
-    public func promptUser(_: String) -> String {
+    public func promptUserForIndex() -> Int {
         pollForEnter()
-        return String(cursor)
+        return cursor
     }
 
     private func pollForEnter() -> Void {

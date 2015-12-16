@@ -2,10 +2,8 @@ public protocol Window {
 
     typealias T: Hashable
 
-    func promptUser(prompt: String) -> String
+    func promptUserForIndex() -> Int
 
     func drawGrid(grid: Grid<T>)
-
-    func printMessage(message: String)
 
 }

@@ -5,7 +5,7 @@ import UI
 class HumanTest: XCTestCase {
 
     func testHumanCanMove() {
-        let window = StubWindow(responses: ["2", "4"])
+        let window = StubWindow(responses: [2, 4])
         let human = Human(team: "X", window: window)
         let board = Board<String>(dimmension: 3)
 
@@ -13,16 +13,8 @@ class HumanTest: XCTestCase {
         XCTAssertEqual(human.evaluate(board), 2)
     }
 
-    func testHumanRetriesOnInvalidMove() {
-        let window = StubWindow(responses: ["4", "hello", "world"])
-        let human = Human(team: "X", window: window)
-        let board = Board<String>(dimmension: 3)
-
-        XCTAssertEqual(human.evaluate(board), 4)
-    }
-
-    func testHumanRetriesOnOccupiedSpace() {
-        let window = StubWindow(responses: ["3", "5", "4"])
+    func testHumanRetriesOnInvalidSpace() {
+        let window = StubWindow(responses: [3, 5, -1, 4])
         let human = Human(team: "X", window: window)
         let board = Board<String>(dimmension: 3, contents: [4: "X", 5: "O"])
 
@@ -30,7 +22,7 @@ class HumanTest: XCTestCase {
     }
 
     func testHumanDrawsGridToWindow() {
-        let window = StubWindow(responses: ["3", "5", "4"])
+        let window = StubWindow(responses: [3, 5, 4])
         let human = Human(team: "X", window: window)
         let board = Board<String>(dimmension: 3, contents: [4: "X", 5: "O"])
 

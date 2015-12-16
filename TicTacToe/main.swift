@@ -9,5 +9,5 @@ let controller = Controller(window: window, players: (human, solver), args: Proc
 
 while controller.isActive { controller.proceed() }
 
-window.destroy()
+window.detach()
 
