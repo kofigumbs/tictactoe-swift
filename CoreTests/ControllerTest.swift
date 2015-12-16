@@ -15,14 +15,7 @@ class ControllerTest: XCTestCase {
     func testControllerIsActiveWithEmptyBoard() {
         let controller = makeController()
 
-        XCTAssertEqual(controller.board, Board(dimmension: 3))
-        XCTAssertTrue(controller.isActive)
-    }
-
-    func testControllerUsesConfigurationBoard() {
-        let controller = makeController(["--four"])
-
-        XCTAssertEqual(controller.board, Board(dimmension: 4))
+        XCTAssertEqual(controller.board, Board<String>(dimmension: 3))
         XCTAssertTrue(controller.isActive)
     }
 
@@ -36,7 +29,7 @@ class ControllerTest: XCTestCase {
     }
 
     func testControllerProceedsToTakeFirstPlayerInputWhenReversed() {
-        let controller = makeController(["--reverse"], moves: ([], [4]))
+        let controller = makeController(["--second"], moves: ([], [4]))
 
         controller.proceed()
 
@@ -67,23 +60,17 @@ class ControllerTest: XCTestCase {
         XCTAssertFalse(controller.isActive)
     }
 
-    func testWindowIsDrawnEachTime() {
-        let controller = makeController(moves: ([0], [1]))
+    func testWindowIsDrawnWhenGameIsOver() {
+        let controller = makeController(moves: ([0, 1, 2], [3, 4]))
+
+        controller.proceed()
+        controller.proceed()
+        controller.proceed()
+        controller.proceed()
+        XCTAssertEqual(window.draws, 0)
 
         controller.proceed()
         XCTAssertEqual(window.draws, 1)
-
-        controller.proceed()
-        XCTAssertEqual(window.draws, 2)
-    }
-
-    func testCanBeReversedAndResized() {
-        let controller = makeController(["--reverse", "--four"], moves: ([], [3]))
-
-        controller.proceed()
-
-        XCTAssertEqual(controller.board, Board(dimmension: 4, contents: [3: "O"]))
-        XCTAssertTrue(controller.isActive)
     }
 
 }

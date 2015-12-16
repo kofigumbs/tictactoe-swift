@@ -44,17 +44,6 @@ class BoardTest: XCTestCase {
         XCTAssertEqual(board.availableSpaces(), [0, 3])
     }
 
-    func testUniquelyHashable() {
-        let board1 = Board<String>(dimmension: 3)
-        let board2 = Board(dimmension: 3, contents: [0: "X", 1: "O"])
-        let board3 = Board(dimmension: 3, contents: [0: "O", 1: "X"])
-        let hash = [board1: "board 1", board2: "board 2", board3: "board 3"]
-
-        XCTAssertEqual(hash[board1], "board 1")
-        XCTAssertEqual(hash[board2], "board 2")
-        XCTAssertEqual(hash[board3], "board 3")
-    }
-
     func testEquatable() {
         let board1 = Board<String>(dimmension: 3)
         let board2 = Board<String>(dimmension: 3)

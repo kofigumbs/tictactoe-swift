@@ -1,11 +1,10 @@
 import UI
 
-public struct Board<T: Hashable>: CollectionType, Hashable {
+public struct Board<T: Hashable>: CollectionType, Equatable {
 
     public var startIndex: Int { return grid.startIndex }
     public var endIndex: Int { return grid.endIndex }
     public var isEmpty: Bool { return grid.isEmpty }
-    public var hashValue: Int { return reduce("", combine: { $0 + String($1) }).hashValue }
     public subscript(index: Int) -> T? { return grid[index] }
 
     let grid: Grid<T>
@@ -29,5 +28,6 @@ public struct Board<T: Hashable>: CollectionType, Hashable {
 }
 
 public func ==<T: Hashable>(lhs: Board<T>, rhs: Board<T>) -> Bool {
-    return lhs.hashValue == rhs.hashValue
+    return lhs.enumerate().reduce(true, combine: { $0 && $1.element == rhs[$1.index]  })
 }
+
