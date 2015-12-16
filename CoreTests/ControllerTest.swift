@@ -5,7 +5,8 @@ class ControllerTest: XCTestCase {
 
     let window = StubWindow()
 
-    func makeController(args: [String] = [], moves: ([Int], [Int]) = ([], [])) -> Controller<StubPlayer, StubPlayer> {
+    func makeController(args: [String] = [], moves: ([Int], [Int]) = ([], []))
+                    -> Controller<StubPlayer, StubPlayer, StubWindow> {
         let x = StubPlayer(team: "X", moves: moves.0)
         let o = StubPlayer(team: "O", moves: moves.1)
         return Controller(window: window, players: (x, o), args: args)

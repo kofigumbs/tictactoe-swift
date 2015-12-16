@@ -1,4 +1,4 @@
-public struct Grid<T: Equatable>: CollectionType {
+public struct Grid<T: Hashable>: CollectionType {
 
     public let startIndex = 0
     public let endIndex: Int

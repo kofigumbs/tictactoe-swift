@@ -1,15 +1,15 @@
 import UI
 
-public class Controller<U: Player, V: Player where U.T == V.T> {
+public class Controller<U: Player, V: Player, W: Window where U.T == V.T, U.T == W.T> {
 
     public var isActive: Bool { return !Game(board: board).isOver() }
     public var board: Board<U.T>
 
     private var players: (U, V)
-    private let window: Window
+    private let window: W
     private var turn: Bool
 
-    public init(window: Window, players: (U, V), args: [String]) {
+    public init(window: W, players: (U, V), args: [String]) {
         let dimmension = args.contains("--four") ? 4 : 3
 
         self.board = Board(dimmension: dimmension)
@@ -28,7 +28,7 @@ public class Controller<U: Player, V: Player where U.T == V.T> {
         turn = !turn
     }
 
-    private func takeTurn<X: Player where U.T == X.T>(player: X) {
+    private func takeTurn<X: Player where X.T == U.T>(player: X) {
         let move = player.evaluate(board)
         board = board.markAt(move, with: player.team)
     }
