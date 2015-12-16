@@ -8,6 +8,7 @@ public class Human<W: Window>: Player {
     public init(team: W.T, window: W) { self.team = team; self.window = window }
 
     public func evaluate(board: Board<W.T>) -> Int {
+        window.drawGrid(board.grid)
         var attempt: Int
         repeat {
             attempt = promptForMove()

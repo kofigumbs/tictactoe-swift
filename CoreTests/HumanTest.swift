@@ -29,5 +29,15 @@ class HumanTest: XCTestCase {
         XCTAssertEqual(human.evaluate(board), 3)
     }
 
+    func testHumanDrawsGridToWindow() {
+        let window = StubWindow(responses: ["3", "5", "4"])
+        let human = Human(team: "X", window: window)
+        let board = Board<String>(dimmension: 3, contents: [4: "X", 5: "O"])
+
+        XCTAssertEqual(window.draws, 0)
+
+        human.evaluate(board)
+        XCTAssertEqual(window.draws, 1)
+    }
 }
 
