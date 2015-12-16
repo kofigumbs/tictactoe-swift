@@ -15,6 +15,6 @@ build: _buildTermbox
 	xcodebuild build
 
 _buildTermbox:
-	git submodule init
+	git submodule update
 	cd TermboxAdapter/Termbox; ./waf configure; ./waf; ./waf install
 
