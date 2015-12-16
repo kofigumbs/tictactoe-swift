@@ -1,18 +1,20 @@
 > Third time's a charm. -- *Unknown*
 
-** Requires Xcode 7.1+ **
-** Also, the install process uses your /usr/local **
+
+# Please...
+ - install Xcode 7.1+
+ - run `xcodebuild` and accept Apple user agreement if prompted
+ - don't mind when install to your `/usr/local`
+ - accredit nsf for his library, [Termbox](https://github.com/nsf/termbox)
 
 
-How do I ... ?         |
----------------------- |
+# How do I ...
+?                      |
+-----------------------|
 run tests              | `make test`
 build the executable   | `make build`
 run the executable     | `./build/Release/TicTacToe`
 play second            | `./build/Release/TicTacToe --second`
 clean up               | `make clean`
-
-- - -
-
-*This project uses [Termbox](https://github.com/nsf/termbox) by a fellow called nsf.*
+control stuff          | arrow keys + enter
 
