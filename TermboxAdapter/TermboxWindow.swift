@@ -3,24 +3,10 @@ import UI
 
 public class TermboxWindow<T: Hashable>: Window {
 
-    private let TB_KEY_ARROW_UP     = UInt16(0xFFFF-18)
-    private let TB_KEY_ARROW_DOWN   = UInt16(0xFFFF-19)
-    private let TB_KEY_ARROW_LEFT   = UInt16(0xFFFF-20)
-    private let TB_KEY_ARROW_RIGHT  = UInt16(0xFFFF-21)
-    private let TB_KEY_ENTER        = UInt16(0x0D)
-
-    private let TB_BLACK            = UInt16(0x01)
-    private let TB_CYAN             = UInt16(0x07)
-    private let TB_WHITE            = UInt16(0x08)
-
-    private let ASCII_SPACE         = UInt32(32)
-    private let ASCII_HYPHEN        = UInt32(45)
-    private let ASCII_PIPE          = UInt32(124)
-
     private var cursor = 0
     private var grid: Grid<T> = Grid(dimmension: 0)
     private var marksInUse: [T: UInt32] = Dictionary()
-    private var marksAvailable: [UInt32] = [UInt32(58), UInt32(88)]
+    private var marksAvailable: [UInt32] = [ASCII_COLON, ASCII_X]
 
     public init() { tb_init() }
     public func detach() {
