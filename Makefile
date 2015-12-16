@@ -1,10 +1,10 @@
 test: _testCore _testUI
 
 _testCore:
-	xcodebuild test -scheme Core
+	xcodebuild test -scheme CoreTests
 
 _testUI:
-	xcodebuild test -scheme UI
+	xcodebuild test -scheme UITests
 
 clean:
 	xcodebuild clean
