@@ -4,7 +4,7 @@
 # Please...
  - install Xcode 7.1+
  - run `xcodebuild` and accept Apple user agreement if prompted
- - don't mind when install to your `/usr/local`
+ - don't mind when I install to your `/usr/local`
 
 
 # How do I ...
