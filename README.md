@@ -8,8 +8,8 @@
 
 
 # How do I ...
-?                      |
------------------------|
+?                      | command
+-----------------------|--------
 run tests              | `make test`
 build the executable   | `make build`
 run the executable     | `./build/Release/TicTacToe`
