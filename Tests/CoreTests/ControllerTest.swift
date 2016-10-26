@@ -29,7 +29,7 @@ class ControllerTest: XCTestCase {
     }
 
     func testControllerProceedsToTakeFirstPlayerInputWhenReversed() {
-        let controller = makeController(["--second"], moves: ([], [4]))
+        let controller = makeController(args: ["--second"], moves: ([], [4]))
 
         controller.proceed()
 
@@ -72,5 +72,19 @@ class ControllerTest: XCTestCase {
         controller.proceed()
         XCTAssertEqual(window.draws, 1)
     }
+
+#if _runtime(_ObjC)
+#else
+    static var allTests: [(String, (ControllerTest) -> () throws -> Void)] {
+        return [
+            ("testControllerIsActiveWithEmptyBoard", testControllerIsActiveWithEmptyBoard),
+            ("testControllerProceedsToTakeFirstPlayerInput", testControllerProceedsToTakeFirstPlayerInput),
+            ("testControllerProceedsToTakeFirstPlayerInputWhenReversed", testControllerProceedsToTakeFirstPlayerInputWhenReversed),
+            ("testControllerProceedsToAlternateMoves", testControllerProceedsToAlternateMoves),
+            ("testControllerProceedsUntilEndOfGame", testControllerProceedsUntilEndOfGame),
+            ("testWindowIsDrawnWhenGameIsOver", testWindowIsDrawnWhenGameIsOver)
+        ]
+    }
+#endif
 
 }

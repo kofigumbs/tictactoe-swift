@@ -1,9 +1,9 @@
 public protocol Window {
 
-    typealias T: Hashable
+    associatedtype T: Hashable
 
     func promptUserForIndex() -> Int
 
-    func drawGrid(grid: Grid<T>)
+    func draw(grid: Grid<T>)
 
 }

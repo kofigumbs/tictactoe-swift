@@ -1,6 +1,6 @@
 public protocol Player {
 
-    typealias T: Hashable
+    associatedtype T: Hashable
 
     var team: T { get }
 

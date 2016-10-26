@@ -105,5 +105,29 @@ class GameTest: XCTestCase {
         XCTAssertNil(Game(board: board).winner())
     }
 
-}
+#if _runtime(_ObjC)
+#else
+    static var allTests: [(String, (GameTest) -> () throws -> Void)] {
+        return [
+            ("testNewGameIsNotOver", testNewGameIsNotOver),
+            ("testFullGameIsOver", testFullGameIsOver),
+            ("testGameIsOverWithTwoInRow", testGameIsOverWithTwoInRow),
+            ("testGameIsOverWithThreeHorizontal", testGameIsOverWithThreeHorizontal),
+            ("testGameIsOverWithThreeVertical", testGameIsOverWithThreeVertical),
+            ("testGameIsOverWithThreeRightDiagonal", testGameIsOverWithThreeRightDiagonal),
+            ("testGameIsOverWithThreeLeftDiagonal", testGameIsOverWithThreeLeftDiagonal),
+            ("testGameIsNotOverWithDifferentMarksInRow", testGameIsNotOverWithDifferentMarksInRow),
+            ("testGameIsNotOverWhenNotInRow", testGameIsNotOverWhenNotInRow),
+            ("testGameIsOverWhenThreeInRowPlusMore", testGameIsOverWhenThreeInRowPlusMore),
+            ("testWinnerOfThreeInRow", testWinnerOfThreeInRow),
+            ("testWinnerOfThreeInColumn", testWinnerOfThreeInColumn),
+            ("testWinnerOfTwoDiagonal", testWinnerOfTwoDiagonal),
+            ("testWinnerOfThreeInRowPlusMore", testWinnerOfThreeInRowPlusMore),
+            ("testCatsGameHasNoWinner", testCatsGameHasNoWinner),
+            ("testEmptyGameHasNoWinner", testEmptyGameHasNoWinner),
+            ("testNewGameIsNotOver", testNewGameIsNotOver)
+        ]
+    }
+#endif
 
+}

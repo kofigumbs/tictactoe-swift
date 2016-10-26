@@ -1,5 +1,5 @@
 import XCTest
-import UI
+import Core
 
 class GridTest: XCTestCase {
 
@@ -45,5 +45,19 @@ class GridTest: XCTestCase {
 
         XCTAssertEqual(grid[1], grid.contents[1])
     }
+
+#if _runtime(_ObjC)
+#else
+    static var allTests: [(String, (GridTest) -> () throws -> Void)] {
+        return [
+            ("testCreatesEmptyGrid", testCreatesEmptyGrid),
+            ("testCreatesGridWithOneCell", testCreatesGridWithOneCell),
+            ("testCreatesGridWithTwoCells", testCreatesGridWithTwoCells),
+            ("testNonInitializedValuesAreNil", testNonInitializedValuesAreNil),
+            ("testCannotSetValuesOutOfBounds", testCannotSetValuesOutOfBounds),
+            ("testContentsAreVisible", testContentsAreVisible)
+        ]
+    }
+#endif
 
 }

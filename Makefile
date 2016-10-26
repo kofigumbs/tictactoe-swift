@@ -1,21 +1,12 @@
-test: _testCore _testUI
+TERMBOX_PACKAGE := $(wildcard Packages/CTermbox*/termbox)
+SWIFT_FLAGS = -Xlinker -L$(TERMBOX_PACKAGE)/build/src
 
-_testCore:
-	xcodebuild test -scheme CoreTests
+.INTSTALL:
+	swift package fetch
+	cd $(TERMBOX_PACKAGE); ./waf configure; ./waf
 
-_testUI:
-	xcodebuild test -scheme UITests
+build: .INTSTALL
+	swift build $(SWIFT_FLAGS)
 
-clean:
-	xcodebuild clean
-	cd TermboxAdapter/Termbox; ./waf uninstall
-	rm -rf TermboxAdapter/Termbox/build
-
-build: _buildTermbox
-	xcodebuild build
-
-_buildTermbox:
-	git submodule init
-	git submodule update
-	cd TermboxAdapter/Termbox; ./waf configure; ./waf; ./waf install
-
+test: .INTSTALL
+	swift test $(SWIFT_FLAGS)
