@@ -5,11 +5,9 @@
 
 ```
 make install
-swift build
+make build
 .build/debug/[Readline|Termbox|Server]
 ```
-
-_Uninstall with `make uninstall`._
 
 
 ### Credits
