@@ -1,12 +1,23 @@
-TERMBOX_PACKAGE := $(wildcard Packages/CTermbox*/termbox)
-SWIFT_FLAGS = -Xlinker -L$(TERMBOX_PACKAGE)/build/src
+TERMBOX_DIR := $(wildcard Packages/CTermbox*/termbox)
+SWIFT_LINK_FLAGS = -Xlinker -L$(TERMBOX_DIR)/build/src
 
-.INTSTALL:
+
+
+install:
 	swift package fetch
-	cd $(TERMBOX_PACKAGE); ./waf configure; ./waf
+	cd $(TERMBOX_DIR) && \
+		./waf --target=termbox_static configure install
 
-build: .INTSTALL
-	swift build $(SWIFT_FLAGS)
 
-test: .INTSTALL
-	swift test $(SWIFT_FLAGS)
+build:
+	swift build $(SWIFT_LINK_FLAGS)
+
+
+clean:
+	swift build --clean
+	cd $(TERMBOX_DIR) && \
+	   	./waf clean
+
+
+test:
+	swift test --color always $(SWIFT_LINK_FLAGS)
