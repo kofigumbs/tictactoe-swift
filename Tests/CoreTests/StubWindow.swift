@@ -1,4 +1,4 @@
-import UI
+import Core
 
 class StubWindow: Window {
 
@@ -8,7 +8,7 @@ class StubWindow: Window {
     init(responses: [Int] = []) { self.responses = responses }
 
     func promptUserForIndex() -> Int { return responses.popLast()! }
-    func drawGrid(grid: Grid<String>) { draws++ }
+    func draw(grid: Grid<String>) { draws += 1 }
 
 }
 

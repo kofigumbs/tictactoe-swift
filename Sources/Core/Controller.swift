@@ -1,6 +1,4 @@
-import UI
-
-public class Controller<U: Player, V: Player, W: Window where U.T == V.T, U.T == W.T> {
+public class Controller<U: Player, V: Player, W: Window> where U.T == V.T, U.T == W.T {
 
     public var isActive: Bool { return !Game(board: board).isOver() }
     public var board: Board<U.T>
@@ -11,26 +9,26 @@ public class Controller<U: Player, V: Player, W: Window where U.T == V.T, U.T ==
 
     public init(window: W, players: (U, V), args: [String]) {
         self.board = Board(dimmension: 3)
-        self.turn = !args.contains("--second")
         self.players = players
         self.window = window
+        self.turn = !args.contains("--second")
     }
 
     public func proceed() {
         takeTurn()
         if Game(board: board).isOver() {
-            window.drawGrid(board.grid)
+            window.draw(grid: board.grid)
         }
     }
 
     private func takeTurn() {
-        turn ? takeTurnWith(players.0) : takeTurnWith(players.1)
+        turn ? takeTurn(with: players.0) : takeTurn(with: players.1)
         turn = !turn
     }
 
-    private func takeTurnWith<X: Player where X.T == U.T>(player: X) {
-        let move = player.evaluate(board)
-        board = board.markAt(move, with: player.team)
+    private func takeTurn<X: Player>(with player: X) where X.T == U.T {
+        let move = player.evaluate(board: board)
+        board = board.marked(at: move, with: player.team)
     }
 
 }

@@ -5,14 +5,14 @@ class BoardTest: XCTestCase {
 
     func testCanMarkBoard() {
         let board = Board<String>(dimmension: 3)
-        let newBoard = board.markAt(0, with: "X")
+        let newBoard = board.marked(at: 0, with: "X")
 
         XCTAssertEqual(newBoard[0], "X")
     }
 
     func testCanMarkMarkedBoard() {
         let board = Board<String>(dimmension: 3, contents: [1: "O"])
-        let newBoard = board.markAt(0, with: "X")
+        let newBoard = board.marked(at: 0, with: "X")
 
         XCTAssertEqual(newBoard[0], "X")
         XCTAssertEqual(newBoard[1], "O")
@@ -55,5 +55,20 @@ class BoardTest: XCTestCase {
         XCTAssertNotEqual(board1, board3)
         XCTAssertNotEqual(board2, board3)
     }
+
+#if _runtime(_ObjC)
+#else
+    static var allTests: [(String, (BoardTest) -> () throws -> Void)] {
+        return [
+            ("testCanMarkBoard", testCanMarkBoard),
+            ("testCanMarkMarkedBoard", testCanMarkMarkedBoard),
+            ("testBoardIsNotFull", testBoardIsNotFull),
+            ("testBoardIsFull", testBoardIsFull),
+            ("testAvailablePositionsWhenEmpty", testAvailablePositionsWhenEmpty),
+            ("testAvailablePositionsWhenNotEmpty", testAvailablePositionsWhenNotEmpty),
+            ("testEquatable", testEquatable)
+        ]
+    }
+#endif
 
 }

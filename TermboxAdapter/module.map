@@ -1,5 +1,0 @@
-module Termbox [system] {
-    header "Termbox/src/termbox.h"
-    export *
-}
-

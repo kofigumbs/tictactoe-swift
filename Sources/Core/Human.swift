@@ -1,5 +1,3 @@
-import UI
-
 public class Human<W: Window>: Player {
 
     public let team: W.T
@@ -8,7 +6,7 @@ public class Human<W: Window>: Player {
     public init(team: W.T, window: W) { self.team = team; self.window = window }
 
     public func evaluate(board: Board<W.T>) -> Int {
-        window.drawGrid(board.grid)
+        window.draw(grid: board.grid)
         var attempt: Int
         repeat {
             attempt = window.promptUserForIndex()

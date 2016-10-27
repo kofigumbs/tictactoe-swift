@@ -1,5 +1,4 @@
 import XCTest
-import UI
 @testable import Core
 
 class HumanTest: XCTestCase {
@@ -9,8 +8,8 @@ class HumanTest: XCTestCase {
         let human = Human(team: "X", window: window)
         let board = Board<String>(dimmension: 3)
 
-        XCTAssertEqual(human.evaluate(board), 4)
-        XCTAssertEqual(human.evaluate(board), 2)
+        XCTAssertEqual(human.evaluate(board: board), 4)
+        XCTAssertEqual(human.evaluate(board: board), 2)
     }
 
     func testHumanRetriesOnInvalidSpace() {
@@ -18,7 +17,7 @@ class HumanTest: XCTestCase {
         let human = Human(team: "X", window: window)
         let board = Board<String>(dimmension: 3, contents: [4: "X", 5: "O"])
 
-        XCTAssertEqual(human.evaluate(board), 3)
+        XCTAssertEqual(human.evaluate(board: board), 3)
     }
 
     func testHumanDrawsGridToWindow() {
@@ -28,8 +27,20 @@ class HumanTest: XCTestCase {
 
         XCTAssertEqual(window.draws, 0)
 
-        human.evaluate(board)
+        let _ = human.evaluate(board: board)
+
         XCTAssertEqual(window.draws, 1)
     }
-}
 
+#if _runtime(_ObjC)
+#else
+    static var allTests: [(String, (HumanTest) -> () throws -> Void)] {
+        return [
+            ("testHumanCanMove", testHumanCanMove),
+            ("testHumanRetriesOnInvalidSpace", testHumanRetriesOnInvalidSpace),
+            ("testHumanDrawsGridToWindow", testHumanDrawsGridToWindow)
+        ]
+    }
+#endif
+
+}

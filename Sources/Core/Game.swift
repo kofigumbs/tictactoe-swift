@@ -11,24 +11,27 @@ struct Game<T: Hashable> {
     }
 
     private func gatherWinningCombos() -> [(T, [Int])] {
-        return groupIndicies().filter({ hasWinningCombo($0.1) })
+        return groupIndicies().filter({ hasWinningCombo(marks: $0.1) })
     }
 
     private func groupIndicies() -> [T: [Int]] {
-        return board.enumerate().reduce(Dictionary<T, [Int]>(), combine: groupIndex)
+        return board.enumerated().reduce([T: [Int]](), groupIndex)
     }
 
-    private func groupIndex(var acc: [T: [Int]], entry: (Int, T?)) -> [T: [Int]] {
+    private func groupIndex(acc: [T: [Int]], entry: (Int, T?)) -> [T: [Int]] {
+        var acc = acc
         let (index, value) = entry
+
         if let mark = value { acc[mark] = (acc[mark] ?? []) + [index] }
+
         return acc
     }
 
     private func hasWinningCombo(marks: [Int]) -> Bool {
-        let subsetOfMarks = { (indicies: [Int]) in Set(indicies).isSubsetOf(marks) }
-        return indiciesForRows(board.dimmension).contains(subsetOfMarks) ||
-            indiciesForColumns(board.dimmension).contains(subsetOfMarks) ||
-            indiciesForDiagonals(board.dimmension).contains(subsetOfMarks)
+        let subsetOfMarks = { (indicies: [Int]) in Set(indicies).isSubset(of: Set(marks)) }
+        return indiciesForRows(dimmension: board.dimmension).contains(where: subsetOfMarks) ||
+            indiciesForColumns(dimmension: board.dimmension).contains(where: subsetOfMarks) ||
+            indiciesForDiagonals(dimmension: board.dimmension).contains(where: subsetOfMarks)
     }
 
     private func indiciesForRows(dimmension: Int) -> [[Int]] {
