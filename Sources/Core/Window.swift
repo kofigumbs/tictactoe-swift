@@ -4,6 +4,6 @@ public protocol Window {
 
     func promptUserForIndex() -> Int
 
-    func draw(grid: Grid<T>)
+    func draw(board: Board<T>)
 
 }

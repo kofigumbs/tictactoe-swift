@@ -17,7 +17,7 @@ public class Controller<U: Player, V: Player, W: Window> where U.T == V.T, U.T =
     public func proceed() {
         takeTurn()
         if Game(board: board).isOver() {
-            window.draw(grid: board.grid)
+            window.draw(board: board)
         }
     }
 

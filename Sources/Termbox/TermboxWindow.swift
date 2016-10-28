@@ -4,7 +4,7 @@ import Core
 class TermboxWindow<T: Hashable>: Window {
 
     private var cursor = 0
-    private var grid: Grid<T> = Grid(dimmension: 0)
+    private var board: Board<T> = Board(dimmension: 0)
     private var marksInUse: [T: UInt32] = Dictionary()
     private var marksAvailable: [UInt32] = [ASCII_COLON, ASCII_X]
 
@@ -21,13 +21,13 @@ class TermboxWindow<T: Hashable>: Window {
         repeat {
             key = pollKey()
             if key == TB_KEY_ARROW_DOWN {
-                adjustCursor(diff: grid.dimmension)
+                adjustCursor(diff: board.dimmension)
             } else if key == TB_KEY_ARROW_UP {
-                adjustCursor(diff: -grid.dimmension)
+                adjustCursor(diff: -board.dimmension)
             } else if key == TB_KEY_ARROW_LEFT {
-                adjustCursor(diff: cursor % grid.dimmension == 0 ? 0 : -1)
+                adjustCursor(diff: cursor % board.dimmension == 0 ? 0 : -1)
             } else if key == TB_KEY_ARROW_RIGHT {
-                adjustCursor(diff: cursor % grid.dimmension == grid.dimmension - 1 ? 0 : 1)
+                adjustCursor(diff: cursor % board.dimmension == board.dimmension - 1 ? 0 : 1)
             }
         } while key != TB_KEY_ENTER
     }
@@ -42,18 +42,18 @@ class TermboxWindow<T: Hashable>: Window {
 
     private func adjustCursor(diff: Int) {
         let proposed = cursor + diff
-        if proposed >= 0 && proposed < grid.count {
+        if proposed >= 0 && proposed < board.count {
             self.cursor = proposed
-            redrawGrid()
+            redrawBoard()
         }
     }
 
-    func draw(grid: Grid<T>) {
-        self.grid = grid
-        redrawGrid()
+    func draw(board: Board<T>) {
+        self.board = board
+        redrawBoard()
     }
 
-    private func redrawGrid() {
+    private func redrawBoard() {
         paintEachCell()
         let _ = CTermbox.tb_present()
     }
@@ -76,14 +76,14 @@ class TermboxWindow<T: Hashable>: Window {
             return (ASCII_PIPE, false)
         } else {
             let index = occupyingCell(col: x, row: y)
-            return (gridChar(at: index) ?? ASCII_SPACE, index == cursor)
+            return (boardChar(at: index) ?? ASCII_SPACE, index == cursor)
         }
     }
 
     private func occupyingCell(col x: Int32, row y: Int32) -> Int {
         let i = defineIndex(at: x, bound: CTermbox.tb_width())
         let j = defineIndex(at: y, bound: CTermbox.tb_height())
-        return i + j * grid.dimmension
+        return i + j * board.dimmension
     }
 
     private func defineIndex(at target: Int32, bound: Int32) -> Int {
@@ -93,8 +93,8 @@ class TermboxWindow<T: Hashable>: Window {
         return i
     }
 
-    private func gridChar(at index: Int) -> UInt32? {
-        return grid[index].map({ fetchMark(for: $0) })
+    private func boardChar(at index: Int) -> UInt32? {
+        return board[index].map({ fetchMark(for: $0) })
     }
 
     private func fetchMark(for team: T) -> UInt32 {
@@ -108,7 +108,7 @@ class TermboxWindow<T: Hashable>: Window {
     }
 
     private func dividerCells(dimmension: Int32) -> [Int32] {
-        return (Int32(1) ..< Int32(grid.dimmension)).map({ $0 * dimmension / Int32(grid.dimmension) })
+        return (Int32(1) ..< Int32(board.dimmension)).map({ $0 * dimmension / Int32(board.dimmension) })
     }
 
 }
