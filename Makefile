@@ -1,10 +1,9 @@
-BUILD_TARGET = .build/debug
+BUILD_TARGET = $(CURDIR)/.build
+BUILD_MODE=debug
 
 
 $(BUILD_TARGET)/libtermbox.a:
-	mkdir -p $(BUILD_TARGET)
 	swift package fetch
 	cd Packages/CTermbox*/termbox && \
-		./waf --target=termbox_static configure install
-	mv Packages/CTermbox*/termbox/build/src/libtermbox.a $(BUILD_TARGET)
+		./waf --target=termbox_static --prefix=$(BUILD_TARGET) --libdir=$(BUILD_TARGET)/$(BUILD_MODE) configure install
 
