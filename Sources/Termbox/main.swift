@@ -1,7 +1,7 @@
 import Core
 import CTermbox
 
-let window = TermboxWindow<Bool>()
+let window = TermboxWindow()
 let players = (Human(team: true, window: window), Solver(team: false, opponent: true))
 let controller = Controller(window: window, players: players, args: CommandLine.arguments)
 

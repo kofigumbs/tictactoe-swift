@@ -1,12 +1,10 @@
 import CTermbox
 import Core
 
-class TermboxWindow<T: Hashable>: Window {
-
+class TermboxWindow: Window {
     private var cursor = 0
-    private var board: Board<T> = Board(dimmension: 0)
-    private var marksInUse: [T: UInt32] = Dictionary()
-    private var marksAvailable: [UInt32] = [ASCII_COLON, ASCII_X]
+    private var board: Board<Bool> = Board(dimmension: 0)
+    private let marks = (ASCII_COLON, ASCII_X)
 
     init() { let _ = CTermbox.tb_init() }
     deinit { let _ = CTermbox.tb_shutdown() }
@@ -48,7 +46,7 @@ class TermboxWindow<T: Hashable>: Window {
         }
     }
 
-    func draw(board: Board<T>) {
+    func draw(board: Board<Bool>) {
         self.board = board
         redrawBoard()
     }
@@ -97,14 +95,8 @@ class TermboxWindow<T: Hashable>: Window {
         return board[index].map({ fetchMark(for: $0) })
     }
 
-    private func fetchMark(for team: T) -> UInt32 {
-        if let mark = marksInUse[team] {
-            return mark
-        } else {
-            let mark = marksAvailable.popLast()!
-            marksInUse[team] = mark
-            return mark
-        }
+    private func fetchMark(for team: Bool) -> UInt32 {
+        return team ? marks.0 : marks.1
     }
 
     private func dividerCells(dimmension: Int32) -> [Int32] {
@@ -112,4 +104,3 @@ class TermboxWindow<T: Hashable>: Window {
     }
 
 }
-

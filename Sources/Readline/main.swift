@@ -1,6 +1,6 @@
 import Core
 
-let window = ReadlineWindow<Bool>()
+let window = ReadlineWindow()
 let players = (Human(team: true, window: window), Solver(team: false, opponent: true))
 let controller = Controller(window: window, players: players, args: CommandLine.arguments)
 

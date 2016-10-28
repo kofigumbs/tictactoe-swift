@@ -1,6 +1,6 @@
 import Core
 
-if let window = ServerWindow<Bool>() {
+if let window = ServerWindow() {
     let players = (Human(team: true, window: window), Solver(team: false, opponent: true))
     let controller = Controller(window: window, players: players, args: CommandLine.arguments)
 
