@@ -1,3 +1,0 @@
-[submodule "TermboxAdapter/Termbox"]
-	path = TermboxAdapter/Termbox
-	url = https://github.com/hkgumbs/termbox.git

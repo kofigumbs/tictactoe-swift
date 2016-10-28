@@ -4,8 +4,8 @@
 ### Usage
 
 ```
-make install
-make build
+make
+swift build
 .build/debug/[Readline|Termbox|Server]
 ```
 
