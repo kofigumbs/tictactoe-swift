@@ -1,34 +1,40 @@
-public class Controller<U: Player, V: Player, W: Window> where U.T == V.T, U.T == W.T {
+public class Controller<P1: Player, P2: Player, Win: Window>
+        where Win.Mark == P1.Mark, Win.Mark == P2.Mark {
+
+    typealias Mark = Win.Mark
 
     public var isActive: Bool { return !Game(board: board).isOver() }
-    public var board: Board<U.T>
+    public var board: Board<Mark>
 
-    private var players: (U, V)
-    private let window: W
-    private var turn: Bool
+    private var players: (P1, P2)
+    private var p1Turn: Bool
+    private let window: Win
 
-    public init(window: W, players: (U, V), args: [String]) {
+    public init(window: Win, players: (P1, P2), args: [String]) {
         self.board = Board(dimmension: 3)
         self.players = players
         self.window = window
-        self.turn = !args.contains("--second")
+        self.p1Turn = !args.contains("--second")
     }
 
     public func proceed() {
-        takeTurn()
+        let board = takeTurn()
         if Game(board: board).isOver() {
-            window.draw(grid: board.grid)
+            window.draw(board: board)
         }
+
+        self.p1Turn = !p1Turn
+        self.board = board
     }
 
-    private func takeTurn() {
-        turn ? takeTurn(with: players.0) : takeTurn(with: players.1)
-        turn = !turn
+    private func takeTurn() -> Board<Mark> {
+        return p1Turn ? takeTurn(with: players.0) : takeTurn(with: players.1)
     }
 
-    private func takeTurn<X: Player>(with player: X) where X.T == U.T {
+    private func takeTurn<P: Player>(with player: P) -> Board<Mark>
+            where P.Mark == Mark {
         let move = player.evaluate(board: board)
-        board = board.marked(at: move, with: player.team)
+        return board.marked(at: move, with: player.team)
     }
 
 }

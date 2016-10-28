@@ -1,35 +1,54 @@
-public struct Board<T: Hashable>: Collection, Equatable {
+public struct Board<Mark: Hashable>: Collection, Equatable {
 
-    public var startIndex: Int { return grid.startIndex }
-    public var endIndex: Int { return grid.endIndex }
-    public var isEmpty: Bool { return grid.isEmpty }
-    public subscript(index: Int) -> T? { return grid[index] }
+    public let startIndex = 0
+    public let endIndex: Int
+    public let dimmension: Int
+    public let isEmpty: Bool
+    public let contents: [Int:Mark]
 
-    let grid: Grid<T>
-    var isFull: Bool { return flatMap({ $0 }).count == count }
-    var dimmension: Int { return grid.dimmension }
+    public init(dimmension:Int, contents: [Int:Mark] = Dictionary()) {
+        var contents = contents
+        let endIndex = dimmension * dimmension
 
-    public init(dimmension: Int, contents: [Int:T] = Dictionary()) {
-        self.grid = Grid<T>(dimmension: dimmension, contents: contents)
+        contents.bound(startingWith: startIndex, endingWith: endIndex)
+
+        self.endIndex = endIndex
+        self.dimmension = dimmension
+        self.contents = contents
+        self.isEmpty = contents.isEmpty
     }
 
-    func marked(at position: Int, with team: T) -> Board<T> {
-        var contents = grid.contents
+    public subscript(index: Int) -> Mark? {
+        return contents[index]
+    }
+
+    public func index(after i: Int) -> Int {
+        return i + 1
+    }
+
+    var isFull: Bool { return flatMap({ $0 }).count == count }
+
+    func marked(at position: Int, with team: Mark) -> Board<Mark> {
+        var contents = self.contents
         contents[position] = team
         return Board(dimmension: dimmension, contents: contents)
     }
 
     func availableSpaces() -> [Int] {
-        return enumerated().filter({ $0.element == nil }).map({ $0.offset })
+        return enumerated()
+            .filter { $0.element == nil }
+            .map { $0.offset }
     }
 
-    public func index(after i: Int) -> Int {
-        return grid.index(after: i)
-    }
-
-    public static func ==<T: Hashable>(lhs: Board<T>, rhs: Board<T>) -> Bool {
+    public static func ==<Mark: Hashable>(lhs: Board<Mark>, rhs: Board<Mark>) -> Bool {
         return lhs.enumerated().reduce(true) { $0 && $1.element == rhs[$1.offset]  }
     }
 }
 
-
+private extension Dictionary where Key: Integer {
+    mutating func bound(startingWith start: Key, endingWith end: Key) {
+        self.keys
+            .filter({ $0 >= end || $0 < start })
+            .forEach({ self.removeValue(forKey: $0) })
+    }
+}

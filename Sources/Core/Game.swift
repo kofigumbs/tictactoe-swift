@@ -1,24 +1,26 @@
-struct Game<T: Hashable> {
+struct Game<Mark: Hashable> {
 
-    let board: Board<T>
+    let board: Board<Mark>
 
     func isOver() -> Bool {
         return board.isFull || winner() != nil
     }
 
-    func winner() -> T? {
-        return gatherWinningCombos().map({ $0.0 }).first
+    func winner() -> Mark? {
+        return gatherWinningCombos()
+            .map { $0.0 }
+            .first
     }
 
-    private func gatherWinningCombos() -> [(T, [Int])] {
-        return groupIndicies().filter({ hasWinningCombo(marks: $0.1) })
+    private func gatherWinningCombos() -> [(Mark, [Int])] {
+        return groupIndicies().filter { hasWinningCombo(marks: $0.1) }
     }
 
-    private func groupIndicies() -> [T: [Int]] {
-        return board.enumerated().reduce([T: [Int]](), groupIndex)
+    private func groupIndicies() -> [Mark: [Int]] {
+        return board.enumerated().reduce([Mark: [Int]](), groupIndex)
     }
 
-    private func groupIndex(acc: [T: [Int]], entry: (Int, T?)) -> [T: [Int]] {
+    private func groupIndex(acc: [Mark: [Int]], entry: (Int, Mark?)) -> [Mark: [Int]] {
         var acc = acc
         let (index, value) = entry
 
@@ -36,17 +38,17 @@ struct Game<T: Hashable> {
 
     private func indiciesForRows(dimmension: Int) -> [[Int]] {
         return (0 ..< dimmension)
-            .map({ i in (0 ..< dimmension).map({ j in i * dimmension + j }) })
+            .map { i in (0 ..< dimmension).map { j in i * dimmension + j } }
     }
 
     private func indiciesForColumns(dimmension: Int) -> [[Int]] {
         return (0 ..< dimmension)
-            .map({ i in (0 ..< dimmension).map({ j in i + j * dimmension }) })
+            .map { i in (0 ..< dimmension).map { j in i + j * dimmension } }
     }
 
     private func indiciesForDiagonals(dimmension: Int) -> [[Int]] {
-        let rightDiagonal = (0 ..< dimmension).map({ (dimmension + 1) * $0 })
-        let leftDiagonal = (0 ..< dimmension).map({ (dimmension - 1) * ($0 + 1) })
+        let rightDiagonal = (0 ..< dimmension).map { (dimmension + 1) * $0 }
+        let leftDiagonal = (0 ..< dimmension).map { (dimmension - 1) * ($0 + 1) }
         return [rightDiagonal, leftDiagonal]
     }
 }

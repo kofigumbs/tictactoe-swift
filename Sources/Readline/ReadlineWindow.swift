@@ -1,49 +1,46 @@
 import Core
 
-class ReadlineWindow<T: Hashable>: Window {
-
-    var markers = [T:String]()
+struct ReadlineWindow: Window {
+    let text = Text()
 
     func promptUserForIndex() -> Int {
         repeat {
-            print("\n  <YOUR TURN>  ", terminator: "")
-            if let move = readLine().flatMap({ Int($0) }) {
-                return move
+            print(text.prompt, terminator: "")
+            let input = readLine().flatMap({ Int($0) })
+            if let number = input {
+                return number
             }
         } while true
     }
 
-    func draw(grid: Grid<T>) {
-        let rows = createRows(grid: grid)
+    func draw(board: Board<Bool>) {
+        let rows = createRows(board: board)
         let board = formatted(rows: rows)
 
-        print("\n\n" + board)
+        print(text.separated(board))
     }
 
     private func formatted(rows: [String]) -> String {
-        return rows.map { "    \($0)" }.joined(separator: "\n\n    -----------\n\n")
+        return rows
+            .map(text.indented)
+            .joined(separator: text.horizontalLine)
     }
 
-    private func createRows(grid: Grid<T>) -> [String] {
-        let bounds = 0 ..< grid.dimmension
-        return bounds.flatMap { createRow(grid: grid, row: $0) }
+    private func createRows(board: Board<Bool>) -> [String] {
+        let bounds = 0 ..< board.dimmension
+        return bounds.flatMap { createRow(board: board, row: $0) }
     }
 
-    private func createRow(grid: Grid<T>, row: Int) -> String {
-        let bounds = 0 ..< grid.dimmension
-        return bounds.map { col in createMarker(on: grid, row: row, col: col) }.joined(separator: "|")
+    private func createRow(board: Board<Bool>, row: Int) -> String {
+        let bounds = 0 ..< board.dimmension
+        return bounds
+            .map { col in createMarker(on: board, row: row, col: col) }
+            .map(text.padded)
+            .joined(separator: text.veriticalLine)
     }
 
-    private func createMarker(on grid: Grid<T>, row: Int, col: Int) -> String {
-        guard let player = grid[row * grid.dimmension + col] else { return "   " }
-        let marker = markers[player] ?? nextMarker()
-
-        markers[player] = marker
-
-        return marker
+    private func createMarker(on board: Board<Bool>, row: Int, col: Int) -> Character? {
+        return board[row * board.dimmension + col].flatMap(text.marker)
     }
 
-    private func nextMarker() -> String {
-        return markers.contains { $0.1 == " X " } ? " O " : " X "
-    }
 }

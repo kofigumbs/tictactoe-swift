@@ -8,7 +8,7 @@ class StubWindow: Window {
     init(responses: [Int] = []) { self.responses = responses }
 
     func promptUserForIndex() -> Int { return responses.popLast()! }
-    func draw(grid: Grid<String>) { draws += 1 }
+    func draw(board: Board<String>) { draws += 1 }
 
 }
 

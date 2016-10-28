@@ -3,6 +3,49 @@ import XCTest
 
 class BoardTest: XCTestCase {
 
+    func testCreatesEmptyBoard() {
+        let board: Board<String> = Board(dimmension: 3)
+
+        XCTAssertTrue(board.isEmpty)
+    }
+
+    func testCreatesBoardWithOneCell() {
+        let board = Board(dimmension: 3, contents: [0: "Cell 0"])
+
+        XCTAssertFalse(board.isEmpty)
+        XCTAssertEqual(board[0], "Cell 0")
+    }
+
+    func testCreatesBoardWithTwoCells() {
+        let board = Board(dimmension: 3, contents: [0: "Cell 0", 8: "Cell 8"])
+
+        XCTAssertFalse(board.isEmpty)
+        XCTAssertEqual(board[0], "Cell 0")
+        XCTAssertEqual(board[8], "Cell 8")
+    }
+
+    func testNonInitializedValuesAreNil() {
+        let board = Board(dimmension: 3, contents: [1: "Cell 1"])
+
+        XCTAssertEqual(board[0], nil)
+        XCTAssertEqual(board[1], "Cell 1")
+    }
+
+    func testCannotSetValuesOutOfBounds() {
+        let contents: [Int: String] = [-1: "Cell -1", 9: "Cell 9"]
+        let board = Board(dimmension: 3, contents: contents)
+
+        XCTAssertTrue(board.isEmpty)
+        XCTAssertNil(board[-1])
+        XCTAssertNil(board[9])
+    }
+
+    func testContentsAreVisible() {
+        let board = Board(dimmension: 3, contents: [1: "Cell 1"])
+
+        XCTAssertEqual(board[1], board.contents[1])
+    }
+
     func testCanMarkBoard() {
         let board = Board<String>(dimmension: 3)
         let newBoard = board.marked(at: 0, with: "X")
@@ -60,6 +103,12 @@ class BoardTest: XCTestCase {
 #else
     static var allTests: [(String, (BoardTest) -> () throws -> Void)] {
         return [
+            ("testCreatesEmptyBoard", testCreatesEmptyBoard),
+            ("testCreatesBoardWithOneCell", testCreatesBoardWithOneCell),
+            ("testCreatesBoardWithTwoCells", testCreatesBoardWithTwoCells),
+            ("testNonInitializedValuesAreNil", testNonInitializedValuesAreNil),
+            ("testCannotSetValuesOutOfBounds", testCannotSetValuesOutOfBounds),
+            ("testContentsAreVisible", testContentsAreVisible),
             ("testCanMarkBoard", testCanMarkBoard),
             ("testCanMarkMarkedBoard", testCanMarkMarkedBoard),
             ("testBoardIsNotFull", testBoardIsNotFull),

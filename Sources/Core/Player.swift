@@ -1,10 +1,10 @@
 public protocol Player {
 
-    associatedtype T: Hashable
+    associatedtype Mark: Hashable
 
-    var team: T { get }
+    var team: Mark { get }
 
-    func evaluate(board: Board<T>) -> Int
+    func evaluate(board: Board<Mark>) -> Int
 
 }
 

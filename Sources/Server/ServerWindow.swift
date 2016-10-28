@@ -1,7 +1,7 @@
 import Core
 import SocksCore
 
-class ServerWindow<T: Hashable>: Window {
+class ServerWindow: Window {
     let socket: TCPInternetSocket
 
     init?() {
@@ -29,10 +29,10 @@ class ServerWindow<T: Hashable>: Window {
         }
     }
 
-    func draw(grid: Grid<T>) {
+    func draw(board: Board<Bool>) {
         do {
             let client = try socket.accept()
-            let data = [UInt8](toJSON(grid: grid).utf8)
+            let data = [UInt8](toJSON(board: board).utf8)
             try client.send(data: data)
             try client.close()
         } catch {
@@ -45,9 +45,9 @@ class ServerWindow<T: Hashable>: Window {
         return i
     }
 
-    func toJSON(grid: Grid<T>) -> String {
+    func toJSON(board: Board<Bool>) -> String {
         var json = "{ \n"
-        grid.enumerated().forEach { (i, player) in json += "\t\(i) : \(player)\n" }
+        board.enumerated().forEach { (i, player) in json += "\t\(i) : \(player)\n" }
         json += "}"
 
         return json
