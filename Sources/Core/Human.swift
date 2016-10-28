@@ -1,11 +1,14 @@
-public class Human<W: Window>: Player {
+public class Human<Win: Window>: Player {
 
-    public let team: W.T
-    private let window: W
+    public let team: Win.Mark
+    private let window: Win
 
-    public init(team: W.T, window: W) { self.team = team; self.window = window }
+    public init(team: Win.Mark, window: Win) {
+        self.team = team
+        self.window = window
+    }
 
-    public func evaluate(board: Board<W.T>) -> Int {
+    public func evaluate(board: Board<Win.Mark>) -> Int {
         window.draw(board: board)
         var attempt: Int
         repeat {

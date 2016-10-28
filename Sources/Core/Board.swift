@@ -1,12 +1,12 @@
-public struct Board<T: Hashable>: Collection, Equatable {
+public struct Board<Mark: Hashable>: Collection, Equatable {
 
     public let startIndex = 0
     public let endIndex: Int
     public let dimmension: Int
     public let isEmpty: Bool
-    public let contents: [Int:T]
+    public let contents: [Int:Mark]
 
-    public init(dimmension:Int, contents: [Int:T] = Dictionary()) {
+    public init(dimmension:Int, contents: [Int:Mark] = Dictionary()) {
         var contents = contents
         let endIndex = dimmension * dimmension
 
@@ -18,7 +18,7 @@ public struct Board<T: Hashable>: Collection, Equatable {
         self.isEmpty = contents.isEmpty
     }
 
-    public subscript(index: Int) -> T? {
+    public subscript(index: Int) -> Mark? {
         return contents[index]
     }
 
@@ -28,7 +28,7 @@ public struct Board<T: Hashable>: Collection, Equatable {
 
     var isFull: Bool { return flatMap({ $0 }).count == count }
 
-    func marked(at position: Int, with team: T) -> Board<T> {
+    func marked(at position: Int, with team: Mark) -> Board<Mark> {
         var contents = self.contents
         contents[position] = team
         return Board(dimmension: dimmension, contents: contents)
@@ -40,13 +40,13 @@ public struct Board<T: Hashable>: Collection, Equatable {
             .map { $0.offset }
     }
 
-    public static func ==<T: Hashable>(lhs: Board<T>, rhs: Board<T>) -> Bool {
+    public static func ==<Mark: Hashable>(lhs: Board<Mark>, rhs: Board<Mark>) -> Bool {
         return lhs.enumerated().reduce(true) { $0 && $1.element == rhs[$1.offset]  }
     }
 }
 
 private extension Dictionary where Key: Integer {
-    func bounded(startingWith start: Key, endingWith end: Key) {
+    mutating func bound(startingWith start: Key, endingWith end: Key) {
         self.keys
             .filter({ $0 >= end || $0 < start })
             .forEach({ self.removeValue(forKey: $0) })

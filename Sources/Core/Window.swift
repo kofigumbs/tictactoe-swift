@@ -1,9 +1,9 @@
 public protocol Window {
 
-    associatedtype T: Hashable
+    associatedtype Mark: Hashable
 
     func promptUserForIndex() -> Int
 
-    func draw(board: Board<T>)
+    func draw(board: Board<Mark>)
 
 }
