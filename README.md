@@ -1,5 +1,7 @@
 # Tic Tac Toe - Swift
 
+[![Build Status](https://travis-ci.org/hkgumbs/tictactoe-swift.svg?branch=master)](https://travis-ci.org/hkgumbs/tictactoe-swift)
+
 
 ### Usage
 
