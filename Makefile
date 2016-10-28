@@ -1,5 +1,5 @@
-BUILD_TARGET = $(CURDIR)/.build
-BUILD_MODE=debug
+BUILD_TARGET ?= $(CURDIR)/.build
+BUILD_MODE ?= debug
 
 
 $(BUILD_TARGET)/libtermbox.a:
