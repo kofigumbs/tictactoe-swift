@@ -6,6 +6,10 @@ public struct Board<Mark: Hashable>: Collection, Equatable {
     public let isEmpty: Bool
     public let contents: [Int:Mark]
 
+    var isFull: Bool {
+        return count == flatMap { $0 }.count
+    }
+
     public init(dimmension:Int, contents: [Int:Mark] = Dictionary()) {
         var contents = contents
         let endIndex = dimmension * dimmension
@@ -26,8 +30,6 @@ public struct Board<Mark: Hashable>: Collection, Equatable {
         return i + 1
     }
 
-    var isFull: Bool { return flatMap({ $0 }).count == count }
-
     func marked(at position: Int, with team: Mark) -> Board<Mark> {
         var contents = self.contents
         contents[position] = team
@@ -41,8 +43,9 @@ public struct Board<Mark: Hashable>: Collection, Equatable {
     }
 
     public static func ==<Mark: Hashable>(lhs: Board<Mark>, rhs: Board<Mark>) -> Bool {
-        return lhs.enumerated().reduce(true) { $0 && $1.element == rhs[$1.offset]  }
+        return lhs.enumerated().reduce(true) { $0 && $1.element == rhs[$1.offset] }
     }
+
 }
 
 private extension Dictionary where Key: Integer {

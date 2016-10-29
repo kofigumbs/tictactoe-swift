@@ -3,7 +3,7 @@ public class Controller<P1: Player, P2: Player, Win: Window>
 
     typealias Mark = Win.Mark
 
-    public var isActive: Bool { return !Game(board: board).isOver() }
+    public var isActive: Bool { return !Game(board: board).isOver }
     public var board: Board<Mark>
 
     private var players: (P1, P2)
@@ -19,7 +19,7 @@ public class Controller<P1: Player, P2: Player, Win: Window>
 
     public func proceed() {
         let board = takeTurn()
-        if Game(board: board).isOver() {
+        if Game(board: board).isOver {
             window.draw(board: board)
         }
 
@@ -38,4 +38,3 @@ public class Controller<P1: Player, P2: Player, Win: Window>
     }
 
 }
-

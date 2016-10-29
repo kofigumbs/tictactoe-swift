@@ -2,12 +2,18 @@ import CTermbox
 import Core
 
 class TermboxWindow: Window {
+
     private var cursor = 0
     private var board: Board<Bool> = Board(dimmension: 0)
     private let marks = (ASCII_COLON, ASCII_X)
 
-    init() { let _ = CTermbox.tb_init() }
-    deinit { let _ = CTermbox.tb_shutdown() }
+    init() {
+        let _ = CTermbox.tb_init()
+    }
+
+    deinit {
+        let _ = CTermbox.tb_shutdown()
+    }
 
     public func promptUserForIndex() -> Int {
         pollForEnter()

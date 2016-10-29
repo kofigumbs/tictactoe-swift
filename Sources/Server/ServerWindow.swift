@@ -2,6 +2,7 @@ import Core
 import SocksCore
 
 class ServerWindow: Window {
+
     let socket: TCPInternetSocket
 
     init?() {

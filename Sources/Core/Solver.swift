@@ -41,11 +41,11 @@ public class Solver<Mark: Hashable>: Player {
     private func escapeBestScore(board: Board<Mark>, depth: Int) -> Int? {
         let game = Game(board: board)
 
-        if game.winner() == self.team {
+        if game.winner == self.team {
             return depth + 1
-        } else if game.winner() == self.opponent {
+        } else if game.winner == self.opponent {
             return -(depth + 1)
-        } else if game.isOver() || depth == 0 {
+        } else if game.isOver || depth == 0 {
             return 0
         } else {
             return nil
@@ -67,5 +67,5 @@ public class Solver<Mark: Hashable>: Player {
         let result = (move, score)
         return result
     }
-}
 
+}

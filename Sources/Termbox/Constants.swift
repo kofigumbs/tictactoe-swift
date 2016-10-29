@@ -13,4 +13,3 @@ let ASCII_HYPHEN        = UInt32(45)
 let ASCII_PIPE          = UInt32(124)
 let ASCII_COLON         = UInt32(58)
 let ASCII_X             = UInt32(88)
-

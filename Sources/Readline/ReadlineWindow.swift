@@ -4,13 +4,12 @@ struct ReadlineWindow: Window {
     let text = Text()
 
     func promptUserForIndex() -> Int {
+        var number: Int? = nil
         repeat {
             print(text.prompt, terminator: "")
-            let input = readLine().flatMap({ Int($0) })
-            if let number = input {
-                return number
-            }
-        } while true
+            number = readLine().flatMap({ Int($0) })
+        } while number == nil
+        return number!
     }
 
     func draw(board: Board<Bool>) {

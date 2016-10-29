@@ -1,18 +1,20 @@
-struct Game<Mark: Hashable> {
+class Game<Mark: Hashable> {
 
     let board: Board<Mark>
 
-    func isOver() -> Bool {
-        return board.isFull || winner() != nil
+    init(board: Board<Mark>) {
+        self.board = board
     }
 
-    func winner() -> Mark? {
-        return gatherWinningCombos()
-            .map { $0.0 }
-            .first
-    }
+    lazy var isOver: Bool = {
+        return self.board.isFull || self.winner != nil
+    }()
 
-    private func gatherWinningCombos() -> [(Mark, [Int])] {
+    lazy var winner: Mark? = {
+        return self.winningCombos().map { $0.0 }.first
+    }()
+
+    private func winningCombos() -> [(Mark, [Int])] {
         return groupIndicies().filter { hasWinningCombo(marks: $0.1) }
     }
 
@@ -51,4 +53,5 @@ struct Game<Mark: Hashable> {
         let leftDiagonal = (0 ..< dimmension).map { (dimmension - 1) * ($0 + 1) }
         return [rightDiagonal, leftDiagonal]
     }
+
 }
