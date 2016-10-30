@@ -5,7 +5,6 @@ class TermboxWindow: Window {
 
     private var cursor = 0
     private var board: Board<Bool> = Board(dimmension: 0)
-    private let marks: (UnicodeScalar, UnicodeScalar) = (":", "X")
     private let termbox = Termbox()
 
     public func promptUserForIndex() -> Int {
@@ -57,47 +56,38 @@ class TermboxWindow: Window {
 
     private func paint() {
         (UInt(0) ..< termbox.size.height).forEach({ i in
-            (UInt(0) ..< termbox.size.width).forEach(({ j in paintCell(col: j, row: i) })) })
+            (UInt(0) ..< termbox.size.width).forEach(({ j in paint(col: j, row: i) })) })
     }
 
-    private func paintCell(col x: UInt, row y: UInt) {
-        let (character, highlight) = determineCellContents(col: x, row: y)
-        let background: Color = highlight ? .cyan : .black
-        let cell: Cell = (character: character, foreground: .white, background: background)
-        termbox.change(x: x, y: y, cell: cell)
+    private func paint(col x: UInt, row y: UInt) {
+        let spot = spotCheck(col: x, row: y)
+        termbox.change(x: x, y: y, cell: spot.present())
     }
 
-    private func determineCellContents(col x: UInt, row y: UInt) -> (UnicodeScalar, Bool) {
+    private func spotCheck(col x: UInt, row y: UInt) -> Spot {
         if dividerCells(dimmension: termbox.size.height).contains(y)  {
-            return ("-", false)
+            return .horizontalDivider
         } else if dividerCells(dimmension: termbox.size.width).contains(x) {
-            return ("|", false)
+            return .verticalDivider
         } else {
-            let index = occupyingCell(col: x, row: y)
-            return (boardChar(at: index) ?? " ", index == UInt(cursor))
+            let i = defineBoundary(at: x, dimmension: termbox.size.width)
+            let j = defineBoundary(at: y, dimmension: termbox.size.height)
+            let position = i + j * board.dimmension
+            let selected = position == cursor
+            return board[position].map { .taken(team: $0, selected: selected) } ?? .empty(selected: selected)
         }
     }
 
-    private func occupyingCell(col x: UInt, row y: UInt) -> UInt {
-        let i = defineIndex(at: x, bound: termbox.size.width)
-        let j = defineIndex(at: y, bound: termbox.size.height)
-        return i + j * UInt(board.dimmension)
-    }
-
-    private func defineIndex(at target: UInt, bound: UInt) -> UInt {
-        let divider = dividerCells(dimmension: bound)
-        var i = divider.count
-        while i > 0 && divider[i - 1] > target { i -= 1 }
-        return UInt(i)
+    private func defineBoundary(at target: UInt, dimmension: UInt) -> Int {
+        let divider = dividerCells(dimmension: dimmension)
+        return divider.reversed().reduce(divider.count) { acc, div in
+            div > target && acc > 0 ? acc - 1 : acc
+        }
     }
 
     private func dividerCells(dimmension: UInt) -> [UInt] {
         let side = UInt(board.dimmension)
         return (UInt(1) ..< side).map({ $0 * dimmension / side })
-    }
-
-    private func boardChar(at index: UInt) -> UnicodeScalar? {
-        return board[Int(index)].map { $0 ? marks.0 : marks.1 }
     }
 
 }
