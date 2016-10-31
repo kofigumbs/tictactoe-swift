@@ -3,13 +3,11 @@ import Core
 
 class ControllerTest: XCTestCase {
 
-    let window = StubWindow()
-
     func makeController(args: [String] = [], moves: ([Int], [Int]) = ([], []))
-                    -> Controller<StubPlayer, StubPlayer, StubWindow> {
+                    -> Controller<StubPlayer, StubPlayer> {
         let x = StubPlayer(team: "X", moves: moves.0)
         let o = StubPlayer(team: "O", moves: moves.1)
-        return Controller(window: window, players: (x, o), args: args)
+        return Controller(players: (x, o), args: args)
     }
 
     func testControllerIsActiveWithEmptyBoard() {
@@ -60,19 +58,6 @@ class ControllerTest: XCTestCase {
         XCTAssertFalse(controller.isActive)
     }
 
-    func testWindowIsDrawnWhenGameIsOver() {
-        let controller = makeController(moves: ([0, 1, 2], [3, 4]))
-
-        controller.proceed()
-        controller.proceed()
-        controller.proceed()
-        controller.proceed()
-        XCTAssertEqual(window.draws, 0)
-
-        controller.proceed()
-        XCTAssertEqual(window.draws, 1)
-    }
-
 #if _runtime(_ObjC)
 #else
     static var allTests: [(String, (ControllerTest) -> () throws -> Void)] {
@@ -82,7 +67,6 @@ class ControllerTest: XCTestCase {
             ("testControllerProceedsToTakeFirstPlayerInputWhenReversed", testControllerProceedsToTakeFirstPlayerInputWhenReversed),
             ("testControllerProceedsToAlternateMoves", testControllerProceedsToAlternateMoves),
             ("testControllerProceedsUntilEndOfGame", testControllerProceedsUntilEndOfGame),
-            ("testWindowIsDrawnWhenGameIsOver", testWindowIsDrawnWhenGameIsOver)
         ]
     }
 #endif

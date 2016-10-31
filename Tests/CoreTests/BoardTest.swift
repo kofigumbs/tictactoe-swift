@@ -40,12 +40,6 @@ class BoardTest: XCTestCase {
         XCTAssertNil(board[9])
     }
 
-    func testContentsAreVisible() {
-        let board = Board(dimmension: 3, contents: [1: "Cell 1"])
-
-        XCTAssertEqual(board[1], board.contents[1])
-    }
-
     func testCanMarkBoard() {
         let board = Board<String>(dimmension: 3)
         let newBoard = board.marked(at: 0, with: "X")
@@ -108,7 +102,6 @@ class BoardTest: XCTestCase {
             ("testCreatesBoardWithTwoCells", testCreatesBoardWithTwoCells),
             ("testNonInitializedValuesAreNil", testNonInitializedValuesAreNil),
             ("testCannotSetValuesOutOfBounds", testCannotSetValuesOutOfBounds),
-            ("testContentsAreVisible", testContentsAreVisible),
             ("testCanMarkBoard", testCanMarkBoard),
             ("testCanMarkMarkedBoard", testCanMarkMarkedBoard),
             ("testBoardIsNotFull", testBoardIsNotFull),

@@ -1,6 +1,6 @@
 import Core
 
-class StubWindow: Window {
+class StubUI: UserInterface {
 
     private var responses: [Int]
     var draws: Int = 0
@@ -9,12 +9,8 @@ class StubWindow: Window {
         self.responses = responses
     }
 
-    func promptUserForIndex() -> Int {
+    func promptMove(on board: Board<String>) -> Int {
         return responses.popLast()!
-    }
-
-    func draw(board: Board<String>) {
-        draws += 1
     }
 
 }

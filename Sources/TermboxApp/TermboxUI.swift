@@ -1,15 +1,24 @@
 import Termbox
 import Core
 
-class TermboxWindow: Window {
+class TermboxUI: UserInterface {
 
     private var cursor = 0
     private var board: Board<Bool> = Board(dimmension: 0)
     private let termbox = Termbox()
 
-    public func promptUserForIndex() -> Int {
-        waitForInput()
+    public func promptMove(on board: Board<Bool>) -> Int {
+        self.board = board
+        waitForValidCursor()
         return cursor
+    }
+
+    private func waitForValidCursor() {
+        draw()
+        repeat {
+            waitForInput()
+        } while !board.availableSpaces().contains(cursor)
+
     }
 
     private func waitForInput() -> Void {
@@ -42,11 +51,6 @@ class TermboxWindow: Window {
             self.cursor = proposed
             draw()
         }
-    }
-
-    func draw(board: Board<Bool>) {
-        self.board = board
-        draw()
     }
 
     private func draw() {

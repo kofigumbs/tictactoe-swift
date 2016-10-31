@@ -1,7 +1,7 @@
 import Core
 import SocksCore
 
-class ServerWindow: Window {
+class ServerUI: UserInterface {
 
     let socket: TCPInternetSocket
 
@@ -16,8 +16,23 @@ class ServerWindow: Window {
         }
     }
 
+    func promptMove(on board: Board<Bool>) -> Int {
+        send(board: board)
+        return recvInput()
+    }
 
-    func promptUserForIndex() -> Int {
+    private func send(board: Board<Bool>) {
+        do {
+            let client = try socket.accept()
+            let data = [UInt8](toJSON(board: board).utf8)
+            try client.send(data: data)
+            try client.close()
+        } catch {
+            print("This is awkward... I disconnected")
+        }
+    }
+
+    private func recvInput() -> Int {
         do {
             let client = try socket.accept()
             let data = try client.recv().toString()
@@ -30,23 +45,12 @@ class ServerWindow: Window {
         }
     }
 
-    func draw(board: Board<Bool>) {
-        do {
-            let client = try socket.accept()
-            let data = [UInt8](toJSON(board: board).utf8)
-            try client.send(data: data)
-            try client.close()
-        } catch {
-            print("This is awkward... I disconnected")
-        }
-    }
-
-    func parsed(_ data: String) throws -> Int {
+    private func parsed(_ data: String) throws -> Int {
         guard let i = Int(data) else { throw NumberFormat() }
         return i
     }
 
-    func toJSON(board: Board<Bool>) -> String {
+    private func toJSON(board: Board<Bool>) -> String {
         var json = "{ \n"
         board.enumerated().forEach { (i, player) in json += "\t\(i) : \(player)\n" }
         json += "}"

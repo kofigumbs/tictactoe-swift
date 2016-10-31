@@ -1,18 +1,19 @@
 import Core
 
-struct ReadlineWindow: Window {
+struct ReadlineUI: UserInterface {
     let text = Text()
 
-    func promptUserForIndex() -> Int {
-        var number: Int? = nil
+    func promptMove(on board: Board<Bool>) -> Int {
+        draw(board: board)
+        var move: Int? = nil
         repeat {
             print(text.prompt, terminator: "")
-            number = readLine().flatMap { Int($0) }
-        } while number == nil
-        return number!
+            move = readLine().flatMap { Int($0) }
+        } while move == nil || !board.availableSpaces().contains(move!)
+        return move!
     }
 
-    func draw(board: Board<Bool>) {
+    private func draw(board: Board<Bool>) {
         let rows = createRows(board: board)
         let board = formatted(rows: rows)
 

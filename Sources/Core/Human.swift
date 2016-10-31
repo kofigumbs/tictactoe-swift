@@ -1,20 +1,15 @@
-public class Human<Win: Window>: Player {
+public class Human<UI: UserInterface>: Player {
 
-    public let team: Win.Mark
-    private let window: Win
+    public let team: UI.Mark
+    private let ui: UI
 
-    public init(team: Win.Mark, window: Win) {
+    public init(team: UI.Mark, ui: UI) {
         self.team = team
-        self.window = window
+        self.ui = ui
     }
 
-    public func evaluate(board: Board<Win.Mark>) -> Int {
-        window.draw(board: board)
-        var attempt: Int
-        repeat {
-            attempt = window.promptUserForIndex()
-        } while !board.availableSpaces().contains(attempt)
-        return attempt
+    public func evaluate(board: Board<UI.Mark>) -> Int {
+        return ui.promptMove(on: board)
     }
 
 }

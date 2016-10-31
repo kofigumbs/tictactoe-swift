@@ -4,7 +4,7 @@ public struct Board<Mark: Hashable>: Collection, Equatable {
     public let endIndex: Int
     public let dimmension: Int
     public let isEmpty: Bool
-    public let contents: [Int: Mark]
+    private let contents: [Int: Mark]
 
     var isFull: Bool {
         return count == flatMap { $0 }.count
@@ -30,16 +30,16 @@ public struct Board<Mark: Hashable>: Collection, Equatable {
         return i + 1
     }
 
+    public func availableSpaces() -> [Int] {
+        return enumerated()
+            .filter { $0.element == nil }
+            .map { $0.offset }
+    }
+
     func marked(at position: Int, with team: Mark) -> Board<Mark> {
         var contents = self.contents
         contents[position] = team
         return Board(dimmension: dimmension, contents: contents)
-    }
-
-    func availableSpaces() -> [Int] {
-        return enumerated()
-            .filter { $0.element == nil }
-            .map { $0.offset }
     }
 
     public static func == <Mark: Hashable>(lhs: Board<Mark>, rhs: Board<Mark>) -> Bool {

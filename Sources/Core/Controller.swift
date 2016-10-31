@@ -1,7 +1,6 @@
-public class Controller<P1: Player, P2: Player, Win: Window>
-        where Win.Mark == P1.Mark, Win.Mark == P2.Mark {
+public class Controller<P1: Player, P2: Player> where P1.Mark == P2.Mark {
 
-    typealias Mark = Win.Mark
+    typealias Mark = P1.Mark
 
     public var board: Board<Mark>
     public var isActive: Bool {
@@ -10,23 +9,16 @@ public class Controller<P1: Player, P2: Player, Win: Window>
 
     private var players: (P1, P2)
     private var p1Turn: Bool
-    private let window: Win
 
-    public init(window: Win, players: (P1, P2), args: [String]) {
+    public init(players: (P1, P2), args: [String]) {
         self.board = Board(dimmension: 3)
         self.players = players
-        self.window = window
         self.p1Turn = !args.contains("--second")
     }
 
     public func proceed() {
-        let board = takeTurn()
-        if Game(board: board).isOver {
-            window.draw(board: board)
-        }
-
+        self.board = takeTurn()
         self.p1Turn = !p1Turn
-        self.board = board
     }
 
     private func takeTurn() -> Board<Mark> {
