@@ -1,4 +1,4 @@
-public class Controller<P1: Player, P2: Player> where P1.Mark == P2.Mark {
+public class Simulation<P1: Player, P2: Player> where P1.Mark == P2.Mark {
 
     typealias Mark = P1.Mark
 
