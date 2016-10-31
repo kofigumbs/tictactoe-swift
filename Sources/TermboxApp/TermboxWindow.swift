@@ -55,8 +55,9 @@ class TermboxWindow: Window {
     }
 
     private func paint() {
-        (UInt(0) ..< termbox.size.height).forEach({ i in
-            (UInt(0) ..< termbox.size.width).forEach(({ j in paint(col: j, row: i) })) })
+        (UInt(0) ..< termbox.size.height).forEach { i in
+            (UInt(0) ..< termbox.size.width).forEach { j in paint(col: j, row: i) }
+        }
     }
 
     private func paint(col x: UInt, row y: UInt) {
@@ -65,7 +66,7 @@ class TermboxWindow: Window {
     }
 
     private func spotCheck(col x: UInt, row y: UInt) -> Spot {
-        if dividerCells(dimmension: termbox.size.height).contains(y)  {
+        if dividerCells(dimmension: termbox.size.height).contains(y) {
             return .horizontalDivider
         } else if dividerCells(dimmension: termbox.size.width).contains(x) {
             return .verticalDivider
@@ -87,7 +88,7 @@ class TermboxWindow: Window {
 
     private func dividerCells(dimmension: UInt) -> [UInt] {
         let side = UInt(board.dimmension)
-        return (UInt(1) ..< side).map({ $0 * dimmension / side })
+        return (UInt(1) ..< side).map { $0 * dimmension / side }
     }
 
 }

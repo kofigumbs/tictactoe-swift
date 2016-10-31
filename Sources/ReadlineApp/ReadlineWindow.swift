@@ -7,7 +7,7 @@ struct ReadlineWindow: Window {
         var number: Int? = nil
         repeat {
             print(text.prompt, terminator: "")
-            number = readLine().flatMap({ Int($0) })
+            number = readLine().flatMap { Int($0) }
         } while number == nil
         return number!
     }

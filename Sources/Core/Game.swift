@@ -26,7 +26,9 @@ class Game<Mark: Hashable> {
         var acc = acc
         let (index, value) = entry
 
-        if let mark = value { acc[mark] = (acc[mark] ?? []) + [index] }
+        if let mark = value {
+            acc[mark] = (acc[mark] ?? []) + [index]
+        }
 
         return acc
     }

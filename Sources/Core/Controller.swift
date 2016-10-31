@@ -3,8 +3,10 @@ public class Controller<P1: Player, P2: Player, Win: Window>
 
     typealias Mark = Win.Mark
 
-    public var isActive: Bool { return !Game(board: board).isOver }
     public var board: Board<Mark>
+    public var isActive: Bool {
+        return !Game(board: board).isOver
+    }
 
     private var players: (P1, P2)
     private var p1Turn: Bool

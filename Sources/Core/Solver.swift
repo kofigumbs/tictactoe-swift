@@ -7,7 +7,10 @@ public class Solver<Mark: Hashable>: Player {
     private var move: Int = -1
     private var maxRecursionDepth: Int = 6
 
-    public init(team: Mark, opponent: Mark) { self.team = team; self.opponent = opponent }
+    public init(team: Mark, opponent: Mark) {
+        self.team = team
+        self.opponent = opponent
+    }
 
     public func evaluate(board: Board<Mark>) -> Int {
         return shortcutOptimization(on: board) ??
@@ -15,9 +18,13 @@ public class Solver<Mark: Hashable>: Player {
     }
 
     private func shortcutOptimization(on board: Board<Mark>) -> Int? {
-        if board.isEmpty { return 0 }
-        if let center = takeCenter(on: board) { return center }
-        return nil
+        if board.isEmpty {
+            return 0
+        } else if let center = takeCenter(on: board) {
+            return center
+        } else {
+            return nil
+        }
     }
 
     private func takeCenter(on board: Board<Mark>) -> Int? {

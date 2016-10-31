@@ -4,13 +4,13 @@ public struct Board<Mark: Hashable>: Collection, Equatable {
     public let endIndex: Int
     public let dimmension: Int
     public let isEmpty: Bool
-    public let contents: [Int:Mark]
+    public let contents: [Int: Mark]
 
     var isFull: Bool {
         return count == flatMap { $0 }.count
     }
 
-    public init(dimmension:Int, contents: [Int:Mark] = Dictionary()) {
+    public init(dimmension: Int, contents: [Int: Mark] = Dictionary()) {
         var contents = contents
         let endIndex = dimmension * dimmension
 
@@ -42,16 +42,18 @@ public struct Board<Mark: Hashable>: Collection, Equatable {
             .map { $0.offset }
     }
 
-    public static func ==<Mark: Hashable>(lhs: Board<Mark>, rhs: Board<Mark>) -> Bool {
+    public static func == <Mark: Hashable>(lhs: Board<Mark>, rhs: Board<Mark>) -> Bool {
         return lhs.enumerated().reduce(true) { $0 && $1.element == rhs[$1.offset] }
     }
 
 }
 
 private extension Dictionary where Key: Integer {
+
     mutating func bound(startingWith start: Key, endingWith end: Key) {
         self.keys
-            .filter({ $0 >= end || $0 < start })
-            .forEach({ self.removeValue(forKey: $0) })
+            .filter { $0 >= end || $0 < start }
+            .forEach { self.removeValue(forKey: $0) }
     }
+
 }

@@ -7,4 +7,3 @@ public protocol Player {
     func evaluate(board: Board<Mark>) -> Int
 
 }
-
