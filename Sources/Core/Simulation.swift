@@ -1,28 +1,35 @@
-public class Simulation<P1: Player, P2: Player> where P1.Mark == P2.Mark {
+public class Simulation<P0: Player, P1: Player> where P0.Mark == P1.Mark {
 
-    typealias Mark = P1.Mark
+    typealias Mark = P0.Mark
 
     public var board: Board<Mark>
     public var isActive: Bool {
-        return !Game(board: board).isOver
+        return state != .finished
     }
 
-    private var players: (P1, P2)
-    private var p1Turn: Bool
+    private let players: (P0, P1)
+    private var state: State
 
-    public init(players: (P1, P2), args: [String]) {
+    public init(players: (P0, P1), args: [String]) {
         self.board = Board(dimmension: 3)
+        self.state = args.contains("--second") ? .p1Turn : .p0Turn
         self.players = players
-        self.p1Turn = !args.contains("--second")
     }
 
     public func proceed() {
         self.board = takeTurn()
-        self.p1Turn = !p1Turn
+        self.state = update()
     }
 
     private func takeTurn() -> Board<Mark> {
-        return p1Turn ? takeTurn(with: players.0) : takeTurn(with: players.1)
+        switch state {
+        case .p0Turn:
+            return takeTurn(with: players.0)
+        case .p1Turn:
+            return takeTurn(with: players.1)
+        case .finished:
+            return board
+        }
     }
 
     private func takeTurn<P: Player>(with player: P) -> Board<Mark>
@@ -31,4 +38,21 @@ public class Simulation<P1: Player, P2: Player> where P1.Mark == P2.Mark {
         return board.marked(at: move, with: player.team)
     }
 
+    private func update() -> State {
+        switch (Game(board: board).isOver, state) {
+        case (true, _):
+            fallthrough
+        case (false, .finished):
+            return .finished
+        case (false, .p0Turn):
+            return .p1Turn
+        case (false, .p1Turn):
+            return .p0Turn
+        }
+    }
+
+}
+
+public enum State {
+    case p0Turn, p1Turn, finished
 }
