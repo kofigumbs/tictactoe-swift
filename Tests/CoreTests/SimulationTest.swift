@@ -3,70 +3,64 @@ import Core
 
 class SimulationTest: XCTestCase {
 
-    func makeSimulation(args: [String] = [], moves: ([Int], [Int]) = ([], []))
-                    -> Simulation<StubPlayer, StubPlayer> {
-        let x = StubPlayer(team: "X", moves: moves.0)
-        let o = StubPlayer(team: "O", moves: moves.1)
-        return Simulation(players: (x, o), args: args)
+    var seen = [State]()
+
+    func simulate(x: [Int], o: [Int], args: [String] = []) -> (StubPlayer, StubPlayer) {
+        let x = StubPlayer(team: "X", moves: x)
+        let o = StubPlayer(team: "O", moves: o)
+        let simulation = Simulation(players: (x, o), args: args)
+            .on(.waitingForP0) { self.seen.append(.waitingForP0) }
+            .on(.waitingForP1) { self.seen.append(.waitingForP1) }
+            .on(.p0Played) { self.seen.append(.p0Played) }
+            .on(.p1Played) { self.seen.append(.p1Played) }
+            .on(.finished) { self.seen.append(.finished) }
+
+        simulation.start()
+
+        return (x, o)
     }
 
-    func testSimulationIsActiveWithEmptyBoard() {
-        let simulation = makeSimulation()
+    func testSimulationWithNoMovesDoesNothing() {
+        let _ = simulate(x: [], o: [], args: ["--fake-arg"])
 
-        XCTAssertEqual(simulation.board, Board<String>(dimmension: 3))
-        XCTAssertTrue(simulation.isActive)
+        XCTAssertEqual(seen, [.waitingForP0])
     }
 
-    func testSimulationProceedsToTakeFirstPlayerInput() {
-        let simulation = makeSimulation(moves: ([4], []))
+    func testSimulationConsumesMoveFromPlayer0() {
+        let (x, _) = simulate(x: [0], o: [])
 
-        simulation.proceed()
-
-        XCTAssertEqual(simulation.board, Board(dimmension: 3, contents: [4: "X"]))
-        XCTAssertTrue(simulation.isActive)
+        XCTAssertEqual(x.moves, [])
+        XCTAssertEqual(seen, [.waitingForP0, .p0Played, .waitingForP1])
     }
 
-    func testSimulationProceedsToTakeFirstPlayerInputWhenReversed() {
-        let simulation = makeSimulation(args: ["--second"], moves: ([], [4]))
+    func testSimulationWithFlagReversesStart() {
+        let (_, o) = simulate(x: [], o: [0], args: ["--second"])
 
-        simulation.proceed()
-
-        XCTAssertEqual(simulation.board, Board(dimmension: 3, contents: [4: "O"]))
-        XCTAssertTrue(simulation.isActive)
+        XCTAssertEqual(o.moves, [])
+        XCTAssertEqual(seen, [.waitingForP1, .p1Played, .waitingForP0])
     }
 
-    func testSimulationProceedsToAlternateMoves() {
-        let simulation = makeSimulation(moves: ([0], [1]))
+    func testSimulationRunsUntilCompletionConsumingAllMoves() {
+        let (x, o) = simulate(x: [0, 1, 2], o: [3, 5])
 
-        simulation.proceed()
-        simulation.proceed()
-
-        XCTAssertEqual(simulation.board, Board(dimmension: 3, contents: [0: "X", 1: "O"]))
-        XCTAssertTrue(simulation.isActive)
-    }
-
-    func testSimulationProceedsUntilEndOfGame() {
-        let simulation = makeSimulation(moves: ([0, 1, 2], [3, 4]))
-
-        simulation.proceed()
-        simulation.proceed()
-        simulation.proceed()
-        simulation.proceed()
-        simulation.proceed()
-
-        XCTAssertEqual(simulation.board, Board(dimmension: 3, contents: [0: "X", 1: "X", 2: "X", 3: "O", 4: "O"]))
-        XCTAssertFalse(simulation.isActive)
+        XCTAssertEqual(x.moves, [])
+        XCTAssertEqual(o.moves, [])
+        XCTAssertEqual(seen,
+            [   .waitingForP0, .p0Played,
+                .waitingForP1, .p1Played,
+                .waitingForP0, .p0Played,
+                .waitingForP1, .p1Played,
+                .waitingForP0, .p0Played, .finished   ])
     }
 
 #if _runtime(_ObjC)
 #else
     static var allTests: [(String, (SimulationTest) -> () throws -> Void)] {
         return [
-            ("testSimulationIsActiveWithEmptyBoard", testSimulationIsActiveWithEmptyBoard),
-            ("testSimulationProceedsToTakeFirstPlayerInput", testSimulationProceedsToTakeFirstPlayerInput),
-            ("testSimulationProceedsToTakeFirstPlayerInputWhenReversed", testSimulationProceedsToTakeFirstPlayerInputWhenReversed),
-            ("testSimulationProceedsToAlternateMoves", testSimulationProceedsToAlternateMoves),
-            ("testSimulationProceedsUntilEndOfGame", testSimulationProceedsUntilEndOfGame),
+            ("testSimulationWithNoMovesDoesNothing", testSimulationWithNoMovesDoesNothing),
+            ("testSimulationConsumesMoveFromPlayer0", testSimulationConsumesMoveFromPlayer0),
+            ("testSimulationWithFlagReversesStart", testSimulationWithFlagReversesStart),
+            ("testSimulationRunsUntilCompletionConsumingAllMoves", testSimulationRunsUntilCompletionConsumingAllMoves)
         ]
     }
 #endif

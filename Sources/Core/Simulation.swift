@@ -1,61 +1,65 @@
-public class Simulation<P0: Player, P1: Player> where P0.Mark == P1.Mark {
+public struct Simulation<P0: Player, P1: Player> where P0.Mark == P1.Mark {
 
     typealias Mark = P0.Mark
 
-    public var board: Board<Mark>
-    public var isActive: Bool {
-        return state != .finished
-    }
-
     private let players: (P0, P1)
+    private let callbacks: [State: () -> ()]
     private var state: State
+    private var board: Board<Mark>
+
+    private init(players: (P0, P1), state: State, board: Board<Mark>, callbacks: [State: () -> ()]) {
+        self.players = players
+        self.state = state
+        self.board = board
+        self.callbacks = callbacks
+    }
 
     public init(players: (P0, P1), args: [String]) {
-        self.board = Board(dimmension: 3)
-        self.state = args.contains("--second") ? .p1Turn : .p0Turn
-        self.players = players
+        let board = Board<Mark>(dimmension: 3)
+        let state: State = args.contains("--second") ? .waitingForP1 : .waitingForP0
+        self.init(players: players, state: state, board: board, callbacks: [:])
     }
 
-    public func proceed() {
-        takeTurn()
-        self.state = update()
+    public func on(_ state: State, then: @escaping () -> ()) -> Simulation {
+        var callbacks = self.callbacks
+        callbacks[state] = then
+        return Simulation(players: self.players, state: self.state, board: self.board, callbacks: callbacks)
     }
 
-    private func takeTurn() {
+    public func start() {
+        callbacks[state].map { $0() }
+
         switch state {
-        case .p0Turn:
-            takeTurn(with: players.0)
-            break
-        case .p1Turn:
-            takeTurn(with: players.1)
-            break
+        case .waitingForP0:
+            evaluate(with: players.0, next: .p0Played)
+        case .p0Played:
+            proceed(next: .waitingForP1)
+        case .waitingForP1:
+            evaluate(with: players.1, next: .p1Played)
+        case .p1Played:
+            proceed(next: .waitingForP0)
         case .finished:
             break
         }
     }
 
-    private func takeTurn<P: Player>(with player: P)
-            where P.Mark == Mark {
+    private func evaluate<P: Player>(with player: P, next: State) where P.Mark == Mark {
         player.evaluate(board: board) { move in
-            self.board = board.marked(at: move, with: player.team)
+            simulate(next: next, board: board.marked(at: move, with: player.team))
         }
     }
 
-    private func update() -> State {
-        switch (Game(board: board).isOver, state) {
-        case (true, _):
-            fallthrough
-        case (false, .finished):
-            return .finished
-        case (false, .p0Turn):
-            return .p1Turn
-        case (false, .p1Turn):
-            return .p0Turn
-        }
+    private func proceed(next: State) {
+        simulate(next: Game(board: board).isOver ? .finished : next, board: board)
+    }
+
+    private func simulate(next state: State, board: Board<Mark>) {
+        Simulation(players: players, state: state, board: board, callbacks: callbacks)
+            .start()
     }
 
 }
 
 public enum State {
-    case p0Turn, p1Turn, finished
+    case waitingForP0, p0Played, waitingForP1, p1Played, finished
 }
