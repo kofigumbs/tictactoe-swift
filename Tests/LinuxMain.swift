@@ -1,5 +1,5 @@
 import XCTest
-@testable import CoreTests
+@testable import TicTacToeTests
 
 XCTMain([
     testCase(BoardTest.allTests),

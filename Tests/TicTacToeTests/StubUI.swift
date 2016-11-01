@@ -1,4 +1,4 @@
-import Core
+import TicTacToe
 
 class StubUI: UserInterface {
 

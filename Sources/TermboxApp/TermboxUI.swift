@@ -1,5 +1,5 @@
+import TicTacToe
 import Termbox
-import Core
 
 class TermboxUI: UserInterface {
 

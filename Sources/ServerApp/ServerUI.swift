@@ -1,4 +1,4 @@
-import Core
+import TicTacToe
 import SocksCore
 
 class ServerUI: UserInterface {

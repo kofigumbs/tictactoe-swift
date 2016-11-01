@@ -1,4 +1,4 @@
-import Core
+import TicTacToe
 
 class StubPlayer: Player {
 

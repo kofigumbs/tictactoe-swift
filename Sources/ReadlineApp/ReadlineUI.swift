@@ -1,4 +1,4 @@
-import Core
+import TicTacToe
 
 struct ReadlineUI: UserInterface {
     let text = Text()

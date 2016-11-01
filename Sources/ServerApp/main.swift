@@ -1,4 +1,4 @@
-import Core
+import TicTacToe
 
 if let ui = ServerUI() {
     let players = (Human(team: true, ui: ui), Solver(team: false, opponent: true))
