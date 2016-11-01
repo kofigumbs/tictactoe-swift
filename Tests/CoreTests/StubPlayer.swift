@@ -11,7 +11,7 @@ class StubPlayer: Player {
     }
 
     func evaluate(board: Board<String>, move: (Int) -> Void) {
-        moves.popLast().map { move($0) }
+        moves.popLast().map(move)
     }
 
 }

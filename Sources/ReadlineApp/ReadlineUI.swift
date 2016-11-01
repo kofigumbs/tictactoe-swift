@@ -5,11 +5,13 @@ struct ReadlineUI: UserInterface {
 
     func prompt(on board: Board<Bool>, move: (Int) -> Void) {
         draw(board: board)
+
         var input: Int? = nil
         repeat {
             print(text.prompt, terminator: "")
             input = readLine().flatMap { Int($0) }
         } while input == nil || !board.availableSpaces().contains(input!)
+
         move(input!)
     }
 

@@ -15,6 +15,7 @@ public class Solver<Mark: Hashable>: Player {
     public func evaluate(board: Board<Mark>, move: (Int) -> Void) {
         let best = shortcutOptimization(on: board) ??
             calculateBestMove(on: board, depth: maxRecursionDepth)
+
         move(best)
     }
 
@@ -33,11 +34,13 @@ public class Solver<Mark: Hashable>: Player {
         let boardHasCenter = board.dimmension % 2 == 1
         let center = board.count / 2
         let centerIsAvailable = board[center] == nil
+
         return onlyOneMoveMade && boardHasCenter && centerIsAvailable ? center : nil
     }
 
     private func calculateBestMove(on board: Board<Mark>, depth: Int) -> Int {
         let _ = bestScore(for: self.team, vs: self.opponent, board: board, depth: depth)
+
         return move
     }
 
@@ -72,8 +75,8 @@ public class Solver<Mark: Hashable>: Player {
 
     private func stepBestMoveScore(for team: Mark, vs opponent: Mark, board: Board<Mark>, move: Int, depth: Int) -> MoveScore {
         let score = bestScore(for: team, vs: opponent, board: board, depth: depth)
-        let result = (move, score)
-        return result
+
+        return (move, score)
     }
 
 }

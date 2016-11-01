@@ -10,7 +10,7 @@ class StubUI: UserInterface {
     }
 
     func prompt(on board: Board<String>, move: (Int) -> Void) {
-        move(responses.popLast()!)
+        responses.popLast().map(move)
     }
 
 }
