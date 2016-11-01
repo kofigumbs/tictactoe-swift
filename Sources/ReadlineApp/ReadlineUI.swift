@@ -3,14 +3,16 @@ import Core
 struct ReadlineUI: UserInterface {
     let text = Text()
 
-    func promptMove(on board: Board<Bool>) -> Int {
+    func prompt(on board: Board<Bool>, move: (Int) -> Void) {
         draw(board: board)
-        var move: Int? = nil
+
+        var input: Int? = nil
         repeat {
             print(text.prompt, terminator: "")
-            move = readLine().flatMap { Int($0) }
-        } while move == nil || !board.availableSpaces().contains(move!)
-        return move!
+            input = readLine().flatMap { Int($0) }
+        } while input == nil || !board.availableSpaces().contains(input!)
+
+        move(input!)
     }
 
     private func draw(board: Board<Bool>) {

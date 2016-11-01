@@ -4,6 +4,6 @@ public protocol Player {
 
     var team: Mark { get }
 
-    func evaluate(board: Board<Mark>) -> Int
+    func evaluate(board: Board<Mark>, move: (Int) -> Void)
 
 }

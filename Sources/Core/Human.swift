@@ -8,8 +8,8 @@ public class Human<UI: UserInterface>: Player {
         self.ui = ui
     }
 
-    public func evaluate(board: Board<UI.Mark>) -> Int {
-        return ui.promptMove(on: board)
+    public func evaluate(board: Board<UI.Mark>, move: (Int) -> Void) {
+        ui.prompt(on: board, move: move)
     }
 
 }

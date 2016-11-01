@@ -2,6 +2,6 @@ public protocol UserInterface {
 
     associatedtype Mark: Hashable
 
-    func promptMove(on board: Board<Mark>) -> Int
+    func prompt(on board: Board<Mark>, move: (Int) -> Void)
 
 }
