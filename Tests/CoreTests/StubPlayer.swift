@@ -10,8 +10,8 @@ class StubPlayer: Player {
         self.moves = moves
     }
 
-    func evaluate(board: Board<String>) -> Int {
-        return moves.popLast()!
+    func evaluate(board: Board<String>, move: (Int) -> Void) {
+        move(moves.popLast()!)
     }
 
 }

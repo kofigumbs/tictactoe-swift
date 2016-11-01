@@ -7,10 +7,10 @@ class TermboxUI: UserInterface {
     private var board: Board<Bool> = Board(dimmension: 0)
     private let termbox = Termbox()
 
-    public func promptMove(on board: Board<Bool>) -> Int {
+    public func prompt(on board: Board<Bool>, move: (Int) -> Void) {
         self.board = board
         waitForValidCursor()
-        return cursor
+        move(cursor)
     }
 
     private func waitForValidCursor() {

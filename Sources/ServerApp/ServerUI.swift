@@ -16,9 +16,9 @@ class ServerUI: UserInterface {
         }
     }
 
-    func promptMove(on board: Board<Bool>) -> Int {
+    func prompt(on board: Board<Bool>, move: (Int) -> Void) {
         send(board: board)
-        return recvInput()
+        move(recvInput())
     }
 
     private func send(board: Board<Bool>) {

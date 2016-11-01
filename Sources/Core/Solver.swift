@@ -12,9 +12,10 @@ public class Solver<Mark: Hashable>: Player {
         self.opponent = opponent
     }
 
-    public func evaluate(board: Board<Mark>) -> Int {
-        return shortcutOptimization(on: board) ??
+    public func evaluate(board: Board<Mark>, move: (Int) -> Void) {
+        let best = shortcutOptimization(on: board) ??
             calculateBestMove(on: board, depth: maxRecursionDepth)
+        move(best)
     }
 
     private func shortcutOptimization(on board: Board<Mark>) -> Int? {

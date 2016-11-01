@@ -17,25 +17,28 @@ public class Simulation<P0: Player, P1: Player> where P0.Mark == P1.Mark {
     }
 
     public func proceed() {
-        self.board = takeTurn()
+        takeTurn()
         self.state = update()
     }
 
-    private func takeTurn() -> Board<Mark> {
+    private func takeTurn() {
         switch state {
         case .p0Turn:
-            return takeTurn(with: players.0)
+            takeTurn(with: players.0)
+            break
         case .p1Turn:
-            return takeTurn(with: players.1)
+            takeTurn(with: players.1)
+            break
         case .finished:
-            return board
+            break
         }
     }
 
-    private func takeTurn<P: Player>(with player: P) -> Board<Mark>
+    private func takeTurn<P: Player>(with player: P)
             where P.Mark == Mark {
-        let move = player.evaluate(board: board)
-        return board.marked(at: move, with: player.team)
+        player.evaluate(board: board) { move in
+            self.board = board.marked(at: move, with: player.team)
+        }
     }
 
     private func update() -> State {
