@@ -14,5 +14,5 @@ swift build
 
 ### Credits
 
- - nsf -- [Termbox](https://github.com/nsf/termbox)
+ - [nsf/termbox](https://github.com/nsf/termbox)
 
