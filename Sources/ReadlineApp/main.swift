@@ -1,4 +1,4 @@
-import Core
+import TicTacToe
 
 let ui = ReadlineUI()
 let players = (Human(team: true, ui: ui), Solver(team: false, opponent: true))
