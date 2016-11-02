@@ -21,7 +21,7 @@ class SolverTest: XCTestCase {
               3: "X", 4: "X", 5: "O",
               6: "O", 7: "O" ])
 
-        solver.evaluate(board: board) { move = $0 }
+        solver.evaluate(board: board) { self.move = $0 }
 
         assertThat(collection: [8], contains: move)
     }
@@ -29,7 +29,7 @@ class SolverTest: XCTestCase {
     func testWinsWhenGivenOpportunity() {
         let board = Board(dimmension: 3, contents: [0: "X", 1: "O", 3: "X", 4: "O"])
 
-        solver.evaluate(board: board) { move = $0 }
+        solver.evaluate(board: board) { self.move = $0 }
 
         assertThat(collection: [6], contains: move)
     }
@@ -37,7 +37,7 @@ class SolverTest: XCTestCase {
     func testBlocksWhenCannotWin() {
         let board = Board(dimmension: 3, contents: [0: "O", 1: "O", 3: "X"])
 
-        solver.evaluate(board: board) { move = $0 }
+        solver.evaluate(board: board) { self.move = $0 }
 
         assertThat(collection: [2], contains: move)
     }
@@ -45,25 +45,25 @@ class SolverTest: XCTestCase {
     func testSetsUpForFutureWin() {
         let board = Board(dimmension: 3, contents: [0: "X", 1: "O", 2: "X", 3: "O"])
 
-        solver.evaluate(board: board) { move = $0 }
+        solver.evaluate(board: board) { self.move = $0 }
 
         assertThat(collection: [4, 8], contains: move)
     }
 
     func testCanSolveMultipleBoards() {
         let board1 = Board(dimmension: 3, contents: [0: "O"])
-        solver.evaluate(board: board1) { move = $0 }
+        solver.evaluate(board: board1) { self.move = $0 }
         assertThat(collection: [4], contains: move)
 
         let board2 = Board(dimmension: 3, contents: [0: "O", 1: "X", 4: "O"])
-        solver.evaluate(board: board2) { move = $0 }
+        solver.evaluate(board: board2) { self.move = $0 }
         assertThat(collection: [8], contains: move)
     }
 
     func testChoosesBestFirstMove() {
         let board = Board<String>(dimmension: 3)
 
-        solver.evaluate(board: board) { move = $0 }
+        solver.evaluate(board: board) { self.move = $0 }
 
         assertThat(collection: [0, 2, 6, 8], contains: move)
     }

@@ -8,7 +8,7 @@ public class Human<UI: UserInterface>: Player {
         self.ui = ui
     }
 
-    public func evaluate(board: Board<UI.Mark>, move: (Int) -> Void) {
+    public func evaluate(board: Board<UI.Mark>, move: @escaping (Int) -> Void) {
         ui.prompt(on: board, move: move)
     }
 
