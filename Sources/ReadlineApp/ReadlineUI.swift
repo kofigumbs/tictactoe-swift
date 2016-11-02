@@ -1,9 +1,9 @@
-import Core
+import TicTacToe
 
 struct ReadlineUI: UserInterface {
     let text = Text()
 
-    func prompt(on board: Board<Bool>, move: (Int) -> Void) {
+    func prompt(on board: Board<Bool>, move: @escaping (Int) -> Void) {
         draw(board: board)
 
         var input: Int? = nil

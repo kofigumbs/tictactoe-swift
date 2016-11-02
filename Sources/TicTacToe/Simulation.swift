@@ -45,7 +45,7 @@ public struct Simulation<P0: Player, P1: Player> where P0.Mark == P1.Mark {
 
     private func evaluate<P: Player>(with player: P, next: State) where P.Mark == Mark {
         player.evaluate(board: board) { move in
-            simulate(next: next, board: board.marked(at: move, with: player.team))
+            self.simulate(next: next, board: self.board.marked(at: move, with: player.team))
         }
     }
 

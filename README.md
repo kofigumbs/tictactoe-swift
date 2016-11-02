@@ -8,7 +8,7 @@
 ```
 make
 swift build
-.build/debug/[Readline|Termbox|Server]
+.build/debug/[ReadlineApp|TermboxApp|ServerApp]
 ```
 
 

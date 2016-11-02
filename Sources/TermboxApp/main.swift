@@ -1,4 +1,4 @@
-import Core
+import TicTacToe
 import CTermbox
 
 let ui = TermboxUI()

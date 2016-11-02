@@ -1,4 +1,4 @@
-import Core
+import TicTacToe
 
 class StubPlayer: Player {
 
@@ -10,7 +10,7 @@ class StubPlayer: Player {
         self.moves = moves
     }
 
-    func evaluate(board: Board<String>, move: (Int) -> Void) {
+    func evaluate(board: Board<String>, move: @escaping (Int) -> Void) {
         moves.popLast().map(move)
     }
 
