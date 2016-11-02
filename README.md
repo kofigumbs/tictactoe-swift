@@ -12,7 +12,8 @@ swift build
 ```
 
 
-### Credits
+### Built with
 
- - [nsf/termbox](https://github.com/nsf/termbox)
+ - [termbox](https://github.com/nsf/termbox)
+ - [vapor](https://github.com/vapor/vapor)
 
