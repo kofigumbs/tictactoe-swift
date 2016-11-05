@@ -42,7 +42,7 @@ enum Input: Equatable {
         }
     }
 
-    static func ==(lhs: Input, rhs: Input) -> Bool {
+    static func == (lhs: Input, rhs: Input) -> Bool {
         switch (lhs, rhs) {
         case (.up, .up):
             return true
