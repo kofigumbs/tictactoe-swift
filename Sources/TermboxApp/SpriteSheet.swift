@@ -3,21 +3,18 @@ import Termbox
 
 struct SpriteSheet {
 
-    let board: Board<Bool>
-    let size: (height: UInt, width: UInt)
+    private let dimmension: Int
+    private let grid: [[UnicodeScalar]]
+    private let size: (height: UInt, width: UInt)
 
     private var charactersPerSide: UInt {
-        return UInt(2 * board.dimmension - 1) * 6
+        return UInt(2 * dimmension - 1) * 6
     }
 
-    private var grid: [[UnicodeScalar]] {
-        let strings: [[[String]]] = (0 ..< board.dimmension)
-            .map { board[$0 * board.dimmension ..< $0 * board.dimmension + board.dimmension ] }
-            .map { $0.map(SpriteSheet.mark) }
-            .map { $0.intersperse(Sprite.vertical) }
-            .intersperse(SpriteSheet.alternatingLine(board.dimmension))
-
-        return SpriteSheet.flatten(strings: strings)
+    init(board: Board<Bool>, size: (height: UInt, width: UInt)) {
+        self.dimmension = board.dimmension
+        self.grid = SpriteSheet.grid(board: board)
+        self.size = size
     }
 
     func cell(x: UInt, y: UInt, cursor: Int) -> Cell {
@@ -37,11 +34,19 @@ struct SpriteSheet {
     }
 
     private func selected(x: Int, y: Int) -> Int {
-        return normalized(x) + normalized(y) * board.dimmension
+        let normalized = { $0 * self.dimmension / Int(self.charactersPerSide) }
+        return normalized(x) + normalized(y) * dimmension
     }
 
-    private func normalized(_ n: Int) -> Int {
-        return n * board.dimmension / Int(charactersPerSide)
+    private static func grid(board: Board<Bool>) -> [[UnicodeScalar]] {
+        let d = board.dimmension
+        let strings: [[[String]]] = (0 ..< d)
+            .map { board[$0 * d ..< $0 * d + d ] }
+            .map { $0.map(mark) }
+            .map { $0.intersperse(Sprite.vertical) }
+            .intersperse(alternatingLine(d))
+
+        return flatten(strings: strings)
     }
 
     private static func mark(team: Bool?) -> [String] {
@@ -74,20 +79,13 @@ struct SpriteSheet {
 
 private extension Collection {
 
-    func intersperse(_ separator: Self.Iterator.Element) -> [Self.Iterator.Element] {
-        let slice = reduce([]) { (acc: [Self.Iterator.Element], curr: Self.Iterator.Element) -> [Self.Iterator.Element] in
+    typealias E = Self.Iterator.Element
+
+    func intersperse(_ separator: E) -> [E] {
+        let slice = reduce([]) { (acc: [E], curr: E) -> [E] in
             return acc + [curr] + [separator]
         }.dropLast(1)
         return Array(slice)
-    }
-
-}
-
-private extension String {
-
-    subscript(_ i: Int) -> UnicodeScalar {
-        let u = unicodeScalars
-        return u[u.index(u.startIndex, offsetBy: i)]
     }
 
 }
