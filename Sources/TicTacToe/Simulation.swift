@@ -20,15 +20,7 @@ public struct Simulation<P0: Player, P1: Player> where P0.Mark == P1.Mark {
         self.init(players: players, state: state, board: board, callbacks: [:])
     }
 
-    public func on(_ state: State, then: @escaping () -> ()) -> Simulation {
-        var callbacks = self.callbacks
-        callbacks[state] = then
-        return Simulation(players: self.players, state: self.state, board: self.board, callbacks: callbacks)
-    }
-
     public func start() {
-        callbacks[state].map { $0() }
-
         switch state {
         case .waitingForP0:
             evaluate(with: players.0, next: .p0Played)
@@ -60,6 +52,6 @@ public struct Simulation<P0: Player, P1: Player> where P0.Mark == P1.Mark {
 
 }
 
-public enum State {
+private enum State {
     case waitingForP0, p0Played, waitingForP1, p1Played, finished
 }
