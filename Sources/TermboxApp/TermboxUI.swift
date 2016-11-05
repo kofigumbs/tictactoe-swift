@@ -5,7 +5,7 @@ class TermboxUI: UserInterface {
 
     private let termbox = Termbox()
     private var cursor = 0
-    private let fin = "FIN: press any key to quit."
+    private let fin = " FIN: press any key to exit. "
 
     public func prompt(board: Board<Bool>, move: @escaping (Int) -> Void) {
         draw(board: board)
@@ -16,7 +16,7 @@ class TermboxUI: UserInterface {
     public func end(board: Board<Bool>) {
         draw(board: board)
         for (i, u) in fin.unicodeScalars.enumerated() {
-            termbox.change(x: UInt(i), y: termbox.size.width - 1, cell: (u, .red, .none))
+            termbox.change(x: UInt(i), y: termbox.size.height - 1, cell: (u, .red, .white))
         }
         termbox.present()
         let _ = termbox.poll()
