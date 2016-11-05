@@ -1,6 +1,6 @@
 enum Text {
 
-    static let prompt = "\n  <YOUR TURN>  "
+    static let prompt = "\n>>> [0-8]  "
     static let horizontalLine = "\n\n    -----------\n\n"
     static let veriticalLine = "|"
 
