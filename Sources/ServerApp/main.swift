@@ -9,7 +9,6 @@ var nextMove: ((Int) -> Void)?
 let message = (
    boardNotAvailable: "Sorry, the board is not available yet.",
    notYourTurn: "Sorry, it's not your turn.",
-   occupied: "Sorry, that space is occupied.",
    success: "Success!"
 )
 
@@ -42,13 +41,9 @@ drop.get("move", Int.self) { _, param in
     guard let move = nextMove else { return message.notYourTurn }
     guard let board = lastBoard else { return message.boardNotAvailable }
 
-    if board.availableSpaces().contains(param) {
-        move(param)
-        nextMove = nil
-        return message.success
-    } else {
-        return message.occupied
-    }
+    move(param)
+    nextMove = nil
+    return message.success
 }
 
 

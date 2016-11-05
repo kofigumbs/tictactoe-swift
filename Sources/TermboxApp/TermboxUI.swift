@@ -13,12 +13,6 @@ class TermboxUI: UserInterface {
     }
 
     private func waitForMove(board: Board<Bool>) {
-        repeat {
-            poll(board: board)
-        } while !board.availableSpaces().contains(cursor)
-    }
-
-    private func poll(board: Board<Bool>) {
         var input = Input.none
         repeat {
             input = Input(event: termbox.poll())

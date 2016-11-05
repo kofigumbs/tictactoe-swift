@@ -2,7 +2,7 @@ import TicTacToe
 
 class StubUI: UserInterface {
 
-    private var responses: [Int]
+    var responses: [Int]
     var draws: Int = 0
 
     init(responses: [Int] = []) {

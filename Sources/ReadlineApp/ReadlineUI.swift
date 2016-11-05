@@ -10,7 +10,7 @@ struct ReadlineUI: UserInterface {
         repeat {
             print(text.prompt, terminator: "")
             input = readLine().flatMap { Int($0) }
-        } while input == nil || !board.availableSpaces().contains(input!)
+        } while input == nil
 
         move(input!)
     }
