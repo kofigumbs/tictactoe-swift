@@ -9,7 +9,7 @@ public class Human<UI: UserInterface>: Player {
     }
 
     public func evaluate(board: Board<UI.Mark>, move: @escaping (Int) -> Void) {
-        ui.prompt(on: board) {
+        ui.prompt(board: board) {
             if board.availableSpaces().contains($0) {
                 move($0)
             } else {

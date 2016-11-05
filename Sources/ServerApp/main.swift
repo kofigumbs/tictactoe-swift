@@ -20,9 +20,13 @@ func encode(_ b: Bool?) -> String? {
 
 
 struct UI: UserInterface {
-    func prompt(on board: Board<Bool>, move: @escaping (Int) -> Void) {
+    func prompt(board: Board<Bool>, move: @escaping (Int) -> Void) {
         lastBoard = board
         nextMove = move
+    }
+
+    func end(board: Board<Bool>) {
+        lastBoard = board
     }
 }
 

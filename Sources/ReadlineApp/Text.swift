@@ -1,22 +1,22 @@
-struct Text {
+enum Text {
 
-    let prompt = "\n  <YOUR TURN>  "
-    let horizontalLine = "\n\n    -----------\n\n"
-    let veriticalLine = "|"
+    static let prompt = "\n  <YOUR TURN>  "
+    static let horizontalLine = "\n\n    -----------\n\n"
+    static let veriticalLine = "|"
 
-    func padded(_ char: Character?) -> String {
+    static func padded(_ char: Character?) -> String {
         return " \(char ?? " ") "
     }
 
-    func indented(_ string: String) -> String {
+    static func indented(_ string: String) -> String {
         return "    " + string
     }
 
-    func separated(_ string: String) -> String {
+    static func separated(_ string: String) -> String {
         return "\n\n" + string
     }
 
-    func marker(for team: Bool?) -> Character? {
+    static func marker(for team: Bool?) -> Character? {
         return team.map { $0 ? "X" : "O" }
     }
 
