@@ -3,10 +3,12 @@ import TicTacToe
 
 class SimulationTest: XCTestCase {
 
+    private let ui = StubUI()
+
     func simulate(x: [Int], o: [Int], args: [String] = []) -> (StubPlayer, StubPlayer) {
         let x = StubPlayer(team: "X", moves: x)
         let o = StubPlayer(team: "O", moves: o)
-        let simulation = Simulation(players: (x, o), args: args)
+        let simulation = Simulation(ui: ui, players: (x, o), args: args)
 
         simulation.start()
 
@@ -14,24 +16,27 @@ class SimulationTest: XCTestCase {
     }
 
     func testSimulationWithNoMovesDoesNothing() {
-        let (x, o) = simulate(x: [], o: [], args: ["--fake-arg"])
+        let (x, o) = simulate(x: [], o: [])
 
         XCTAssertEqual(x.moves, [])
         XCTAssertEqual(o.moves, [])
+        XCTAssertEqual(ui.ends, 0)
     }
 
-    func testSimulationConsumesMoveFromPlayer0() {
-        let (x, o) = simulate(x: [0], o: [])
+    func testSimulationConsumesMoveFromPlayersInOrder() {
+        let (x, o) = simulate(x: [2, 0], o: [], args: ["--fake-arg"])
 
-        XCTAssertEqual(x.moves, [])
+        XCTAssertEqual(x.moves, [2])
         XCTAssertEqual(o.moves, [])
+        XCTAssertEqual(ui.ends, 0)
     }
 
     func testSimulationWithFlagReversesStart() {
-        let (x, o) = simulate(x: [], o: [0], args: ["--second"])
+        let (x, o) = simulate(x: [], o: [2, 0], args: ["--second"])
 
         XCTAssertEqual(x.moves, [])
-        XCTAssertEqual(o.moves, [])
+        XCTAssertEqual(o.moves, [2])
+        XCTAssertEqual(ui.ends, 0)
     }
 
     func testSimulationRunsUntilPlayerWins() {
@@ -39,6 +44,7 @@ class SimulationTest: XCTestCase {
 
         XCTAssertEqual(x.moves, [])
         XCTAssertEqual(o.moves, [3, 5])
+        XCTAssertEqual(ui.ends, 1)
     }
 
 #if _runtime(_ObjC)
@@ -46,7 +52,7 @@ class SimulationTest: XCTestCase {
     static var allTests: [(String, (SimulationTest) -> () throws -> Void)] {
         return [
             ("testSimulationWithNoMovesDoesNothing", testSimulationWithNoMovesDoesNothing),
-            ("testSimulationConsumesMoveFromPlayer0", testSimulationConsumesMoveFromPlayer0),
+            ("testSimulationConsumesMoveFromPlayersInOrder", testSimulationConsumesMoveFromPlayersInOrder),
             ("testSimulationWithFlagReversesStart", testSimulationWithFlagReversesStart),
             ("testSimulationRunsUntilPlayerWins", testSimulationRunsUntilPlayerWins)
         ]

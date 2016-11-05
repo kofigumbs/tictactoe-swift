@@ -32,8 +32,9 @@ struct UI: UserInterface {
 
 
 let drop = Droplet()
-let players = (Human(team: true, ui: UI()), Solver(team: false, opponent: true))
-let simulation = Simulation(players: players, args: CommandLine.arguments)
+let ui = UI()
+let players = (Human(team: true, ui: ui), Solver(team: false, opponent: true))
+let simulation = Simulation(ui: ui, players: players, args: CommandLine.arguments)
 
 
 drop.get("board") { _ in

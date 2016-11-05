@@ -1,23 +1,23 @@
-public struct Simulation<P0: Player, P1: Player> where P0.Mark == P1.Mark {
+public struct Simulation<UI: UserInterface, P0: Player, P1: Player> where UI.Mark == P0.Mark, UI.Mark == P1.Mark {
 
-    typealias Mark = P0.Mark
+    typealias Mark = UI.Mark
 
+    private let ui: UI
     private let players: (P0, P1)
-    private let callbacks: [State: () -> ()]
-    private var state: State
-    private var board: Board<Mark>
+    private let state: State
+    private let board: Board<Mark>
 
-    private init(players: (P0, P1), state: State, board: Board<Mark>, callbacks: [State: () -> ()]) {
+    private init(ui: UI, players: (P0, P1), state: State, board: Board<Mark>) {
+        self.ui = ui
         self.players = players
         self.state = state
         self.board = board
-        self.callbacks = callbacks
     }
 
-    public init(players: (P0, P1), args: [String]) {
+    public init(ui: UI, players: (P0, P1), args: [String]) {
+        let state = State.initial(args: args)
         let board = Board<Mark>(dimmension: 3)
-        let state: State = args.contains("--second") ? .waitingForP1 : .waitingForP0
-        self.init(players: players, state: state, board: board, callbacks: [:])
+        self.init(ui: ui, players: players, state: state, board: board)
     }
 
     public func start() {
@@ -31,7 +31,7 @@ public struct Simulation<P0: Player, P1: Player> where P0.Mark == P1.Mark {
         case .p1Played:
             proceed(next: .waitingForP0)
         case .finished:
-            break
+            ui.end(board: board)
         }
     }
 
@@ -46,12 +46,16 @@ public struct Simulation<P0: Player, P1: Player> where P0.Mark == P1.Mark {
     }
 
     private func simulate(next state: State, board: Board<Mark>) {
-        Simulation(players: players, state: state, board: board, callbacks: callbacks)
-            .start()
+        Simulation(ui: ui, players: players, state: state, board: board).start()
     }
 
 }
 
 private enum State {
     case waitingForP0, p0Played, waitingForP1, p1Played, finished
+
+    static func initial(args: [String]) -> State {
+        return args.contains("--second") ? .waitingForP1 : .waitingForP0
+    }
+
 }
