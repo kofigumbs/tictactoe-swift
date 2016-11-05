@@ -5,20 +5,24 @@ class TermboxUI: UserInterface {
 
     private let termbox = Termbox()
     private var cursor = 0
+    private let fin = " FIN: press any key to exit. "
 
-    public func prompt(on board: Board<Bool>, move: @escaping (Int) -> Void) {
+    public func prompt(board: Board<Bool>, move: @escaping (Int) -> Void) {
         draw(board: board)
         waitForMove(board: board)
         move(cursor)
     }
 
-    private func waitForMove(board: Board<Bool>) {
-        repeat {
-            poll(board: board)
-        } while !board.availableSpaces().contains(cursor)
+    public func end(board: Board<Bool>) {
+        draw(board: board)
+        for (i, u) in fin.unicodeScalars.enumerated() {
+            termbox.change(x: UInt(i), y: termbox.size.height - 1, cell: (u, .red, .white))
+        }
+        termbox.present()
+        let _ = termbox.poll()
     }
 
-    private func poll(board: Board<Bool>) {
+    private func waitForMove(board: Board<Bool>) {
         var input = Input.none
         repeat {
             input = Input(event: termbox.poll())

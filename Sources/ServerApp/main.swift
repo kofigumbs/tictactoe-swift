@@ -9,7 +9,6 @@ var nextMove: ((Int) -> Void)?
 let message = (
    boardNotAvailable: "Sorry, the board is not available yet.",
    notYourTurn: "Sorry, it's not your turn.",
-   occupied: "Sorry, that space is occupied.",
    success: "Success!"
 )
 
@@ -21,16 +20,21 @@ func encode(_ b: Bool?) -> String? {
 
 
 struct UI: UserInterface {
-    func prompt(on board: Board<Bool>, move: @escaping (Int) -> Void) {
+    func prompt(board: Board<Bool>, move: @escaping (Int) -> Void) {
         lastBoard = board
         nextMove = move
+    }
+
+    func end(board: Board<Bool>) {
+        lastBoard = board
     }
 }
 
 
 let drop = Droplet()
-let players = (Human(team: true, ui: UI()), Solver(team: false, opponent: true))
-let simulation = Simulation(players: players, args: CommandLine.arguments)
+let ui = UI()
+let players = (Human(team: true, ui: ui), Solver(team: false, opponent: true))
+let simulation = Simulation(ui: ui, players: players, args: CommandLine.arguments)
 
 
 drop.get("board") { _ in
@@ -42,13 +46,9 @@ drop.get("move", Int.self) { _, param in
     guard let move = nextMove else { return message.notYourTurn }
     guard let board = lastBoard else { return message.boardNotAvailable }
 
-    if board.availableSpaces().contains(param) {
-        move(param)
-        nextMove = nil
-        return message.success
-    } else {
-        return message.occupied
-    }
+    move(param)
+    nextMove = nil
+    return message.success
 }
 
 
