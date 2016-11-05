@@ -3,65 +3,6 @@ import Termbox
 
 struct SpriteSheet {
 
-    private static let X = [
-        "x    x",
-        " x  x ",
-        "  xx  ",
-        "  xx  ",
-        " x  x ",
-        "x    x"
-    ]
-
-    private static let O = [
-        " oooo ",
-        "oooooo",
-        "oo  oo",
-        "oo  oo",
-        "oooooo",
-        " oooo "
-    ]
-
-    private static let EMPTY = [
-        "      ",
-        "      ",
-        "      ",
-        "      ",
-        "      ",
-        "      "
-    ]
-
-    private static let HORIZONTAL = [
-        "      ",
-        "      ",
-        "======",
-        "======",
-        "      ",
-        "      "
-    ]
-
-    private static let VERTICAL = [
-        "  ||  ",
-        "  ||  ",
-        "  ||  ",
-        "  ||  ",
-        "  ||  ",
-        "  ||  "
-    ]
-
-    private static let JUNCTION = [
-        "  ||  ",
-        "  ||  ",
-        "==++==",
-        "==++==",
-        "  ||  ",
-        "  ||  "
-    ]
-
-
-
-    //-- INSTANCE --//
-
-
     let board: Board<Bool>
     let size: (height: UInt, width: UInt)
 
@@ -73,7 +14,7 @@ struct SpriteSheet {
         let strings: [[[String]]] = (0 ..< board.dimmension)
             .map { board[$0 * board.dimmension ..< $0 * board.dimmension + board.dimmension ] }
             .map { $0.map(SpriteSheet.mark) }
-            .map { $0.intersperse(SpriteSheet.VERTICAL) }
+            .map { $0.intersperse(Sprite.vertical) }
             .intersperse(SpriteSheet.alternatingLine(board.dimmension))
 
         return SpriteSheet.flatten(strings: strings)
@@ -104,13 +45,13 @@ struct SpriteSheet {
     }
 
     private static func mark(team: Bool?) -> [String] {
-        return team.map { $0 ? X : O } ?? EMPTY
+        return team.map { $0 ? Sprite.x : Sprite.o } ?? Sprite.empty
     }
 
     private static func alternatingLine(_ radius: Int) -> [[String]] {
         return (0 ..< radius)
-            .map { _ in HORIZONTAL }
-            .intersperse(JUNCTION)
+            .map { _ in Sprite.horizontal }
+            .intersperse(Sprite.junction)
     }
 
     private static func flatten(strings: [[[String]]]) -> [[UnicodeScalar]] {
