@@ -1,6 +1,10 @@
-enum Sprite {
+import SpriteSheet
 
-    static let x = [
+struct TermboxSprites: Sheet {
+
+    let size = 6
+
+    let x = [
         "x    x",
         " x  x ",
         "  xx  ",
@@ -9,7 +13,7 @@ enum Sprite {
         "x    x"
     ]
 
-    static let o = [
+    let o = [
         " oooo ",
         "oooooo",
         "oo  oo",
@@ -18,7 +22,7 @@ enum Sprite {
         " oooo "
     ]
 
-    static let empty = [
+    let empty = [
         "      ",
         "      ",
         "      ",
@@ -27,7 +31,7 @@ enum Sprite {
         "      "
     ]
 
-    static let horizontal = [
+    let horizontal = [
         "      ",
         "      ",
         "======",
@@ -36,7 +40,7 @@ enum Sprite {
         "      "
     ]
 
-    static let vertical = [
+    let vertical = [
         "  ||  ",
         "  ||  ",
         "  ||  ",
@@ -45,7 +49,7 @@ enum Sprite {
         "  ||  "
     ]
 
-    static let junction = [
+    let junction = [
         "  ||  ",
         "  ||  ",
         "==++==",

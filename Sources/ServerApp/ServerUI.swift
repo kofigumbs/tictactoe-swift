@@ -1,4 +1,5 @@
 import TicTacToe
+import Jay
 
 class ServerUI: UserInterface {
 
@@ -19,21 +20,24 @@ class ServerUI: UserInterface {
     }
 
     func send(move: Int) {
-        guard let next = next else { return }
-        self.next = nil
-        next(move)
+        guard let curr = next else { return }
+        next = nil
+        curr(move)
     }
 
-    private func encode(board: Board<Bool>, over: Bool) -> String {
-        let grid = board.map(encode).joined(separator: ",")
-        return "{ \"board\": [\(grid)], \"over\": \(over) }"
+    private func encode(board: Board<Bool>, over: Bool) throws -> String {
+        let game: [String: Any] = [
+            "board": board.map(encode),
+            "over": over
+        ]
+        return try Jay().dataFromJson(anyDictionary: game).string
     }
 
     private func encode(mark: Bool?) -> String {
-        return mark.map { $0 ? "\"X\"" : "\"O\"" } ?? "null"
+        return mark.map { $0 ? "X" : "O" } ?? ""
     }
 
-    private func safely(_ f: () throws -> ()) {
+    private func safely(f: () throws -> ()) {
         do {
             try f()
         } catch {

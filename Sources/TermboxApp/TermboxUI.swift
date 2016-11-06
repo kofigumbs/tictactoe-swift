@@ -32,11 +32,11 @@ class TermboxUI: UserInterface {
     }
 
     private func draw(board: Board<Bool>) {
-        let spriteSheet = SpriteSheet(board: board, size: termbox.size)
+        let output = Output(board: board, size: termbox.size)
 
         for i in 0 ..< termbox.size.width {
             for j in 0 ..< termbox.size.height {
-                termbox.change(x: i, y: j, cell: spriteSheet.cell(x: i, y: j, cursor: cursor))
+                termbox.change(x: i, y: j, cell: output.cell(x: i, y: j, cursor: cursor))
             }
         }
 
