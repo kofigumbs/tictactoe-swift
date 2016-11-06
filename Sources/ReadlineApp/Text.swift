@@ -1,23 +1,45 @@
 enum Text {
 
-    static let prompt = "\n>>> [0-8]  "
-    static let horizontalLine = "\n\n    -----------\n\n"
-    static let veriticalLine = "|"
+    static let x = [
+        "x  x",
+        " xx ",
+        " xx ",
+        "x  x"
+    ]
 
-    static func padded(_ char: Character?) -> String {
-        return " \(char ?? " ") "
-    }
+    static let o = [
+        " oo ",
+        "o  o",
+        "o  o",
+        " oo "
+    ]
 
-    static func indented(_ string: String) -> String {
-        return "    " + string
-    }
+    static let empty = [
+        "    ",
+        "    ",
+        "    ",
+        "    "
+    ]
 
-    static func separated(_ string: String) -> String {
-        return "\n\n" + string
-    }
+    static let horizontal = [
+        "    ",
+        "====",
+        "====",
+        "    "
+    ]
 
-    static func marker(for team: Bool?) -> Character? {
-        return team.map { $0 ? "X" : "O" }
-    }
+    static let vertical = [
+        " || ",
+        " || ",
+        " || ",
+        " || "
+    ]
+
+    static let junction = [
+        " || ",
+        "=++=",
+        "=++=",
+        " || "
+    ]
 
 }
