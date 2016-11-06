@@ -1,41 +1,45 @@
-enum Text {
+import SpriteSheet
 
-    static let x = [
+struct ReadlineSprites: Sheet {
+
+    let size = 4
+
+    let x = [
         "x  x",
         " xx ",
         " xx ",
         "x  x"
     ]
 
-    static let o = [
+    let o = [
         " oo ",
         "o  o",
         "o  o",
         " oo "
     ]
 
-    static let empty = [
+    let empty = [
         "    ",
         "    ",
         "    ",
         "    "
     ]
 
-    static let horizontal = [
+    let horizontal = [
         "    ",
         "====",
         "====",
         "    "
     ]
 
-    static let vertical = [
+    let vertical = [
         " || ",
         " || ",
         " || ",
         " || "
     ]
 
-    static let junction = [
+    let junction = [
         " || ",
         "=++=",
         "=++=",
