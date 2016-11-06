@@ -2,55 +2,27 @@ import TicTacToe
 import Vapor
 
 
-
-var lastBoard: Board<Bool>?
-var nextMove: ((Int) -> Void)?
-
-let message = (
-   boardNotAvailable: "Sorry, the board is not available yet.",
-   notYourTurn: "Sorry, it's not your turn.",
-   success: "Success!"
-)
-
-
-func encode(_ b: Bool?) -> String? {
-    return b.map { $0 ? "X" : "O" }
-}
-
-
-
-struct UI: UserInterface {
-    func prompt(board: Board<Bool>, move: @escaping (Int) -> Void) {
-        lastBoard = board
-        nextMove = move
-    }
-
-    func end(board: Board<Bool>) {
-        lastBoard = board
-    }
-}
-
-
+let solver = Solver(team: false, opponent: true)
 let drop = Droplet()
-let ui = UI()
-let players = (Human(team: true, ui: ui), Solver(team: false, opponent: true))
-let simulation = Simulation(ui: ui, players: players, args: CommandLine.arguments)
 
+drop.socket("game") { _, ws in
+    let ui = ServerUI(update: ws.send)
+    let human = Human(team: true, ui: ui)
+    let simulation = Simulation(ui: ui, players: (human, solver), args: [])
 
-drop.get("board") { _ in
-    guard let board = lastBoard else { return message.boardNotAvailable }
-    return try JSON(node: board.map(encode)).makeBytes().string
+    ws.onText = { ws, text in
+        let json = try JSON(bytes: Array(text.utf8))
+
+        if let move = json.object?["move"]?.int {
+            ui.send(move: move)
+        }
+    }
+
+    simulation.start()
 }
 
-drop.get("move", Int.self) { _, param in
-    guard let move = nextMove else { return message.notYourTurn }
-    guard let board = lastBoard else { return message.boardNotAvailable }
-
-    move(param)
-    nextMove = nil
-    return message.success
+drop.get("/") { _ in
+    return try drop.view.make("index.html")
 }
 
-
-simulation.start()
 drop.run()

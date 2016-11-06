@@ -20,9 +20,9 @@ struct ReadlineUI: UserInterface {
 
     private func draw(board: Board<Bool>) {
         let rows = createRows(board: board)
-        let board = formatted(rows: rows)
+        let grid = formatted(rows: rows)
 
-        print(Text.separated(board))
+        print(Text.separated(grid))
     }
 
     private func formatted(rows: [String]) -> String {
