@@ -30,7 +30,7 @@ public struct Board<Mark: Hashable>: Collection, Equatable {
         return i + 1
     }
 
-    public func availableSpaces() -> [Int] {
+    func availableSpaces() -> [Int] {
         return enumerated()
             .filter { $0.element == nil }
             .map { $0.offset }
