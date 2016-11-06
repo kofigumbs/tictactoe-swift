@@ -11,7 +11,7 @@ struct ReadlineUI: UserInterface {
 
         var input: Int? = nil
         repeat {
-            print("\n>> ", terminator: "")
+            print("\n>> [0-\(max(board))]: ", terminator: "")
             input = readLine().flatMap { Int($0) }
         } while input == nil
 
@@ -24,9 +24,12 @@ struct ReadlineUI: UserInterface {
 
     private func draw(board: Board<Bool>) {
         for line in sprite.grid(board: board) {
-            line.forEach { print($0, terminator: "") }
-            print("")
+            print(line.reduce("") { $0 + String($1) })
         }
+    }
+
+    private func max(_ board: Board<Bool>) -> Int {
+        return board.dimmension * board.dimmension - 1
     }
 
 }
