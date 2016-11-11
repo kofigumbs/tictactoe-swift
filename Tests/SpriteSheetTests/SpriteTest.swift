@@ -35,7 +35,7 @@ class SpriteTest: XCTestCase {
             ["H", "O", "J", "U", "H", "O"],
             ["R", "I", "N", "C", "R", "I"],
             ["E", "M", "V", "E", "F", "A"],
-            ["P", "T", "R", "T", "L", "S"],
+            ["P", "T", "R", "T", "L", "S"]
         ]
 
         grid === Sprite(sheet: LargerSprites()).grid(board: board)
@@ -43,12 +43,12 @@ class SpriteTest: XCTestCase {
 
 #if _runtime(_ObjC)
 #else
-static var allTests: [(String, (SpriteTest) -> () throws -> Void)] {
-    return [
-        ("testOneByOneSheet", testOneByOneSheet),
-        ("testLargerSprites", testLargerSprites),
-    ]
-}
+    static var allTests: [(String, (SpriteTest) -> () throws -> Void)] {
+        return [
+            ("testOneByOneSheet", testOneByOneSheet),
+            ("testLargerSprites", testLargerSprites)
+        ]
+    }
 #endif
 
 }
