@@ -13,6 +13,7 @@ struct ReadlineUI: UserInterface {
         repeat {
             print("\n>> [0-\(max(board))]: ", terminator: "")
             input = readLine().flatMap { Int($0) }
+            print("\n")
         } while input == nil
 
         move(input!)
