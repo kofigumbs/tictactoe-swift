@@ -12,7 +12,7 @@ struct ReadlineSprites: Sheet {
 
     let o = [
         "   ",
-        " ⚪ ",
+        " @ ",
         "   "
     ]
 

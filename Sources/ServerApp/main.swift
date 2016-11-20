@@ -2,8 +2,12 @@ import TicTacToe
 import Vapor
 
 
-let solver = Solver(team: false, opponent: true)
 let drop = Droplet()
+let solver = Solver(team: false, opponent: true)
+
+drop.get("/") { _ in
+    return try drop.view.make("index.html")
+}
 
 drop.socket("game") { _, ws in
     let ui = ServerUI(update: ws.send)
@@ -19,10 +23,6 @@ drop.socket("game") { _, ws in
     }
 
     simulation.start()
-}
-
-drop.get("/") { _ in
-    return try drop.view.make("index.html")
 }
 
 drop.run()
