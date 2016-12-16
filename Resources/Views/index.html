@@ -110,7 +110,7 @@
                 cell.innerHTML = game.board[i];
             }
 
-            game.over ? notice('game over') : notice('');
+            notice(game.over ? 'game over' : '');
         };
 
         cells.forEach(function(cell) {

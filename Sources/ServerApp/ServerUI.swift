@@ -12,11 +12,11 @@ class ServerUI: UserInterface {
 
     func prompt(board: Board<Bool>, move: @escaping (Int) -> Void) {
         next = move
-        safely { try update(encode(board: board, over: false)) }
+        try? update(encode(board: board, over: false))
     }
 
     func end(board: Board<Bool>) {
-        safely { try update(encode(board: board, over: true)) }
+        try? update(encode(board: board, over: true))
     }
 
     func send(move: Int) {
@@ -35,13 +35,6 @@ class ServerUI: UserInterface {
 
     private func encode(mark: Bool?) -> String {
         return mark.map { $0 ? "X" : "O" } ?? ""
-    }
-
-    private func safely(f: () throws -> ()) {
-        do {
-            try f()
-        } catch {
-        }
     }
 
 }
