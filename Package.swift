@@ -20,7 +20,7 @@ let package = Package(
         ])
     ],
     dependencies: [
-        .Package(url: "https://github.com/hkgumbs/Termbox", Version(0, 0, 4)),
+        .Package(url: "https://github.com/hkgumbs/Termbox", Version(0, 1, 0)),
         .Package(url: "https://github.com/vapor/vapor", Version(1, 1, 7))
     ]
 )

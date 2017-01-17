@@ -6,7 +6,6 @@
 ### Usage
 
 ```
-make
 swift build
 .build/debug/[ReadlineApp|TermboxApp|ServerApp]
 ```
