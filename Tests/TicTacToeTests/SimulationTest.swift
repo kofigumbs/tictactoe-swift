@@ -10,7 +10,7 @@ class SimulationTest: XCTestCase {
         let o = StubPlayer(team: "O", moves: o)
         let simulation = Simulation(ui: ui, players: (x, o), args: args)
 
-        simulation.start()
+        simulation.play()
 
         return (x, o)
     }

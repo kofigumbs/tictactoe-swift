@@ -20,7 +20,7 @@ public struct Simulation<UI: UserInterface, P0: Player, P1: Player> where UI.Mar
         self.init(ui: ui, players: players, state: state, board: board)
     }
 
-    public func start() {
+    public func play() {
         switch state {
         case .waitingForP0:
             evaluate(with: players.0, next: .p0Played)
@@ -46,7 +46,7 @@ public struct Simulation<UI: UserInterface, P0: Player, P1: Player> where UI.Mar
     }
 
     private func simulate(next state: State, board: Board<Mark>) {
-        Simulation(ui: ui, players: players, state: state, board: board).start()
+        Simulation(ui: ui, players: players, state: state, board: board).play()
     }
 
 }

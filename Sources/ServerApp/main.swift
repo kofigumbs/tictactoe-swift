@@ -22,7 +22,7 @@ drop.socket("game") { _, ws in
         }
     }
 
-    simulation.start()
+    simulation.play()
 }
 
 drop.run()
