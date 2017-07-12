@@ -98,7 +98,7 @@
         </a>
     </body>
     <script>
-        var ws = new WebSocket("ws://" + window.location.host + "/game")
+        var ws = new WebSocket("wss://" + window.location.host + "/game")
         var cells = document.querySelectorAll('[data-id]');
 
         ws.onmessage = function(event) {
