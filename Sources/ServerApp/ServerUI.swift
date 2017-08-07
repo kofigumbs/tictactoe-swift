@@ -1,12 +1,13 @@
 import TicTacToe
-import Jay
+import Core
+import JSON
 
 class ServerUI: UserInterface {
 
-    private let update: (String) throws -> ()
+    private let update: (Bytes) throws -> ()
     private var next: ((Int) -> Void)?
 
-    init(update: @escaping (String) throws -> ()) {
+    init(update: @escaping (Bytes) throws -> ()) {
         self.update = update
     }
 
@@ -25,12 +26,11 @@ class ServerUI: UserInterface {
         curr(move)
     }
 
-    private func encode(board: Board<Bool>, over: Bool) throws -> String {
-        let game: [String: Any] = [
-            "board": board.map(encode),
-            "over": over
-        ]
-        return try Jay().dataFromJson(anyDictionary: game).string
+    private func encode(board: Board<Bool>, over: Bool) throws -> Bytes {
+        var json = JSON()
+        try json.set("board", board.map(encode))
+        try json.set("over", over)
+        return try json.serialize()
     }
 
     private func encode(mark: Bool?) -> String {

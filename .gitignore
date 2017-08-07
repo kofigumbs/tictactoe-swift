@@ -5,4 +5,6 @@ TicTacToe.xcodeproj/xcuserdata/
 .idea/
 build
 Packages
+Resources
 .build
+elm-stuff/

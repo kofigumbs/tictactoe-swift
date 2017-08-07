@@ -2,7 +2,7 @@ import TicTacToe
 import Vapor
 
 
-let drop = Droplet()
+let drop = try Droplet()
 let solver = Solver(team: false, opponent: true)
 
 drop.get("/") { _ in
@@ -10,7 +10,7 @@ drop.get("/") { _ in
 }
 
 drop.socket("game") { _, ws in
-    let ui = ServerUI(update: ws.send)
+    let ui = ServerUI { try ws.send(opCode: .text, with: $0) }
     let human = Human(team: true, ui: ui)
     let simulation = Simulation(ui: ui, players: (human, solver), args: [])
 
@@ -25,4 +25,4 @@ drop.socket("game") { _, ws in
     simulation.play()
 }
 
-drop.run()
+try drop.run()
