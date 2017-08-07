@@ -5,6 +5,7 @@ TicTacToe.xcodeproj/xcuserdata/
 .idea/
 build
 Packages
+Package.pins
 Resources
 .build
 elm-stuff/
