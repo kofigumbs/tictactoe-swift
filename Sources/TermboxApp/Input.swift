@@ -4,19 +4,19 @@ import Termbox
 enum Input: Equatable {
     case up, down, left, right, select, none
 
-    init(event: Event) {
-        guard case .key(let key) = event else { self = .none; return }
+    init(event: Event?) {
+        guard case .some(.key(_, let key)) = event else { self = .none; return }
 
         switch key {
-        case .arrowUp:
+        case Key.arrowUp:
             self = .up
-        case .arrowDown:
+        case Key.arrowDown:
             self = .down
-        case .arrowLeft:
+        case Key.arrowLeft:
             self = .left
-        case .arrowRight:
+        case Key.arrowRight:
             self = .right
-        case .enter:
+        case Key.enter:
             self = .select
         default:
             self = .none

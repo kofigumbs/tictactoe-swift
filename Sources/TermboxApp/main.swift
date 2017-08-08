@@ -1,14 +1,12 @@
 import TicTacToe
-import CTermbox
+import Termbox
 
-func scoped(run: () -> ()) {
-    run()
-}
+try Termbox.initialize()
 
-scoped {
-    let ui = TermboxUI()
-    let players = (Human(team: true, ui: ui), Solver(team: false, opponent: true))
-    let simulation = Simulation(ui: ui, players: players, args: CommandLine.arguments)
+let ui = TermboxUI()
+let players = (Human(team: true, ui: ui), Solver(team: false, opponent: true))
+let simulation = Simulation(ui: ui, players: players, args: CommandLine.arguments)
 
-    simulation.play()
-}
+simulation.play()
+
+Termbox.shutdown()

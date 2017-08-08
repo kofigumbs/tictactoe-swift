@@ -3,7 +3,6 @@ import Termbox
 
 class TermboxUI: UserInterface {
 
-    private let termbox = Termbox()
     private var cursor = 0
     private let fin = " FIN: press any key to exit. "
 
@@ -16,31 +15,32 @@ class TermboxUI: UserInterface {
     public func end(board: Board<Bool>) {
         draw(board: board)
         for (i, u) in fin.unicodeScalars.enumerated() {
-            termbox.change(x: UInt(i), y: termbox.size.height - 1, cell: (u, .red, .white))
+            Termbox.put(x: Int32(i), y: Termbox.height - 1, character: u, foreground: .red, background: .white)
         }
-        termbox.present()
-        let _ = termbox.poll()
+        Termbox.present()
+        let _ = Termbox.pollEvent()
     }
 
     private func waitForMove(board: Board<Bool>) {
         var input = Input.none
         repeat {
-            input = Input(event: termbox.poll())
+            input = Input(event: Termbox.pollEvent())
             cursor = input.adjustedCursor(old: cursor, board: board)
             draw(board: board)
         } while input != .select
     }
 
     private func draw(board: Board<Bool>) {
-        let output = Output(board: board, size: termbox.size)
+        let output = Output(board: board, height: Termbox.height, width: Termbox.width)
 
-        for i in 0 ..< termbox.size.width {
-            for j in 0 ..< termbox.size.height {
-                termbox.change(x: i, y: j, cell: output.cell(x: i, y: j, cursor: cursor))
+        for i in 0 ..< Termbox.width {
+            for j in 0 ..< Termbox.height {
+                let ( ch, fg, bg ) = output.cell(x: i, y: j, cursor: cursor)
+                Termbox.put(x: i, y: j, character: ch, foreground: fg, background: bg)
             }
         }
 
-        termbox.present()
+        Termbox.present()
     }
 
 }
