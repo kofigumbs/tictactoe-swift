@@ -170,9 +170,9 @@ view model =
 viewHelp : Model -> List (Element Class Variation Msg)
 viewHelp model =
     case model of
-        Waiting _ game ->
+        Waiting _ board ->
             [ viewNote "Please hold..."
-            , whenJust game (Tuple.second >> viewBoard False)
+            , whenJust board (Tuple.second >> viewBoard False)
             ]
 
         Ready _ ( Ongoing, board ) ->
@@ -198,14 +198,14 @@ viewNote content =
 
 
 viewBoard : Bool -> List Space -> Element Class Variation Msg
-viewBoard asdf board =
+viewBoard toggle board =
     table Board
         [ center, verticalCenter, spacing 6 ]
-        (List.map (List.map (viewSpace asdf)) (square board))
+        (List.map (List.map (viewSpace toggle)) (square board))
 
 
 viewSpace : Bool -> Space -> Element Class Variation Msg
-viewSpace asdf space =
+viewSpace toggle space =
     let
         base =
             [ center
@@ -220,7 +220,7 @@ viewSpace asdf space =
                 :: base
                 |> el Space
     in
-    case ( asdf, space ) of
+    case ( toggle, space ) of
         ( True, Empty i ) ->
             clickable i empty
 
@@ -228,7 +228,8 @@ viewSpace asdf space =
             el Space base empty
 
         ( _, Marked x ) ->
-            el Space base (el Mark [ center, verticalCenter ] (text x))
+            el Space base <|
+                el Mark [ center, verticalCenter ] (text x)
 
 
 square : List a -> List (List a)
