@@ -1,0 +1,15 @@
+{
+    "name": "Tic Tac Toe",
+    "repository": "https://github.com/hkgumbs/tictactoe-swift",
+    "env": {
+        "ELM_COMPILE": "elm make Main.elm --output Resources/Views/index.html"
+    },
+    "buildpacks": [
+        {
+            "url": "https://github.com/srid/heroku-buildpack-elm.git"
+        },
+        {
+            "url": "https://github.com/kylef/heroku-buildpack-swift.git"
+        }
+    ]
+}
