@@ -4,7 +4,7 @@
     "repository": "https://github.com/hkgumbs/tictactoe-swift.git",
     "license": "BSD3",
     "source-directories": [
-        "."
+        "Sources/ServerApp"
     ],
     "exposed-modules": [],
     "dependencies": {

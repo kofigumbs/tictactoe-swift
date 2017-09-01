@@ -2,7 +2,7 @@
     "name": "Tic Tac Toe",
     "repository": "https://github.com/hkgumbs/tictactoe-swift",
     "env": {
-        "ELM_COMPILE": "elm make Main.elm --output Resources/Views/index.html"
+        "ELM_COMPILE": "elm make Sources/ServerApp/Main.elm --output Resources/Views/index.html"
     },
     "buildpacks": [
         {

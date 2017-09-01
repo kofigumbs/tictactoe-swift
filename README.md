@@ -9,6 +9,8 @@
 
 ```
 swift build
+elm make Sources/ServerApp/Main.elm \
+    --output Resources/Views/index.html  # to compile server asset
 .build/debug/[ReadlineApp|TermboxApp|ServerApp]
 ```
 
