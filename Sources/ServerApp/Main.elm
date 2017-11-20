@@ -119,6 +119,11 @@ type Variation
     = Clickable
 
 
+type Click
+    = Enabled
+    | Disabled
+
+
 font : { name : String, url : String }
 font =
     { name = "Permanent Marker"
@@ -170,23 +175,23 @@ view model =
 viewHelp : Model -> List (Element Class Variation Msg)
 viewHelp model =
     case model of
-        Waiting _ board ->
+        Waiting _ maybeGame ->
             [ viewNote "Please hold..."
-            , whenJust board (Tuple.second >> viewBoard False)
+            , whenJust maybeGame (Tuple.second >> viewBoard Disabled)
             ]
 
         Ready _ ( Ongoing, board ) ->
             [ viewNote "Your turn!"
-            , viewBoard True board
+            , viewBoard Enabled board
             ]
 
         Ready _ ( Finished, board ) ->
             [ viewNote "Game over."
-            , viewBoard False board
+            , viewBoard Disabled board
             ]
 
         Error ->
-            [ viewNote "Something wen't wrong :("
+            [ viewNote "Something went wrong :("
             ]
 
 
@@ -197,15 +202,15 @@ viewNote content =
         (header (text content))
 
 
-viewBoard : Bool -> List Space -> Element Class Variation Msg
-viewBoard toggle board =
+viewBoard : Click -> List Space -> Element Class Variation Msg
+viewBoard click board =
     table Board
         [ center, verticalCenter, spacing 6 ]
-        (List.map (List.map (viewSpace toggle)) (square board))
+        (List.map (List.map (viewSpace click)) (square board))
 
 
-viewSpace : Bool -> Space -> Element Class Variation Msg
-viewSpace toggle space =
+viewSpace : Click -> Space -> Element Class Variation Msg
+viewSpace click space =
     let
         base =
             [ center
@@ -213,18 +218,16 @@ viewSpace toggle space =
             , width (px 100)
             , height (px 100)
             ]
-
-        clickable i =
-            Element.Events.onClick (Move i)
-                :: vary Clickable True
-                :: base
-                |> el Space
     in
-    case ( toggle, space ) of
-        ( True, Empty i ) ->
-            clickable i empty
+    case ( click, space ) of
+        ( Enabled, Empty i ) ->
+            let
+                event =
+                    Element.Events.onClick (Move i)
+            in
+            el Space (event :: vary Clickable True :: base) empty
 
-        ( False, Empty _ ) ->
+        ( Disabled, Empty _ ) ->
             el Space base empty
 
         ( _, Marked x ) ->
