@@ -42,8 +42,8 @@ public struct Board<Mark: Hashable>: Collection, Equatable {
         return Board(dimmension: dimmension, contents: contents)
     }
 
-    public static func == <Mark: Hashable>(lhs: Board<Mark>, rhs: Board<Mark>) -> Bool {
-        return lhs.enumerated().reduce(true) { $0 && $1.element == rhs[$1.offset] }
+    public static func == <Mark>(lhs: Board<Mark>, rhs: Board<Mark>) -> Bool {
+        return lhs.dimmension == rhs.dimmension && lhs.contents == rhs.contents
     }
 
 }

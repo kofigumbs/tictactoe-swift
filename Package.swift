@@ -21,6 +21,6 @@ let package = Package(
     ],
     dependencies: [
         .Package(url: "https://github.com/dduan/Termbox.git", "1.0.0-dev.1"),
-        .Package(url: "https://github.com/vapor/vapor", Version(2, 1, 2))
+        .Package(url: "https://github.com/vapor/vapor", Version(2, 3, 0))
     ]
 )

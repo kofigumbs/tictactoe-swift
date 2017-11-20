@@ -7,7 +7,7 @@ class SolverTest: XCTestCase {
     var move: Int?
 
     func assertThat<T: Equatable>(collection: [T], contains target: T?) {
-        let message = "Expected \(collection) to contain \(target)"
+        let message = "Expected \(collection) to contain \(String(describing: target))"
         XCTAssertTrue(collection.contains { target == $0 }, message)
     }
 
