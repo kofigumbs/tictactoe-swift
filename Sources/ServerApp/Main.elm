@@ -59,14 +59,11 @@ main =
 init : Navigation.Location -> ( Model, Cmd Msg )
 init { protocol, host } =
     let
-        ws =
-            if protocol == "https:" then
-                "wss://"
-            else
-                "ws://"
-
         url =
-            ws ++ host ++ "/game"
+            if protocol == "https:" then
+                "wss://tictactoe-swift.herokuapp.com/game"
+            else
+                "ws://" ++ host ++ "/game"
     in
     ( Waiting url Nothing, Cmd.none )
 

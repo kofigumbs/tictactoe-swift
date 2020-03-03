@@ -9,8 +9,7 @@
 
 ```
 swift build
-elm make Sources/ServerApp/Main.elm \
-    --output Resources/Views/index.html  # to compile server asset
+elm make Sources/ServerApp/Main.elm --output Build/elm.js  # compile JS asset
 .build/debug/[ReadlineApp|TermboxApp|ServerApp]
 ```
 

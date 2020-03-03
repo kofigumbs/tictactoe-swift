@@ -5,10 +5,6 @@ import Vapor
 let drop = try Droplet()
 let solver = Solver(team: false, opponent: true)
 
-drop.get("/") { _ in
-    return try drop.view.make("index.html")
-}
-
 drop.socket("game") { _, ws in
     let ui = ServerUI { try ws.send(opCode: .text, with: $0) }
     let human = Human(team: true, ui: ui)
