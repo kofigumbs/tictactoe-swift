@@ -173,30 +173,33 @@ viewHelp : Model -> List (Element Class Variation Msg)
 viewHelp model =
     case model of
         Waiting _ maybeGame ->
-            [ viewNote "Please hold..."
+            [ viewNote (text "Please hold...")
             , whenJust maybeGame (Tuple.second >> viewBoard Disabled)
             ]
 
         Ready _ ( Ongoing, board ) ->
-            [ viewNote "Your turn!"
+            [ viewNote (text "Your turn!")
             , viewBoard Enabled board
             ]
 
         Ready _ ( Finished, board ) ->
-            [ viewNote "Game over."
+            [ viewNote <|
+                row Note
+                    []
+                    [ text "Game over—"
+                    , link "/" (underline "Play again?")
+                    ]
             , viewBoard Disabled board
             ]
 
         Error ->
-            [ viewNote "Something went wrong :("
+            [ viewNote (text "Something went wrong :(")
             ]
 
 
-viewNote : String -> Element Class Variation Msg
+viewNote : Element Class Variation Msg -> Element Class Variation Msg
 viewNote content =
-    el Note
-        [ moveUp 36 ]
-        (header (text content))
+    el Note [ moveUp 36 ] (header content)
 
 
 viewBoard : Click -> List Space -> Element Class Variation Msg
